@@ -1,0 +1,354 @@
+/* ==========================================================================
+   src/features/auth/styles/Login.css - Versión Optimizada y de Alta Fidelidad
+   ========================================================================== */
+
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f8fafc;
+  position: relative;
+}
+
+/* ==========================================================================
+   SISTEMA DE LOADING INSTITUCIONAL (RoomIca Spinner)
+   ========================================================================== */
+.roomica-loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(38, 50, 56, 0.6); /* Fondo semi-transparente oscuro */
+  backdrop-filter: blur(4px); /* Efecto blur moderno */
+  z-index: 9999; /* Por encima de todo el DOM */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomica-loader-box {
+  background-color: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Animación del Spinner con los colores corporativos de RoomIca */
+.roomica-spinner {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--primary-color, #1565C0); /* Azul estudiante */
+  border-right-color: var(--secondary-color, #EF6C00); /* Naranja dueño */
+  border-radius: 50%;
+  animation: spinRoomica 1s linear infinite;
+}
+
+.roomica-loader-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  letter-spacing: -0.2px;
+}
+
+@keyframes spinRoomica {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   PANEL IZQUIERDO: Imagen Estructural con Overlay
+   ========================================================================== */
+.login-image-panel {
+  display: none;
+  background-image: url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.login-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(21, 101, 192, 0.85) 0%, rgba(13, 71, 161, 0.9) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10% 12%;
+  color: #ffffff;
+}
+
+.login-image-overlay h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.login-image-overlay p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 480px;
+}
+
+/* ==========================================================================
+   PANEL DERECHO: Formulario Transaccional
+   ========================================================================== */
+.login-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.login-form-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+.login-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.brand-title {
+  font-size: 2.2rem;
+  color: var(--primary-color, #1565C0);
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+
+.brand-subtitle {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  color: var(--dark-color, #263238);
+  font-weight: 700;
+  border-left: 4px solid var(--primary-color, #1565C0);
+  padding-left: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* ==========================================================================
+   INPUT WRAPPERS: Contenedores para Iconos e Inputs
+   ========================================================================== */
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Icono izquierdo base */
+.input-icon-left {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  pointer-events: none; /* Evita que obstruya el click al input */
+  transition: color 0.2s ease;
+}
+
+/* Modificación del input para dar espacio a los iconos */
+.input-icon-wrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem; /* Margen izquierdo de 2.5rem para no tapar el texto */
+  font-size: 0.95rem;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+}
+
+/* Cambia el color del icono izquierdo cuando el input tiene el foco */
+.input-icon-wrapper input:focus ~ .input-icon-left {
+  color: var(--primary-color, #1565C0);
+}
+
+.input-icon-wrapper input:focus {
+  border-color: var(--primary-color, #1565C0);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.1);
+}
+
+/* Botón interactivo del Ojito derecho */
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: var(--dark-color, #263238);
+  background-color: #f1f5f9;
+}
+
+/* Ajuste del input de password para que el texto largo no choque con el ojo */
+#password {
+  padding-right: 2.5rem;
+}
+
+/* ==========================================================================
+   BOTONES Y ELEMENTOS DE NAVEGACIÓN
+   ========================================================================== */
+.form-actions-helper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.forgot-password-link {
+  font-size: 0.85rem;
+  color: var(--primary-color, #1565C0);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.btn-submit-login {
+  background-color: var(--primary-color, #1565C0);
+  color: #ffffff;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit-login:hover {
+  background-color: #0d47a1;
+}
+
+.btn-submit-login:active {
+  transform: scale(0.98);
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.login-divider span {
+  padding: 0 10px;
+}
+
+.btn-google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-google-login:hover {
+  background-color: #f1f5f9;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.login-footer-redirect {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.register-redirect-link {
+  color: var(--secondary-color, #EF6C00);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-redirect-link:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVIDAD SÍNCRONA */
+@media (min-width: 900px) {
+  .login-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .login-image-panel {
+    display: block;
+  }
+  
+  .login-form-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}

@@ -1,0 +1,21 @@
+/* src/index.css - Reseteo Global y Variables de Estilo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #333333;
+  min-height: 100vh;
+}
+
+/* Aquí puedes definir los colores corporativos de RoomIca en variables */
+:root {
+  --primary-color: #1565C0;    /* Azul para Estudiantes */
+  --secondary-color: #EF6C00;  /* Naranja para Propietarios */
+  --dark-color: #263238;       /* Gris Oscuro Administrativo */
+  --light-color: #ffffff;
+}

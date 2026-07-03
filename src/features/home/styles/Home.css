@@ -1,0 +1,567 @@
+.home-container {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #d0d0d0;
+  margin: 0 0 2.5rem 0;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Search Container */
+.search-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  align-items: flex-end;
+}
+
+.search-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-label {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-input:hover {
+  border-color: #e74c3c;
+  background-color: #333333;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.search-button {
+  padding: 0.75rem 2rem;
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.search-button:hover {
+  background-color: #d93d2b;
+  transform: translateY(-2px);
+}
+
+.search-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+/* Benefits Section */
+.benefits-section {
+  background-color: #f9f9f9;
+  padding: 4rem 2rem;
+}
+
+.benefits-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 3rem 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border-color: #e74c3c;
+}
+
+.benefit-icon {
+  color: #e74c3c;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.benefit-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.benefit-description {
+  font-size: 0.95rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Rooms Section */
+.rooms-section {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+}
+
+.rooms-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border-color: #e74c3c;
+}
+
+.carousel-btn:focus {
+  outline: 2px solid #e74c3c;
+  outline-offset: 2px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.room-card {
+  flex: 0 0 calc(33.333% - 1.5rem);
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 280px;
+}
+
+.room-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.room-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.verified-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #27ae60;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.room-content {
+  padding: 1.5rem;
+}
+
+.room-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.room-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666666;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.room-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.room-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e74c3c;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.room-action-btn {
+  padding: 0.5rem 1rem;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.room-action-btn:hover {
+  background-color: #e74c3c;
+}
+
+.room-action-btn:focus {
+  outline: 2px solid #e74c3c;
+  outline-offset: 1px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background-color: #f9f9f9;
+  padding: 4rem 2rem;
+}
+
+.testimonials-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #ffc107;
+  fill: #ffc107;
+}
+
+.testimonial-text {
+  font-size: 0.95rem;
+  color: #333333;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+  font-style: italic;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.testimonial-author {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1rem;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.author-role {
+  font-size: 0.85rem;
+  color: #999999;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .search-container {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-track {
+    gap: 1rem;
+  }
+
+  .room-card {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2.5rem 1rem;
+    min-height: 350px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .search-container {
+    padding: 1.5rem;
+    gap: 0.75rem;
+  }
+
+  .search-input {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .search-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .benefits-section,
+  .rooms-section,
+  .testimonials-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .benefits-grid,
+  .testimonials-grid {
+    gap: 1.5rem;
+  }
+
+  .room-card {
+    flex: 0 0 100%;
+  }
+
+  .carousel-wrapper {
+    gap: 1rem;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-container {
+    padding: 1rem;
+  }
+
+  .search-group,
+  .search-button {
+    width: 100%;
+  }
+
+  .search-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .search-button {
+    grid-column: 1;
+  }
+
+  .benefit-card,
+  .room-card,
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+
+  .room-image-placeholder {
+    height: 150px;
+    font-size: 3rem;
+  }
+}
+
+/* High Contrast Mode */
+.home-container.high-contrast {
+  background-color: #000000;
+}
+
+.home-container.high-contrast .hero-section {
+  background: #000000;
+  border-bottom: 2px solid #ffff00;
+}
+
+.home-container.high-contrast .hero-title,
+.home-container.high-contrast .section-title {
+  color: #ffff00;
+}
+
+.home-container.high-contrast .hero-subtitle {
+  color: #ffffff;
+}
+
+.home-container.high-contrast .benefit-card,
+.home-container.high-contrast .room-card,
+.home-container.high-contrast .testimonial-card {
+  background-color: #000000;
+  border-color: #ffff00;
+  color: #ffff00;
+}
+
+.home-container.high-contrast .benefit-title,
+.home-container.high-contrast .room-title,
+.home-container.high-contrast .author-name {
+  color: #ffff00;
+}
+
+/* No Animations */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section,
+  .benefit-card,
+  .room-card,
+  .testimonial-card,
+  .carousel-btn {
+    animation: none;
+    transition: none;
+  }
+}

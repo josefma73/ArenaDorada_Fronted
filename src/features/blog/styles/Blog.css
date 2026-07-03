@@ -1,0 +1,422 @@
+.blog-container {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* Hero Section */
+.blog-hero {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 3rem 2rem;
+  text-align: center;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-hero .hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.blog-hero .hero-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.blog-hero .hero-subtitle {
+  font-size: 1.1rem;
+  color: #d0d0d0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Articles Section */
+.articles-section {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+}
+
+.articles-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.articles-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: #666666;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Articles Grid */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.article-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: #e74c3c;
+}
+
+.article-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.article-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.article-category {
+  display: inline-block;
+  background-color: #e74c3c;
+  color: #ffffff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.article-date {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #999999;
+  font-size: 0.85rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.article-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: #000000;
+  line-height: 1.4;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.article-excerpt {
+  font-size: 0.95rem;
+  color: #666666;
+  margin: 0 0 auto 0;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.article-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #999999;
+  font-size: 0.9rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.read-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #e74c3c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.read-more-btn:hover {
+  color: #d93d2b;
+  gap: 0.75rem;
+}
+
+.read-more-btn:focus {
+  outline: 2px solid #e74c3c;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  color: #ffffff;
+  padding: 3rem 2rem;
+}
+
+.newsletter-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.newsletter-description {
+  font-size: 1.05rem;
+  color: #d0d0d0;
+  margin: 0 0 2rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.newsletter-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.newsletter-input::placeholder {
+  color: #808080;
+}
+
+.newsletter-input:hover {
+  border-color: #e74c3c;
+  background-color: #333333;
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.newsletter-button {
+  padding: 0.75rem 2rem;
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.newsletter-button:hover {
+  background-color: #d93d2b;
+  transform: translateY(-2px);
+}
+
+.newsletter-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .blog-hero {
+    padding: 2rem 1rem;
+    min-height: 250px;
+  }
+
+  .blog-hero .hero-title {
+    font-size: 2rem;
+  }
+
+  .blog-hero .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .articles-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .articles-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-description {
+    font-size: 1rem;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .article-image-placeholder {
+    height: 180px;
+  }
+
+  .article-content {
+    padding: 1.5rem;
+  }
+
+  .newsletter-section {
+    padding: 2rem 1rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.5rem;
+  }
+
+  .newsletter-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-hero .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .article-image-placeholder {
+    height: 150px;
+    font-size: 2rem;
+  }
+
+  .article-card {
+    margin-bottom: 1rem;
+  }
+
+  .article-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-button {
+    width: 100%;
+  }
+}
+
+/* High Contrast Mode */
+.blog-container.high-contrast {
+  background-color: #000000;
+}
+
+.blog-container.high-contrast .blog-hero {
+  background-color: #000000;
+  border-bottom: 2px solid #ffff00;
+}
+
+.blog-container.high-contrast .hero-title,
+.blog-container.high-contrast .section-title,
+.blog-container.high-contrast .newsletter-title {
+  color: #ffff00;
+}
+
+.blog-container.high-contrast .hero-subtitle,
+.blog-container.high-contrast .section-description,
+.blog-container.high-contrast .newsletter-description {
+  color: #ffffff;
+}
+
+.blog-container.high-contrast .article-card {
+  background-color: #000000;
+  border-color: #ffff00;
+}
+
+.blog-container.high-contrast .article-title {
+  color: #ffff00;
+}
+
+.blog-container.high-contrast .article-excerpt,
+.blog-container.high-contrast .article-date,
+.blog-container.high-contrast .article-author {
+  color: #ffffff;
+}
+
+.blog-container.high-contrast .read-more-btn {
+  color: #ffff00;
+}
+
+.blog-container.high-contrast .read-more-btn:hover {
+  color: #ffffff;
+}
+
+/* No Animations */
+@media (prefers-reduced-motion: reduce) {
+  .article-card,
+  .read-more-btn {
+    animation: none;
+    transition: none;
+  }
+}
