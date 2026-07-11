@@ -1,34 +1,53 @@
-'use client';
+import React from 'react';
+import '../header/Header.css';
 
-import React, { useState } from 'react';
-import { User, ShoppingCart } from 'lucide-react';
-import './Header.css';
-
-export default function Header() {
-  const [cartCount] = useState(0);
-
+const Header = ({ onNavClick = () => {}, currentPage = 'inicio' }) => {
   const navLinks = [
-    { label: 'Inicio', href: '/' },
-    { label: 'Habitaciones', href: '/' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Servicios', href: '/servicios' },
-    { label: 'Contacto', href: '/contacto' },
+    { label: 'Inicio', id: 'inicio' },
+    { label: 'Habitaciones', id: 'habitaciones' },
+    { label: 'Servicios', id: 'servicios' },
+    { label: 'Promociones', id: 'promociones' },
+    { label: 'Blog', id: 'blog' },
+    { label: 'Contacto', id: 'contacto' },
   ];
 
-  return (
-    <header className="header-container">
-      <div className="header-wrapper">
-        {/* Logo */}
-        <div className="header-logo">
-          <h1>RoomIca</h1>
-        </div>
+  const handleNavClick = (id) => {
+    onNavClick(id);
+    announceSection(`Sección ${id}`);
+  };
 
-        {/* Navigation Links */}
-        <nav className="header-nav">
-          <ul className="nav-list">
+  const announceSection = (text) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'es-ES';
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const handleLoginClick = () => {
+    announceSection('Abrir sesión');
+  };
+
+  return (
+    <header className="hd-header__container">
+      <div className="hd-header__wrapper">
+        <a href="/" className="hd-header__logo">
+          ARENA DORADA
+        </a>
+        
+        <nav>
+          <ul className="hd-header__nav">
             {navLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="nav-link">
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  className="hd-header__nav-link"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.label);
+                  }}
+                >
                   {link.label}
                 </a>
               </li>
@@ -36,21 +55,18 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Right Icons */}
-        <div className="header-actions">
-          <button className="action-btn profile-btn" aria-label="Perfil de usuario">
-            <User size={24} />
+        <div className="hd-header__actions">
+          <button
+            className="hd-header__session-btn"
+            onClick={handleLoginClick}
+            aria-label="Iniciar sesión"
+          >
+            INICIAR SESIÓN
           </button>
-          <div className="cart-wrapper">
-            <button className="action-btn cart-btn" aria-label="Carrito de reservas">
-              <ShoppingCart size={24} />
-            </button>
-            {cartCount > 0 && (
-              <span className="cart-counter">{cartCount}</span>
-            )}
-          </div>
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default Header;

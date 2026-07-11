@@ -1,0 +1,632 @@
+/* ============================================
+   PROMOCIONES COMPONENT - COMPREHENSIVE STYLES
+   ============================================ */
+
+.promociones-container {
+  width: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #f9f6f0 100%);
+  overflow: hidden;
+}
+
+/* HERO SECTION */
+.promociones-hero {
+  position: relative;
+  height: 350px;
+  background: linear-gradient(135deg, #c5a059 0%, #d4b574 50%, #2d2d2d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.promociones-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.promociones-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  animation: slideInUp 0.8s ease-out 0.2s backwards;
+}
+
+.promociones-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.promociones-subtitle {
+  font-size: 1.3rem;
+  margin: 0;
+  opacity: 0.95;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* MAIN SECTION */
+.promociones-main-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.promociones-main-container {
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.promociones-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  text-align: center;
+  margin: 0 0 3rem 0;
+  position: relative;
+  padding-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.promociones-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #c5a059, #d4b574);
+  border-radius: 2px;
+  animation: slideInRight 0.6s ease-out 0.2s backwards;
+}
+
+.promociones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.promociones-card {
+  background: white;
+  border-radius: 1.2rem;
+  border-top: 4px solid #c5a059;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.promociones-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.promociones-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 30px 70px rgba(197, 160, 89, 0.25);
+}
+
+.promociones-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #c5a059;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+}
+
+.promociones-badge-text {
+  display: block;
+}
+
+.promociones-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.promociones-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.8rem;
+  transition: transform 0.4s ease-out;
+}
+
+.promociones-card:hover .promociones-card-icon {
+  transform: scale(1.1) rotateZ(10deg);
+}
+
+.promociones-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0;
+}
+
+.promociones-card-description {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.promociones-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.promociones-detail-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.promociones-detail-label {
+  font-weight: 700;
+  color: #2d2d2d;
+  font-size: 0.9rem;
+}
+
+.promociones-detail-value-container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.promociones-detail-value {
+  background: rgba(197, 160, 89, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #c5a059;
+  font-size: 0.9rem;
+}
+
+.promociones-copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  transition: all 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  hover: {
+    background: rgba(197, 160, 89, 0.1);
+  }
+}
+
+.promociones-copy-btn:hover {
+  background: rgba(197, 160, 89, 0.1);
+  transform: scale(1.1);
+}
+
+.promociones-card-terms {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(197, 160, 89, 0.05);
+  border-left: 3px solid #c5a059;
+  border-radius: 0.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.promociones-terms-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.5rem 0;
+}
+
+.promociones-terms-text {
+  font-size: 0.85rem;
+  color: #757575;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.promociones-card-btn {
+  background: #c5a059;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2);
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.promociones-card-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3);
+}
+
+.promociones-card-btn:active {
+  transform: translateY(-1px);
+}
+
+/* BUNDLE SECTION */
+.promociones-bundle-section {
+  padding: 4rem 2rem;
+  background: rgba(245, 241, 236, 0.7);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.promociones-bundle-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+.promociones-bundle-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.promociones-bundle-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(197, 160, 89, 0.2);
+}
+
+.promociones-bundle-icon {
+  font-size: 3rem;
+  color: #c5a059;
+  margin-bottom: 1rem;
+  transition: transform 0.4s ease-out;
+}
+
+.promociones-bundle-card:hover .promociones-bundle-icon {
+  transform: scale(1.2) rotateZ(15deg);
+}
+
+.promociones-bundle-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.8rem 0;
+}
+
+.promociones-bundle-description {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.promociones-bundle-benefit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.05), rgba(245, 241, 236, 0.5));
+  border-radius: 0.8rem;
+}
+
+.promociones-bundle-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c5a059;
+}
+
+.promociones-bundle-saving {
+  font-size: 0.9rem;
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.promociones-bundle-btn {
+  background: #c5a059;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2);
+  margin-top: auto;
+}
+
+.promociones-bundle-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3);
+}
+
+/* CONDITIONS SECTION */
+.promociones-conditions-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.promociones-conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+.promociones-condition-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  text-align: center;
+  transition: all 0.4s ease-out;
+}
+
+.promociones-condition-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15);
+}
+
+.promociones-condition-icon {
+  font-size: 2.5rem;
+  color: #c5a059;
+  margin-bottom: 1rem;
+}
+
+.promociones-condition-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.8rem 0;
+}
+
+.promociones-condition-text {
+  font-size: 0.9rem;
+  color: #757575;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.promociones-disclaimer {
+  background: rgba(197, 160, 89, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  border-left: 4px solid #c5a059;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.5s backwards;
+}
+
+.promociones-disclaimer p {
+  font-size: 0.95rem;
+  color: #2d2d2d;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* CTA SECTION */
+.promociones-cta-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #c5a059 0%, #d4b574 100%);
+  max-width: 1200px;
+  margin: 2rem auto;
+  border-radius: 1.5rem;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.5s backwards;
+}
+
+.promociones-cta-content {
+  color: white;
+}
+
+.promociones-cta-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+}
+
+.promociones-cta-text {
+  font-size: 1.1rem;
+  margin: 0 0 2rem 0;
+  opacity: 0.95;
+}
+
+.promociones-cta-button {
+  background: white;
+  color: #c5a059;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.promociones-cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ANIMATIONS */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotateZ(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateZ(0deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .promociones-hero {
+    height: 280px;
+  }
+
+  .promociones-title {
+    font-size: 2.5rem;
+  }
+
+  .promociones-subtitle {
+    font-size: 1rem;
+  }
+
+  .promociones-main-section,
+  .promociones-bundle-section,
+  .promociones-conditions-section {
+    padding: 2rem 1rem;
+  }
+
+  .promociones-grid,
+  .promociones-bundle-container,
+  .promociones-conditions-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .promociones-section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .promociones-card {
+    padding: 1.5rem;
+  }
+
+  .promociones-cta-section {
+    margin: 1rem;
+  }
+
+  .promociones-cta-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .promociones-hero {
+    height: 240px;
+  }
+
+  .promociones-title {
+    font-size: 2rem;
+  }
+
+  .promociones-badge {
+    top: 15px;
+    right: 15px;
+  }
+
+  .promociones-card {
+    padding: 1.2rem;
+  }
+
+  .promociones-detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .promociones-cta-section {
+    padding: 2rem 1rem;
+  }
+
+  .promociones-cta-button {
+    width: 100%;
+  }
+}

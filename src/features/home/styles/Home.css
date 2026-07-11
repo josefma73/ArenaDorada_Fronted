@@ -1,567 +1,495 @@
-.home-container {
-  width: 100%;
-  background-color: #ffffff;
-}
+/* Home Component Styles - BEM Naming with hm- prefix */
 
-/* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  color: #ffffff;
-  padding: 4rem 2rem;
-  text-align: center;
-  min-height: 400px;
+.hm-hero__container {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+              url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=800&fit=crop') center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hero-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: #d0d0d0;
-  margin: 0 0 2.5rem 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* Search Container */
-.search-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 1rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  margin-top: 80px;
   padding: 2rem;
+}
+
+.hm-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.hm-hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.hm-hero__text {
+  text-align: center;
+  color: #fff;
+}
+
+.hm-hero__tagline {
+  font-size: 1rem;
+  color: #c5a059;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.hm-hero__title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hm-hero__title-accent {
+  color: #c5a059;
+}
+
+.hm-hero__description {
+  font-size: 1.2rem;
+  color: #f5f5f0;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Booking Form */
+.hm-booking__container {
+  background: #f5f5f0;
   border-radius: 8px;
-  backdrop-filter: blur(10px);
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
   align-items: flex-end;
 }
 
-.search-group {
+.hm-booking__form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.search-label {
-  color: #ffffff;
+.hm-booking__label {
   font-size: 0.9rem;
   font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.search-input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #404040;
-  border-radius: 4px;
-  background-color: #2a2a2a;
-  color: #ffffff;
-  font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.search-input:hover {
-  border-color: #e74c3c;
-  background-color: #333333;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-}
-
-.search-button {
-  padding: 0.75rem 2rem;
-  background-color: #e74c3c;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.search-button:hover {
-  background-color: #d93d2b;
-  transform: translateY(-2px);
-}
-
-.search-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
-}
-
-/* Benefits Section */
-.benefits-section {
-  background-color: #f9f9f9;
-  padding: 4rem 2rem;
-}
-
-.benefits-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 3rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.benefit-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
-}
-
-.benefit-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  border-color: #e74c3c;
-}
-
-.benefit-icon {
-  color: #e74c3c;
+.hm-booking__date-inputs {
   display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.benefit-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0 0 0.75rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.benefit-description {
-  font-size: 0.95rem;
-  color: #666666;
-  margin: 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* Rooms Section */
-.rooms-section {
-  background-color: #ffffff;
-  padding: 4rem 2rem;
-}
-
-.rooms-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.carousel-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  position: relative;
-}
-
-.carousel-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  background-color: #ffffff;
-  color: #000000;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.carousel-btn:hover {
-  background-color: #e74c3c;
-  color: #ffffff;
-  border-color: #e74c3c;
-}
-
-.carousel-btn:focus {
-  outline: 2px solid #e74c3c;
-  outline-offset: 2px;
-}
-
-.carousel-track {
-  display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  flex: 1;
-  padding: 1rem 0;
-}
-
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-.room-card {
-  flex: 0 0 calc(33.333% - 1.5rem);
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  position: relative;
-  min-width: 280px;
-}
-
-.room-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
-}
-
-.room-image-placeholder {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.verified-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: #27ae60;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.room-content {
-  padding: 1.5rem;
-}
-
-.room-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.room-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #666666;
-  font-size: 0.9rem;
-  margin: 0 0 1rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.room-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 1rem;
 }
 
-.room-price {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #e74c3c;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+.hm-booking__date-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
 }
 
-.room-action-btn {
-  padding: 0.5rem 1rem;
-  background-color: #0f0f0f;
-  color: #ffffff;
+.hm-booking__date-input:focus {
+  outline: none;
+  border-color: #c5a059;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+}
+
+/* Date Picker Popup */
+.hm-datepicker__popup {
+  position: absolute;
+  background: #f5f5f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  min-width: 320px;
+}
+
+.hm-datepicker__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.hm-datepicker__nav-btn {
+  background: none;
   border: none;
-  border-radius: 4px;
+  color: #1a1a1a;
   cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.hm-datepicker__nav-btn:hover {
+  color: #c5a059;
+}
+
+.hm-datepicker__month {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.hm-datepicker__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hm-datepicker__weekday {
+  text-align: center;
   font-size: 0.85rem;
   font-weight: 600;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: #666;
+  padding: 0.5rem 0;
 }
 
-.room-action-btn:hover {
-  background-color: #e74c3c;
-}
-
-.room-action-btn:focus {
-  outline: 2px solid #e74c3c;
-  outline-offset: 1px;
-}
-
-/* Testimonials Section */
-.testimonials-section {
-  background-color: #f9f9f9;
-  padding: 4rem 2rem;
-}
-
-.testimonials-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.testimonials-grid {
+.hm-datepicker__days {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
 }
 
-.testimonial-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f0f0f0;
+.hm-datepicker__day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  background: #fff;
   transition: all 0.3s ease;
 }
 
-.testimonial-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
+.hm-datepicker__day:hover {
+  background: #e8e8e0;
 }
 
-.testimonial-stars {
+.hm-datepicker__day--selected {
+  background: #1a5d3d;
+  color: #fff;
+  font-weight: 600;
+}
+
+.hm-datepicker__day--range {
+  background: #d4e8d4;
+  color: #1a5d3d;
+}
+
+.hm-datepicker__day--disabled {
+  color: #999;
+  cursor: not-allowed;
+  background: #f9f9f9;
+}
+
+/* Occupancy Selector */
+.hm-occupancy__button {
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
   display: flex;
-  gap: 0.25rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hm-occupancy__button:hover {
+  border-color: #c5a059;
+}
+
+.hm-occupancy__popup {
+  position: absolute;
+  background: #f5f5f0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  min-width: 340px;
+  max-width: 500px;
+}
+
+.hm-occupancy__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.hm-occupancy__title {
+  font-weight: 600;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.hm-occupancy__room-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.hm-occupancy__btn-small {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.hm-occupancy__btn-small:hover {
+  background: #0f0f0f;
+}
+
+.hm-occupancy__room-count {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.hm-occupancy__room-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.hm-occupancy__room-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.hm-occupancy__room-title {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hm-occupancy__delete-btn {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.hm-occupancy__delete-btn:hover {
+  color: #a00;
+}
+
+.hm-occupancy__guest-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.star {
-  color: #ffc107;
-  fill: #ffc107;
+.hm-occupancy__guest-col {
+  display: flex;
+  flex-direction: column;
 }
 
-.testimonial-text {
-  font-size: 0.95rem;
-  color: #333333;
-  margin: 0 0 1.5rem 0;
-  line-height: 1.6;
-  font-style: italic;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.testimonial-author {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 1rem;
-}
-
-.author-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.25rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.author-role {
+.hm-occupancy__guest-label {
   font-size: 0.85rem;
-  color: #999999;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
 }
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
-
-  .search-container {
-    grid-template-columns: 1fr;
-  }
-
-  .carousel-track {
-    gap: 1rem;
-  }
-
-  .room-card {
-    flex: 0 0 calc(50% - 0.5rem);
-  }
+.hm-occupancy__guest-select {
+  padding: 0.6rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #fff;
+  color: #1a1a1a;
+  cursor: pointer;
 }
 
+.hm-occupancy__guest-select:focus {
+  outline: none;
+  border-color: #c5a059;
+}
+
+.hm-occupancy__guest-note {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+/* Submit Button */
+.hm-booking__submit-btn {
+  background: #1a5d3d;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
+.hm-booking__submit-btn:hover {
+  background-color: #0f3d25;
+  transform: translateY(-2px);
+}
+
+.hm-booking__submit-btn:active {
+  transform: translateY(0);
+}
+
+/* WhatsApp Button */
+.hm-whatsapp__btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 900;
+}
+
+.hm-whatsapp__btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .hero-section {
-    padding: 2.5rem 1rem;
-    min-height: 350px;
+  .hm-hero__container {
+    height: 70vh;
+    min-height: 500px;
+    padding: 1rem;
+    margin-top: 70px;
   }
 
-  .hero-title {
-    font-size: 1.75rem;
+  .hm-hero__title {
+    font-size: 2.5rem;
   }
 
-  .hero-subtitle {
+  .hm-hero__description {
     font-size: 1rem;
   }
 
-  .search-container {
-    padding: 1.5rem;
-    gap: 0.75rem;
-  }
-
-  .search-input {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  .search-button {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .benefits-section,
-  .rooms-section,
-  .testimonials-section {
-    padding: 2.5rem 1rem;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .benefits-grid,
-  .testimonials-grid {
-    gap: 1.5rem;
-  }
-
-  .room-card {
-    flex: 0 0 100%;
-  }
-
-  .carousel-wrapper {
+  .hm-booking__container {
+    grid-template-columns: 1fr;
     gap: 1rem;
+    padding: 1.5rem;
   }
 
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
+  .hm-datepicker__popup {
+    min-width: 280px;
+  }
+
+  .hm-occupancy__popup {
+    min-width: 300px;
+  }
+
+  .hm-whatsapp__btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .search-container {
+  .hm-hero__container {
+    height: 60vh;
+    min-height: 400px;
     padding: 1rem;
+    margin-top: 60px;
   }
 
-  .search-group,
-  .search-button {
-    width: 100%;
+  .hm-hero__title {
+    font-size: 1.8rem;
   }
 
-  .search-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+  .hm-hero__description {
+    font-size: 0.95rem;
   }
 
-  .search-button {
-    grid-column: 1;
+  .hm-booking__container {
+    padding: 1rem;
+    gap: 0.8rem;
   }
 
-  .benefit-card,
-  .room-card,
-  .testimonial-card {
-    padding: 1.25rem;
+  .hm-booking__label {
+    font-size: 0.8rem;
   }
 
-  .room-image-placeholder {
-    height: 150px;
-    font-size: 3rem;
+  .hm-booking__submit-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
   }
-}
 
-/* High Contrast Mode */
-.home-container.high-contrast {
-  background-color: #000000;
-}
-
-.home-container.high-contrast .hero-section {
-  background: #000000;
-  border-bottom: 2px solid #ffff00;
-}
-
-.home-container.high-contrast .hero-title,
-.home-container.high-contrast .section-title {
-  color: #ffff00;
-}
-
-.home-container.high-contrast .hero-subtitle {
-  color: #ffffff;
-}
-
-.home-container.high-contrast .benefit-card,
-.home-container.high-contrast .room-card,
-.home-container.high-contrast .testimonial-card {
-  background-color: #000000;
-  border-color: #ffff00;
-  color: #ffff00;
-}
-
-.home-container.high-contrast .benefit-title,
-.home-container.high-contrast .room-title,
-.home-container.high-contrast .author-name {
-  color: #ffff00;
-}
-
-/* No Animations */
-@media (prefers-reduced-motion: reduce) {
-  .hero-section,
-  .benefit-card,
-  .room-card,
-  .testimonial-card,
-  .carousel-btn {
-    animation: none;
-    transition: none;
+  .hm-whatsapp__btn {
+    bottom: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
   }
 }

@@ -1,221 +1,323 @@
-'use client';
-
-import React, { useState } from 'react';
-import { Shield, MapPin, FileText, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import '../styles/Home.css';
 
-export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const Home = ({ onReserva = () => {} }) => {
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(null);
+  const [showOccupancy, setShowOccupancy] = useState(false);
+  
+  const [rooms, setRooms] = useState([
+    { id: 1, adults: 2, children: 0, babies: 0 }
+  ]);
 
-  const rooms = [
-    {
-      id: 1,
-      title: 'Habitación Doble Premium',
-      price: 550,
-      distance: '0.8 km a UNAP',
-      image: '🏠',
-      verified: true,
-    },
-    {
-      id: 2,
-      title: 'Cuarto Individual Cómodo',
-      price: 380,
-      distance: '1.2 km a Facultad de Derecho',
-      image: '🏠',
-      verified: true,
-    },
-    {
-      id: 3,
-      title: 'Suite Ejecutiva',
-      price: 750,
-      distance: '0.5 km a Facultad de Ingeniería',
-      image: '🏠',
-      verified: true,
-    },
-  ];
+  const datePickerRef = useRef(null);
+  const occupancyRef = useRef(null);
 
-  const benefits = [
-    {
-      icon: Shield,
-      title: 'Identidad Verificada',
-      description: 'Validación de DNI de propietarios para mitigar estafas informales',
-    },
-    {
-      icon: MapPin,
-      title: 'Geolocalización Real',
-      description: 'Distancia exacta caminando a los campus principales',
-    },
-    {
-      icon: FileText,
-      title: 'Contratos Legales Digitales',
-      description: 'Formalización transparente y protección legal',
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: 'María García',
-      role: 'Estudiante de Ingeniería - UNAP',
-      text: 'RoomIca me ayudó a encontrar la habitación perfecta en Ica. El proceso fue transparente y seguro. ¡Recomendado!',
-      rating: 5,
-    },
-    {
-      name: 'Juan Rodríguez',
-      role: 'Estudiante de Derecho - Universidad Católica',
-      text: 'La plataforma es intuitiva y los propietarios verificados dan confianza. Pagué un mes sin preocupaciones.',
-      rating: 5,
-    },
-    {
-      name: 'Sofia López',
-      role: 'Estudiante de Medicina - Facultad Local',
-      text: 'Excelente servicio. La ubicación exacta de los cuartos me permitió ahorrar tiempo de búsqueda.',
-      rating: 5,
-    },
-  ];
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % rooms.length);
+  const getDaysInMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + rooms.length) % rooms.length);
+  const getFirstDayOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   };
+
+  const formatDate = (date) => {
+    if (!date) return '';
+    return date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }).toUpperCase();
+  };
+
+  const handlePrevMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+  };
+
+  const handleDateSelect = (day) => {
+    const selectedDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    
+    if (showDatePicker === 'checkin') {
+      setCheckIn(selectedDate);
+      setShowDatePicker('checkout');
+      if (!checkOut || selectedDate > checkOut) {
+        setCheckOut(new Date(selectedDate.getTime() + 86400000));
+      }
+    } else if (showDatePicker === 'checkout') {
+      if (selectedDate > checkIn) {
+        setCheckOut(selectedDate);
+        setShowDatePicker(null);
+      }
+    }
+  };
+
+  const handleAddRoom = () => {
+    if (rooms.length < 3) {
+      setRooms([...rooms, { id: rooms.length + 1, adults: 2, children: 0, babies: 0 }]);
+    }
+  };
+
+  const handleRemoveRoom = (id) => {
+    if (rooms.length > 1) {
+      setRooms(rooms.filter(room => room.id !== id));
+    }
+  };
+
+  const handleRoomUpdate = (id, field, value) => {
+    setRooms(rooms.map(room => 
+      room.id === id ? { ...room, [field]: parseInt(value) } : room
+    ));
+  };
+
+  const getTotalGuests = () => {
+    return rooms.reduce((total, room) => total + room.adults + room.children + room.babies, 0);
+  };
+
+  const handleReservation = () => {
+    if (!checkIn || !checkOut) {
+      alert('Por favor selecciona las fechas');
+      return;
+    }
+
+    const bookingData = {
+      checkIn,
+      checkOut,
+      rooms,
+      totalGuests: getTotalGuests(),
+      totalRooms: rooms.length
+    };
+
+    onReserva(bookingData);
+  };
+
+  const renderCalendar = () => {
+    const daysInMonth = getDaysInMonth(currentMonth);
+    const firstDay = getFirstDayOfMonth(currentMonth);
+    const days = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(i);
+    }
+
+    return days;
+  };
+
+  const monthName = currentMonth.toLocaleDateString('es-ES', { 
+    month: 'long', 
+    year: 'numeric' 
+  }).toUpperCase();
+
+  const weekDays = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
 
   return (
-    <div className="home-container">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Tu espacio ideal para triunfar en la universidad</h1>
-          <p className="hero-subtitle">
-            Encuentra habitaciones verificadas, seguras y equipadas cerca de las principales facultades
-            de Ica sin moverte de casa
+    <div className="hm-hero__container">
+      <div className="hm-hero__overlay"></div>
+      
+      <div className="hm-hero__content">
+        <div className="hm-hero__text">
+          <p className="hm-hero__tagline">LUJO EN EL CORAZÓN DE ICA</p>
+          <h1 className="hm-hero__title">
+            Tu Refugio de
+            <span className="hm-hero__title-accent"> Arena Dorada</span>
+          </h1>
+          <p className="hm-hero__description">
+            Experimenta la serenidad absoluta y el confort curado en nuestro oasis de lujo, diseñado para fundirse con los paisajes eternos del desierto peruano
           </p>
-
-          {/* Search Mock */}
-          <div className="search-container">
-            <div className="search-group">
-              <label htmlFor="university" className="search-label">Universidad de Destino</label>
-              <select id="university" className="search-input">
-                <option>Selecciona una universidad</option>
-                <option>UNAP - Universidad Nacional Autónoma del Perú</option>
-                <option>Facultad de Derecho</option>
-                <option>Facultad de Ingeniería</option>
-                <option>Universidad Católica</option>
-              </select>
-            </div>
-            <div className="search-group">
-              <label htmlFor="price-range" className="search-label">Rango de Precio (S/.)</label>
-              <select id="price-range" className="search-input">
-                <option>Rango de precio</option>
-                <option>300 - 500</option>
-                <option>500 - 700</option>
-                <option>700 - 1000</option>
-                <option>1000+</option>
-              </select>
-            </div>
-            <button className="search-button">Buscar Habitaciones</button>
-          </div>
         </div>
-      </section>
 
-      {/* Benefits Grid */}
-      <section className="benefits-section">
-        <div className="benefits-container">
-          <h2 className="section-title">¿Por qué elegir RoomIca?</h2>
-          <div className="benefits-grid">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
-              return (
-                <div key={benefit.title} className="benefit-card">
-                  <div className="benefit-icon">
-                    <Icon size={40} />
-                  </div>
-                  <h3 className="benefit-title">{benefit.title}</h3>
-                  <p className="benefit-description">{benefit.description}</p>
+        <div className="hm-booking__container">
+          <div className="hm-booking__form-group" style={{ position: 'relative' }}>
+            <label className="hm-booking__label">Fechas</label>
+            <div className="hm-booking__date-inputs">
+              <input
+                type="text"
+                className="hm-booking__date-input"
+                value={checkIn ? formatDate(checkIn) : ''}
+                onClick={() => setShowDatePicker(showDatePicker === 'checkin' ? null : 'checkin')}
+                placeholder="CHECK IN"
+                readOnly
+              />
+              <input
+                type="text"
+                className="hm-booking__date-input"
+                value={checkOut ? formatDate(checkOut) : ''}
+                onClick={() => checkIn && setShowDatePicker(showDatePicker === 'checkout' ? null : 'checkout')}
+                placeholder="CHECK OUT"
+                readOnly
+              />
+            </div>
+
+            {showDatePicker && (
+              <div className="hm-datepicker__popup" ref={datePickerRef}>
+                <div className="hm-datepicker__header">
+                  <button className="hm-datepicker__nav-btn" onClick={handlePrevMonth}>&lt;</button>
+                  <h3 className="hm-datepicker__month">{monthName}</h3>
+                  <button className="hm-datepicker__nav-btn" onClick={handleNextMonth}>&gt;</button>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* Featured Rooms Carousel */}
-      <section className="rooms-section">
-        <div className="rooms-container">
-          <h2 className="section-title">Habitaciones Destacadas</h2>
-          <div className="carousel-wrapper">
-            <button
-              className="carousel-btn prev-btn"
-              onClick={prevSlide}
-              aria-label="Habitación anterior"
-            >
-              <ChevronLeft size={24} />
-            </button>
+                <div className="hm-datepicker__weekdays">
+                  {weekDays.map(day => (
+                    <div key={day} className="hm-datepicker__weekday">{day}</div>
+                  ))}
+                </div>
 
-            <div className="carousel-track">
-              {rooms.map((room, index) => (
-                <div
-                  key={room.id}
-                  className={`room-card ${index === currentSlide ? 'active' : ''}`}
-                >
-                  <div className="room-image-placeholder">{room.image}</div>
-                  {room.verified && (
-                    <div className="verified-badge">
-                      <Shield size={16} />
-                      Verificado
+                <div className="hm-datepicker__days">
+                  {renderCalendar().map((day, idx) => (
+                    <div
+                      key={idx}
+                      className={`hm-datepicker__day ${
+                        !day ? 'hm-datepicker__day--disabled' : ''
+                      } ${
+                        day && checkIn && new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day).getTime() === checkIn.getTime()
+                          ? 'hm-datepicker__day--selected'
+                          : ''
+                      } ${
+                        day && checkOut && new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day).getTime() === checkOut.getTime()
+                          ? 'hm-datepicker__day--selected'
+                          : ''
+                      } ${
+                        day && checkIn && checkOut && 
+                        new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day) > checkIn &&
+                        new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day) < checkOut
+                          ? 'hm-datepicker__day--range'
+                          : ''
+                      }`}
+                      onClick={() => day && handleDateSelect(day)}
+                    >
+                      {day}
                     </div>
-                  )}
-                  <div className="room-content">
-                    <h3 className="room-title">{room.title}</h3>
-                    <p className="room-location">
-                      <MapPin size={16} />
-                      {room.distance}
-                    </p>
-                    <div className="room-footer">
-                      <span className="room-price">S/. {room.price}/mes</span>
-                      <button className="room-action-btn">Ver Detalles</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              className="carousel-btn next-btn"
-              onClick={nextSlide}
-              aria-label="Siguiente habitación"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="testimonials-section">
-        <div className="testimonials-container">
-          <h2 className="section-title">Lo que dicen nuestros estudiantes</h2>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial-stars">
-                  {Array(testimonial.rating)
-                    .fill(null)
-                    .map((_, i) => (
-                      <Star key={i} size={16} className="star" />
-                    ))}
-                </div>
-                <p className="testimonial-text">"{testimonial.text}"</p>
-                <div className="testimonial-author">
-                  <p className="author-name">{testimonial.name}</p>
-                  <p className="author-role">{testimonial.role}</p>
+                  ))}
                 </div>
               </div>
-            ))}
+            )}
           </div>
+
+          <div className="hm-booking__form-group" style={{ position: 'relative' }}>
+            <label className="hm-booking__label">Ocupación</label>
+            <button
+              className="hm-occupancy__button"
+              onClick={() => setShowOccupancy(!showOccupancy)}
+            >
+              <span>{rooms.length} Habitación{rooms.length > 1 ? 'es' : ''}, {getTotalGuests()} Huéspedes</span>
+              <span>▼</span>
+            </button>
+
+            {showOccupancy && (
+              <div className="hm-occupancy__popup" ref={occupancyRef}>
+                <div className="hm-occupancy__header">
+                  <span className="hm-occupancy__title">Habitaciones</span>
+                  <div className="hm-occupancy__room-controls">
+                    <button
+                      className="hm-occupancy__btn-small"
+                      onClick={handleAddRoom}
+                      disabled={rooms.length >= 3}
+                    >
+                      −
+                    </button>
+                    <span className="hm-occupancy__room-count">{rooms.length}</span>
+                    <button
+                      className="hm-occupancy__btn-small"
+                      onClick={handleAddRoom}
+                      disabled={rooms.length >= 3}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {rooms.map((room) => (
+                  <div key={room.id} className="hm-occupancy__room-section">
+                    <div className="hm-occupancy__room-title">
+                      <span>HABITACIÓN {room.id}</span>
+                      {rooms.length > 1 && (
+                        <button
+                          className="hm-occupancy__delete-btn"
+                          onClick={() => handleRemoveRoom(room.id)}
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="hm-occupancy__guest-row">
+                      <div className="hm-occupancy__guest-col">
+                        <label className="hm-occupancy__guest-label">Adultos</label>
+                        <select
+                          className="hm-occupancy__guest-select"
+                          value={room.adults}
+                          onChange={(e) => handleRoomUpdate(room.id, 'adults', e.target.value)}
+                        >
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
+                            <option key={n} value={n}>{n}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="hm-occupancy__guest-col">
+                        <label className="hm-occupancy__guest-label">Niños</label>
+                        <select
+                          className="hm-occupancy__guest-select"
+                          value={room.children}
+                          onChange={(e) => handleRoomUpdate(room.id, 'children', e.target.value)}
+                        >
+                          {[0, 1, 2, 3, 4, 5, 6].map(n => (
+                            <option key={n} value={n}>{n}</option>
+                          ))}
+                        </select>
+                        <p className="hm-occupancy__guest-note">&lt; 11 años</p>
+                      </div>
+                    </div>
+
+                    <div className="hm-occupancy__guest-row">
+                      <div className="hm-occupancy__guest-col">
+                        <label className="hm-occupancy__guest-label">Bebés</label>
+                        <select
+                          className="hm-occupancy__guest-select"
+                          value={room.babies}
+                          onChange={(e) => handleRoomUpdate(room.id, 'babies', e.target.value)}
+                        >
+                          {[0, 1, 2].map(n => (
+                            <option key={n} value={n}>{n}</option>
+                          ))}
+                        </select>
+                        <p className="hm-occupancy__guest-note">&lt; 2 años</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="hm-booking__form-group">
+            <label className="hm-booking__label">Promocode (Opcional)</label>
+            <input
+              type="text"
+              className="hm-booking__date-input"
+              placeholder="Ingresa tu código"
+            />
+          </div>
+
+          <button
+            className="hm-booking__submit-btn"
+            onClick={handleReservation}
+          >
+            RESERVAR AHORA
+          </button>
         </div>
-      </section>
+      </div>
+
+      <button className="hm-whatsapp__btn" title="Contactar por WhatsApp">
+        <MessageCircle size={28} />
+      </button>
     </div>
   );
-}
+};
+
+export default Home;

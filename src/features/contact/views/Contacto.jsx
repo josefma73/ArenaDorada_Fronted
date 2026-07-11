@@ -1,20 +1,29 @@
-'use client';
-
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import {
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaClock,
+  FaPaperPlane,
+  FaUsers,
+  FaComment,
+  FaAccessibleIcon,
+  FaCheckCircle,
+  FaArrowRight,
+} from 'react-icons/fa';
 import '../styles/Contacto.css';
 
 export default function Contacto() {
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
-    tipoUsuario: 'estudiante',
+    asunto: '',
     mensaje: '',
   });
 
-  const [expandedFAQ, setExpandedFAQ] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -24,229 +33,348 @@ export default function Contacto() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Formulario enviado:', formData);
-    alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
-    setFormData({
-      nombre: '',
-      correo: '',
-      tipoUsuario: 'estudiante',
-      mensaje: '',
-    });
+    setSubmitted(true);
+    setTimeout(() => {
+      setFormData({ nombre: '', correo: '', asunto: '', mensaje: '' });
+      setSubmitted(false);
+    }, 3000);
   };
+
+  const contactChannels = [
+    {
+      title: 'Teléfono Principal',
+      icon: FaPhone,
+      color: '#3498db',
+      info: '+51 (56) 222-0000',
+      description: 'Llama directamente a recepción',
+    },
+    {
+      title: 'Correo Administrativo',
+      icon: FaEnvelope,
+      color: '#e74c3c',
+      info: 'info@arenadorada.com',
+      description: 'Para consultas generales',
+    },
+    {
+      title: 'Correo de Soporte',
+      icon: FaEnvelope,
+      color: '#f39c12',
+      info: 'soporte@arenadorada.com',
+      description: 'Para problemas técnicos',
+    },
+    {
+      title: 'WhatsApp Directo',
+      icon: FaPhone,
+      color: '#2ecc71',
+      info: '+51 999 123 456',
+      description: 'Atención inmediata disponible',
+    },
+  ];
+
+  const additionalInfo = [
+    {
+      icon: FaMapMarkerAlt,
+      title: 'Ubicación',
+      content: 'Av. Juan de Loyola 1026, Ica - Perú',
+      subtext: 'Centro histórico de la ciudad',
+    },
+    {
+      icon: FaClock,
+      title: 'Recepción 24/7',
+      content: 'Abierto los 365 días del año',
+      subtext: 'Disponible para check-in y check-out a cualquier hora',
+    },
+    {
+      icon: FaUsers,
+      title: 'Grupos Corporativos',
+      content: 'Cotización personalizada',
+      subtext: 'Contacta a nuestro gerente de ventas',
+    },
+    {
+      icon: FaComment,
+      title: 'Feedback',
+      content: 'Tu opinión es importante',
+      subtext: 'Cuéntanos tu experiencia',
+    },
+  ];
 
   const faqs = [
     {
-      id: 1,
-      pregunta: '¿Cuál es el proceso para reservar una habitación?',
-      respuesta:
-        'El proceso es sencillo: 1) Busca y selecciona la habitación que te guste, 2) Revisa los detalles y el contrato, 3) Completa tu perfil y verificación, 4) Realiza el pago de la reserva, 5) ¡Listo! Recibirás la confirmación por correo.',
+      question: '¿Cómo puedo hacer una reserva?',
+      answer:
+        'Puedes reservar directamente a través de nuestra plataforma web, llamando al teléfono de recepción o enviando un correo con tus datos.',
     },
     {
-      id: 2,
-      pregunta: '¿Qué incluye la verificación de identidad?',
-      respuesta:
-        'La verificación incluye confirmación de DNI válido, validación de matrícula universitaria, y verificación de referencias. Esto nos ayuda a mantener una comunidad segura para todos.',
+      question: '¿Qué métodos de pago aceptan?',
+      answer:
+        'Aceptamos transferencias bancarias, tarjetas de crédito, tarjetas de débito y efectivo en recepción.',
     },
     {
-      id: 3,
-      pregunta: '¿Cuáles son las políticas de cancelación?',
-      respuesta:
-        'Puedes cancelar con 30 días de anticipación para recibir reembolso completo, o 15 días para reembolso del 50%. Cancelaciones menores a 15 días no son reembolsables.',
+      question: '¿El hostal es accesible para personas con movilidad reducida?',
+      answer:
+        'Sí, contamos con rampas de acceso, baños adaptados y áreas comunes diseñadas para la accesibilidad.',
     },
     {
-      id: 4,
-      pregunta: '¿Cómo funciona el servicio de soporte?',
-      respuesta:
-        'Contamos con soporte disponible 24/7. Puedes comunicarte por correo, WhatsApp o teléfono. Nos comprometemos a responder en máximo 2 horas hábiles.',
+      question: '¿Puedo cancelar mi reserva?',
+      answer:
+        'Las cancelaciones están sujetas a nuestra política. Las cancelaciones con 48 horas de anticipación reciben reembolso completo.',
     },
     {
-      id: 5,
-      pregunta: '¿Hay costos ocultos?',
-      respuesta:
-        'No. El precio que ves es el precio que pagas. No hay comisiones, tasas o cargos adicionales. Todo está incluido en el costo mensual.',
+      question: '¿Hay servicio de transporte desde el aeropuerto?',
+      answer:
+        'Podemos coordinar transporte. Consulta con recepción para más información sobre tarifas y disponibilidad.',
     },
     {
-      id: 6,
-      pregunta: '¿Puedo cambiar de habitación durante mi contrato?',
-      respuesta:
-        'Sí, puedes solicitar cambio de habitación bajo ciertas condiciones. Comunícate con nuestro equipo de soporte para evaluar disponibilidad y opciones.',
+      question: '¿Ofrecen tours y actividades?',
+      answer:
+        'Sí, contamos con asociaciones con operadores locales. Podemos recomendar y coordinar tours a Huacachina, bodegas y otros atractivos.',
     },
   ];
 
   return (
     <div className="contacto-container">
       {/* Hero Section */}
-      <section className="contacto-hero">
-        <div className="hero-content">
-          <h1 className="hero-title">Contacto</h1>
-          <p className="hero-subtitle">
-            ¿Tienes preguntas? Estamos aquí para ayudarte
+      <div className="contacto-hero">
+        <div className="contacto-hero-overlay" />
+        <div className="contacto-hero-content">
+          <h1 className="contacto-title">Contáctanos</h1>
+          <p className="contacto-subtitle">
+            Estamos aquí para ayudarte. Comunícate con nosotros de la forma que prefieras
           </p>
+        </div>
+      </div>
+
+      {/* Contact Channels Section */}
+      <section className="contacto-channels-section">
+        <div className="contacto-channels-container">
+          <h2 className="contacto-section-title">Canales de Atención</h2>
+          <div className="contacto-channels-grid">
+            {contactChannels.map((channel, idx) => {
+              const IconComponent = channel.icon;
+              return (
+                <div
+                  key={idx}
+                  className="contacto-channel-card"
+                  style={{
+                    borderTopColor: channel.color,
+                    animation: `fadeInUp 0.6s ease-out ${idx * 0.1}s backwards`,
+                  }}
+                >
+                  <div
+                    className="contacto-channel-icon"
+                    style={{ backgroundColor: `${channel.color}20` }}
+                  >
+                    <IconComponent style={{ color: channel.color }} size={32} />
+                  </div>
+                  <h3 className="contacto-channel-title">{channel.title}</h3>
+                  <p className="contacto-channel-info">{channel.info}</p>
+                  <p className="contacto-channel-description">{channel.description}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Contact Info and Form Section */}
-      <section className="contact-main-section">
-        <div className="contact-wrapper">
-          {/* Contact Info */}
-          <div className="contact-info-column">
-            <h2 className="column-title">Información de Contacto</h2>
+      {/* Main Contact Section */}
+      <section className="contacto-main-section">
+        <div className="contacto-main-container">
+          {/* Form */}
+          <div className="contacto-form-wrapper">
+            <h2 className="contacto-form-title">Envíanos un Mensaje</h2>
+            <p className="contacto-form-subtitle">
+              Completa el formulario y nos pondremos en contacto pronto
+            </p>
 
-            <div className="contact-channels">
-              <div className="contact-channel">
-                <div className="channel-icon">
-                  <Mail size={32} />
-                </div>
-                <div className="channel-content">
-                  <h3 className="channel-title">Email</h3>
-                  <a href="mailto:soporte@roomica.com" className="channel-link">
-                    soporte@roomica.com
-                  </a>
-                </div>
+            {submitted ? (
+              <div className="contacto-success-message">
+                <FaCheckCircle size={48} />
+                <h3>¡Mensaje Enviado!</h3>
+                <p>Gracias por tu mensaje. Nos comunicaremos pronto.</p>
               </div>
+            ) : (
+              <form className="contacto-form" onSubmit={handleSubmit}>
+                <div className="contacto-form-group">
+                  <label htmlFor="nombre" className="contacto-label">
+                    Nombre Completo
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    placeholder="Tu nombre"
+                    required
+                    className="contacto-input"
+                  />
+                </div>
 
-              <div className="contact-channel">
-                <div className="channel-icon">
-                  <Phone size={32} />
+                <div className="contacto-form-group">
+                  <label htmlFor="correo" className="contacto-label">
+                    Correo Electrónico
+                  </label>
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    value={formData.correo}
+                    onChange={handleChange}
+                    placeholder="tu@correo.com"
+                    required
+                    className="contacto-input"
+                  />
                 </div>
-                <div className="channel-content">
-                  <h3 className="channel-title">WhatsApp (Emergencias Financieras)</h3>
-                  <a href="https://wa.me/51956123456" className="channel-link">
-                    +51 956 123 456
-                  </a>
-                </div>
-              </div>
 
-              <div className="contact-channel">
-                <div className="channel-icon">
-                  <MapPin size={32} />
+                <div className="contacto-form-group">
+                  <label htmlFor="asunto" className="contacto-label">
+                    Asunto
+                  </label>
+                  <input
+                    type="text"
+                    id="asunto"
+                    name="asunto"
+                    value={formData.asunto}
+                    onChange={handleChange}
+                    placeholder="Asunto de tu consulta"
+                    required
+                    className="contacto-input"
+                  />
                 </div>
-                <div className="channel-content">
-                  <h3 className="channel-title">Ubicación</h3>
-                  <p className="channel-text">Avenida Grau 456, Ica, Perú</p>
-                </div>
-              </div>
-            </div>
 
-            <div className="hours-section">
-              <h3 className="hours-title">Horario de Atención</h3>
-              <ul className="hours-list">
-                <li>Lunes - Viernes: 9:00 AM - 6:00 PM</li>
-                <li>Sábado: 10:00 AM - 2:00 PM</li>
-                <li>Domingo: Cerrado (emergencias: 24/7)</li>
-              </ul>
-            </div>
+                <div className="contacto-form-group">
+                  <label htmlFor="mensaje" className="contacto-label">
+                    Mensaje
+                  </label>
+                  <textarea
+                    id="mensaje"
+                    name="mensaje"
+                    value={formData.mensaje}
+                    onChange={handleChange}
+                    placeholder="Escribe tu mensaje aquí..."
+                    rows="5"
+                    required
+                    className="contacto-textarea"
+                  />
+                </div>
+
+                <button type="submit" className="contacto-submit-btn">
+                  <FaPaperPlane /> Enviar Mensaje
+                </button>
+              </form>
+            )}
           </div>
 
-          {/* Contact Form */}
-          <div className="contact-form-column">
-            <h2 className="column-title">Envíanos un Mensaje</h2>
+          {/* Info Cards */}
+          <div className="contacto-info-wrapper">
+            <div className="contacto-info-cards">
+              {additionalInfo.map((info, idx) => {
+                const IconComponent = info.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="contacto-info-card"
+                    style={{
+                      animation: `fadeInUp 0.6s ease-out ${idx * 0.1 + 0.4}s backwards`,
+                    }}
+                  >
+                    <div className="contacto-info-icon">
+                      <IconComponent size={28} />
+                    </div>
+                    <h3 className="contacto-info-title">{info.title}</h3>
+                    <p className="contacto-info-content">{info.content}</p>
+                    <p className="contacto-info-subtext">{info.subtext}</p>
+                  </div>
+                );
+              })}
+            </div>
 
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="nombre" className="form-label">
-                  Nombre Completo
-                </label>
-                <input
-                  type="text"
-                  id="nombre"
-                  name="nombre"
-                  className="form-input"
-                  value={formData.nombre}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Tu nombre"
-                />
+            {/* Location Card */}
+            <div className="contacto-location-card">
+              <div className="contacto-location-placeholder">
+                <FaMapMarkerAlt size={48} />
+                <p>Mapa Interactivo</p>
               </div>
-
-              <div className="form-group">
-                <label htmlFor="correo" className="form-label">
-                  Correo Institucional
-                </label>
-                <input
-                  type="email"
-                  id="correo"
-                  name="correo"
-                  className="form-input"
-                  value={formData.correo}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="tu@email.edu.pe"
-                />
+              <div className="contacto-location-details">
+                <h3>Visítanos</h3>
+                <p>
+                  <strong>Dirección:</strong> Av. Juan de Loyola 1026<br />
+                  <strong>Ciudad:</strong> Ica, Perú<br />
+                  <strong>Referencia:</strong> Cerca de la Plaza Principal
+                </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="form-group">
-                <label htmlFor="tipoUsuario" className="form-label">
-                  Tipo de Usuario
-                </label>
-                <select
-                  id="tipoUsuario"
-                  name="tipoUsuario"
-                  className="form-select"
-                  value={formData.tipoUsuario}
-                  onChange={handleInputChange}
-                >
-                  <option value="estudiante">Estudiante</option>
-                  <option value="propietario">Propietario</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
+      {/* Additional Services Section */}
+      <section className="contacto-services-section">
+        <h2 className="contacto-section-title">Servicios Especiales</h2>
+        <div className="contacto-services-grid">
+          <div className="contacto-service-card">
+            <FaUsers size={40} />
+            <h3>Reservas Corporativas</h3>
+            <p>
+              Ofertas especiales para empresas y grupos. Contáctanos para cotizaciones
+              personalizadas y paquetes a medida.
+            </p>
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="mensaje" className="form-label">
-                  Mensaje
-                </label>
-                <textarea
-                  id="mensaje"
-                  name="mensaje"
-                  className="form-textarea"
-                  rows="5"
-                  value={formData.mensaje}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Cuéntanos cómo podemos ayudarte..."
-                ></textarea>
-              </div>
+          <div className="contacto-service-card">
+            <FaComment size={40} />
+            <h3>Sugerencias y Reclamos</h3>
+            <p>
+              Tu opinión nos importa. Queremos mejorar continuamente. Envíanos tus
+              comentarios y sugerencias.
+            </p>
+          </div>
 
-              <button type="submit" className="submit-button">
-                Enviar Mensaje
-              </button>
-            </form>
+          <div className="contacto-service-card">
+            <FaAccessibleIcon size={40} />
+            <h3>Accesibilidad</h3>
+            <p>
+              Contamos con facilidades para personas con movilidad reducida. Consulta
+              disponibilidad de habitaciones adaptadas.
+            </p>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="faq-section">
-        <div className="faq-wrapper">
-          <div className="faq-header">
-            <h2 className="section-title">Preguntas Frecuentes</h2>
-            <p className="section-description">
-              Encuentra respuestas a las preguntas más comunes
-            </p>
-          </div>
-
-          <div className="faq-accordion">
-            {faqs.map((faq) => (
-              <div key={faq.id} className="faq-item">
-                <button
-                  className={`faq-button ${expandedFAQ === faq.id ? 'expanded' : ''}`}
-                  onClick={() =>
-                    setExpandedFAQ(expandedFAQ === faq.id ? null : faq.id)
-                  }
-                  aria-expanded={expandedFAQ === faq.id}
-                >
-                  <span className="faq-question">{faq.pregunta}</span>
-                  <ChevronDown size={20} className="faq-icon" />
-                </button>
-
-                {expandedFAQ === faq.id && (
-                  <div className="faq-answer">
-                    <p>{faq.respuesta}</p>
-                  </div>
-                )}
+      <section className="contacto-faq-section">
+        <h2 className="contacto-section-title">Preguntas Frecuentes</h2>
+        <div className="contacto-faq-container">
+          <div className="contacto-faq-grid">
+            {faqs.map((faq, idx) => (
+              <div
+                key={idx}
+                className="contacto-faq-item"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${idx * 0.08}s backwards`,
+                }}
+              >
+                <div className="contacto-faq-question">
+                  <FaArrowRight className="contacto-faq-icon" />
+                  <h4>{faq.question}</h4>
+                </div>
+                <p className="contacto-faq-answer">{faq.answer}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="contacto-cta-section">
+        <div className="contacto-cta-content">
+          <h2 className="contacto-cta-title">¿Aún tienes dudas?</h2>
+          <p className="contacto-cta-text">
+            Nuestro equipo está disponible para ayudarte en cualquier momento
+          </p>
+          <div className="contacto-cta-buttons">
+            <button className="contacto-cta-btn primary">Llamar Ahora</button>
+            <button className="contacto-cta-btn secondary">Enviar Email</button>
           </div>
         </div>
       </section>

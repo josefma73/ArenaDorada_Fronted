@@ -1,352 +1,577 @@
+/* ============================================
+   CONTACTO COMPONENT - COMPREHENSIVE STYLES
+   ============================================ */
+
 .contacto-container {
   width: 100%;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #f9f6f0 100%);
+  overflow: hidden;
 }
 
-/* Hero Section */
+/* HERO SECTION */
 .contacto-hero {
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  color: #ffffff;
-  padding: 3rem 2rem;
-  text-align: center;
-  min-height: 300px;
+  position: relative;
+  height: 350px;
+  background: linear-gradient(135deg, #2d2d2d 0%, #c5a059 50%, #d4b574 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  animation: fadeInDown 0.8s ease-out;
 }
 
-.contacto-hero .hero-content {
-  max-width: 800px;
-  margin: 0 auto;
+.contacto-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(197, 160, 89, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.contacto-hero .hero-title {
-  font-size: 2.75rem;
-  font-weight: 700;
+.contacto-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  animation: slideInUp 0.8s ease-out 0.2s backwards;
+}
+
+.contacto-title {
+  font-size: 3.5rem;
+  font-weight: 800;
   margin: 0 0 1rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.contacto-hero .hero-subtitle {
-  font-size: 1.1rem;
-  color: #d0d0d0;
+.contacto-subtitle {
+  font-size: 1.3rem;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  opacity: 0.95;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Contact Main Section */
-.contact-main-section {
+/* CHANNELS SECTION */
+.contacto-channels-section {
   padding: 4rem 2rem;
-  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.contact-wrapper {
-  max-width: 1400px;
+.contacto-channels-container {
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.contacto-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  text-align: center;
+  margin: 0 0 3rem 0;
+  position: relative;
+  padding-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.contacto-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #c5a059, #d4b574);
+  border-radius: 2px;
+  animation: slideInRight 0.6s ease-out 0.2s backwards;
+}
+
+.contacto-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.contacto-channel-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  border-top: 4px solid #c5a059;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contacto-channel-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(197, 160, 89, 0.2);
+}
+
+.contacto-channel-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: transform 0.4s ease-out;
+}
+
+.contacto-channel-card:hover .contacto-channel-icon {
+  transform: scale(1.1) rotateZ(10deg);
+}
+
+.contacto-channel-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.8rem 0;
+}
+
+.contacto-channel-info {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c5a059;
+  margin: 0 0 0.5rem 0;
+}
+
+.contacto-channel-description {
+  font-size: 0.9rem;
+  color: #757575;
+  margin: 0;
+}
+
+/* MAIN SECTION */
+.contacto-main-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.contacto-main-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 3rem;
+  align-items: flex-start;
 }
 
-.contact-info-column,
-.contact-form-column {
+/* FORM WRAPPER */
+.contacto-form-wrapper {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  animation: slideInLeft 0.8s ease-out 0.2s backwards;
+}
+
+.contacto-form-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.5rem 0;
+}
+
+.contacto-form-subtitle {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0 0 2rem 0;
+}
+
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contacto-form-group {
   display: flex;
   flex-direction: column;
 }
 
-.column-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0 0 2rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+.contacto-label {
+  font-weight: 600;
+  color: #2d2d2d;
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
 }
 
-/* Contact Channels */
-.contact-channels {
+.contacto-input,
+.contacto-textarea {
+  padding: 1rem;
+  border: 2px solid rgba(197, 160, 89, 0.2);
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  background: white;
+  color: #2d2d2d;
+  transition: all 0.4s ease-out;
+  font-family: inherit;
+}
+
+.contacto-input::placeholder,
+.contacto-textarea::placeholder {
+  color: #999;
+}
+
+.contacto-input:focus,
+.contacto-textarea:focus {
+  outline: none;
+  border-color: #c5a059;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+  background: rgba(245, 241, 236, 0.5);
+}
+
+.contacto-textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contacto-submit-btn {
+  background: #c5a059;
+  color: white;
+  border: none;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 25px rgba(197, 160, 89, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.contacto-submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.3);
+}
+
+.contacto-submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.contacto-success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contacto-success-message svg {
+  color: #2ecc71;
+  margin-bottom: 1rem;
+}
+
+.contacto-success-message h3 {
+  font-size: 1.5rem;
+  color: #2d2d2d;
+  margin: 0 0 0.5rem 0;
+}
+
+.contacto-success-message p {
+  color: #757575;
+  margin: 0;
+}
+
+/* INFO WRAPPER */
+.contacto-info-wrapper {
+  animation: slideInRight 0.8s ease-out 0.2s backwards;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 2rem;
 }
 
-.contact-channel {
-  display: flex;
+.contacto-info-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  padding: 1.5rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border-left: 4px solid #e74c3c;
-  transition: all 0.3s ease;
 }
 
-.contact-channel:hover {
-  background-color: #f0f0f0;
-  transform: translateX(4px);
+.contacto-info-card {
+  background: white;
+  padding: 1.8rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  text-align: center;
+  transition: all 0.4s ease-out;
 }
 
-.channel-icon {
-  color: #e74c3c;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-shrink: 0;
+.contacto-info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15);
 }
 
-.channel-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.contacto-info-icon {
+  font-size: 2rem;
+  color: #c5a059;
+  margin-bottom: 1rem;
+  transition: transform 0.4s ease-out;
 }
 
-.channel-title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+.contacto-info-card:hover .contacto-info-icon {
+  transform: scale(1.2) rotateZ(10deg);
 }
 
-.channel-link,
-.channel-text {
-  font-size: 0.95rem;
-  color: #666666;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  text-decoration: none;
-}
-
-.channel-link:hover {
-  color: #e74c3c;
-  text-decoration: underline;
-}
-
-.channel-link:focus {
-  outline: 2px solid #e74c3c;
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Hours Section */
-.hours-section {
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border-left: 4px solid #27ae60;
-}
-
-.hours-title {
+.contacto-info-title {
   font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 0.5rem 0;
 }
 
-.hours-list {
-  list-style: none;
+.contacto-info-content {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #c5a059;
+  margin: 0 0 0.3rem 0;
+}
+
+.contacto-info-subtext {
+  font-size: 0.85rem;
+  color: #757575;
   margin: 0;
-  padding: 0;
+}
+
+.contacto-location-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.1);
+}
+
+.contacto-location-placeholder {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(245, 241, 236, 0.5));
+  height: 200px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.hours-list li {
-  font-size: 0.95rem;
-  color: #666666;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* Contact Form */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-label {
-  font-size: 0.95rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #c5a059;
   font-weight: 600;
-  color: #333333;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-.form-input,
-.form-select,
-.form-textarea {
-  padding: 0.75rem 1rem;
-  border: 1px solid #d0d0d0;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  color: #333333;
+.contacto-location-details {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(197, 160, 89, 0.1);
 }
 
-.form-input:hover,
-.form-select:hover,
-.form-textarea:hover {
-  border-color: #e74c3c;
-  background-color: #fafafa;
+.contacto-location-details h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 1rem 0;
 }
 
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+.contacto-location-details p {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0;
+  line-height: 1.8;
 }
 
-.form-input::placeholder {
-  color: #999999;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.submit-button {
-  padding: 0.875rem 2rem;
-  background-color: #e74c3c;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.submit-button:hover {
-  background-color: #d93d2b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-}
-
-.submit-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
-}
-
-/* FAQ Section */
-.faq-section {
-  background-color: #f9f9f9;
+/* SERVICES SECTION */
+.contacto-services-section {
   padding: 4rem 2rem;
-}
-
-.faq-wrapper {
-  max-width: 900px;
+  background: rgba(245, 241, 236, 0.7);
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.faq-header {
+.contacto-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+.contacto-service-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.1);
   text-align: center;
-  margin-bottom: 3rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.section-title {
-  font-size: 2.25rem;
+.contacto-service-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(197, 160, 89, 0.2);
+}
+
+.contacto-service-card svg {
+  color: #c5a059;
+  margin-bottom: 1rem;
+  transition: transform 0.4s ease-out;
+}
+
+.contacto-service-card:hover svg {
+  transform: scale(1.2) rotateZ(15deg);
+}
+
+.contacto-service-card h3 {
+  font-size: 1.3rem;
   font-weight: 700;
-  margin: 0 0 0.75rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: #2d2d2d;
+  margin: 0 0 1rem 0;
 }
 
-.section-description {
-  font-size: 1.1rem;
-  color: #666666;
+.contacto-service-card p {
+  font-size: 0.95rem;
+  color: #757575;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
 }
 
-/* FAQ Accordion */
-.faq-accordion {
+/* FAQ SECTION */
+.contacto-faq-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contacto-faq-container {
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+.contacto-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.contacto-faq-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #c5a059;
+  transition: all 0.4s ease-out;
+}
+
+.contacto-faq-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15);
+}
+
+.contacto-faq-question {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.faq-item {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.faq-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: #e74c3c;
-}
-
-.faq-button {
-  width: 100%;
-  padding: 1.5rem;
-  background-color: #ffffff;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.faq-button:hover {
-  background-color: #f9f9f9;
-}
-
-.faq-button:focus {
-  outline: none;
-  background-color: #f0f0f0;
-}
-
-.faq-button.expanded {
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.faq-question {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #000000;
-  text-align: left;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.faq-icon {
-  color: #e74c3c;
+.contacto-faq-icon {
+  color: #c5a059;
+  margin-top: 0.3rem;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-out;
 }
 
-.faq-button.expanded .faq-icon {
-  transform: rotate(180deg);
+.contacto-faq-item:hover .contacto-faq-icon {
+  transform: translateX(5px);
 }
 
-.faq-answer {
-  padding: 1.5rem;
-  background-color: #fafafa;
-  border-top: 1px solid #e0e0e0;
-  animation: slideDown 0.3s ease;
+.contacto-faq-question h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0;
+  line-height: 1.3;
 }
 
-@keyframes slideDown {
+.contacto-faq-answer {
+  font-size: 0.95rem;
+  color: #757575;
+  margin: 0;
+  margin-left: 2rem;
+  line-height: 1.6;
+}
+
+/* CTA SECTION */
+.contacto-cta-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #c5a059 0%, #d4b574 100%);
+  max-width: 1200px;
+  margin: 2rem auto;
+  border-radius: 1.5rem;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+.contacto-cta-content {
+  color: white;
+}
+
+.contacto-cta-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+}
+
+.contacto-cta-text {
+  font-size: 1.1rem;
+  margin: 0 0 2rem 0;
+  opacity: 0.95;
+}
+
+.contacto-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contacto-cta-btn {
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+  border: none;
+}
+
+.contacto-cta-btn.primary {
+  background: white;
+  color: #c5a059;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contacto-cta-btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.contacto-cta-btn.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.contacto-cta-btn.secondary:hover {
+  background: white;
+  color: #c5a059;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ANIMATIONS */
+@keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
@@ -354,200 +579,161 @@
   }
 }
 
-.faq-answer p {
-  font-size: 0.95rem;
-  color: #666666;
-  margin: 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Mobile Responsive */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotateZ(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateZ(0deg);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 1024px) {
-  .contact-wrapper {
+  .contacto-main-container {
+    grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .contacto-info-cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .contacto-hero {
-    padding: 2rem 1rem;
-    min-height: 250px;
+    height: 280px;
   }
 
-  .contacto-hero .hero-title {
-    font-size: 2rem;
+  .contacto-title {
+    font-size: 2.5rem;
   }
 
-  .contacto-hero .hero-subtitle {
+  .contacto-subtitle {
     font-size: 1rem;
   }
 
-  .contact-main-section {
-    padding: 2.5rem 1rem;
+  .contacto-channels-section,
+  .contacto-main-section,
+  .contacto-services-section,
+  .contacto-faq-section {
+    padding: 2rem 1rem;
   }
 
-  .contact-wrapper {
+  .contacto-channels-grid,
+  .contacto-services-grid,
+  .contacto-faq-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .column-title {
-    font-size: 1.5rem;
-  }
-
-  .contact-channels {
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
   }
 
-  .contact-channel {
-    gap: 1rem;
-    padding: 1.25rem;
+  .contacto-section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
   }
 
-  .faq-section {
-    padding: 2.5rem 1rem;
+  .contacto-info-cards {
+    grid-template-columns: 1fr;
   }
 
-  .section-title {
-    font-size: 1.75rem;
+  .contacto-faq-question {
+    flex-direction: column;
   }
 
-  .faq-button {
-    padding: 1.25rem;
+  .contacto-faq-answer {
+    margin-left: 1rem;
   }
 
-  .faq-answer {
-    padding: 1.25rem;
+  .contacto-cta-buttons {
+    flex-direction: column;
+  }
+
+  .contacto-cta-btn {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .contacto-hero .hero-title {
+  .contacto-hero {
+    height: 240px;
+  }
+
+  .contacto-title {
+    font-size: 2rem;
+  }
+
+  .contacto-form-wrapper,
+  .contacto-location-card {
+    padding: 1.5rem;
+  }
+
+  .contacto-cta-section {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+
+  .contacto-cta-title {
     font-size: 1.5rem;
   }
 
-  .column-title {
-    font-size: 1.25rem;
-  }
-
-  .channel-icon {
-    min-width: 32px;
-  }
-
-  .channel-icon svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .form-input,
-  .form-select,
-  .form-textarea {
-    padding: 0.6rem 0.75rem;
-    font-size: 16px;
-  }
-
-  .submit-button {
-    width: 100%;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .faq-button {
-    padding: 1rem;
-    gap: 0.75rem;
-  }
-
-  .faq-icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .faq-answer {
-    padding: 1rem;
-  }
-}
-
-/* High Contrast Mode */
-.contacto-container.high-contrast {
-  background-color: #000000;
-}
-
-.contacto-container.high-contrast .contacto-hero {
-  background-color: #000000;
-  border-bottom: 2px solid #ffff00;
-}
-
-.contacto-container.high-contrast .hero-title,
-.contacto-container.high-contrast .column-title,
-.contacto-container.high-contrast .channel-title,
-.contacto-container.high-contrast .hours-title,
-.contacto-container.high-contrast .section-title,
-.contacto-container.high-contrast .faq-question {
-  color: #ffff00;
-}
-
-.contacto-container.high-contrast .hero-subtitle,
-.contacto-container.high-contrast .section-description,
-.contacto-container.high-contrast .channel-text {
-  color: #ffffff;
-}
-
-.contacto-container.high-contrast .contact-channel,
-.contacto-container.high-contrast .hours-section {
-  background-color: #000000;
-  border-color: #ffff00;
-}
-
-.contacto-container.high-contrast .form-input,
-.contacto-container.high-contrast .form-select,
-.contacto-container.high-contrast .form-textarea {
-  background-color: #1a1a1a;
-  border-color: #ffff00;
-  color: #ffff00;
-}
-
-.contacto-container.high-contrast .form-input::placeholder {
-  color: #808080;
-}
-
-.contacto-container.high-contrast .form-label {
-  color: #ffff00;
-}
-
-.contacto-container.high-contrast .faq-item {
-  background-color: #000000;
-  border-color: #ffff00;
-}
-
-.contacto-container.high-contrast .faq-button {
-  background-color: #000000;
-}
-
-.contacto-container.high-contrast .faq-button:hover {
-  background-color: #1a1a1a;
-}
-
-.contacto-container.high-contrast .faq-answer {
-  background-color: #1a1a1a;
-  border-color: #ffff00;
-  color: #ffffff;
-}
-
-/* No Animations */
-@media (prefers-reduced-motion: reduce) {
-  .contact-channel,
-  .faq-item,
-  .faq-button,
-  .faq-answer,
-  .submit-button,
-  .form-input,
-  .form-select,
-  .form-textarea {
-    animation: none;
-    transition: none;
+  .contacto-main-section {
+    padding: 1.5rem 1rem;
   }
 }

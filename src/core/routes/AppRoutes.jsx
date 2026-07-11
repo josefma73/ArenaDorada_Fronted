@@ -9,6 +9,9 @@ import Home from '../../features/home/views/Home';
 import Servicios from '../../features/services/views/Servicios';
 import Contacto from '../../features/contact/views/Contacto';
 import Blog from '../../features/blog/views/Blog';
+import Busqueda from "../../features/busqueda/view/Busqueda"
+import Habitaciones from '../../features/habitaciones/views/Habitaciones';
+import Promociones from '../../features/promociones/views/Promociones';
 
 // Vistas de la Feature: Autenticación (Sin Header ni Footer)
 import Login from '../../features/auth/views/Login';
@@ -28,6 +31,9 @@ function AppRoutes() {
          <Route path="/servicios" element={<Servicios />} />
          <Route path="/contacto" element={<Contacto />} />
          <Route path="/blog" element={<Blog />} /> 
+         <Route path="/busqueda" element={<Busqueda />} />
+         <Route path="/habitaciones" element={<Habitaciones />} />
+         <Route path="/promociones" element={<Promociones />} />
       </Route>
 
       {/* ===================================================================
