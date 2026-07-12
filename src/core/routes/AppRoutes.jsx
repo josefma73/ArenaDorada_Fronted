@@ -12,6 +12,10 @@ import Blog from '../../features/blog/views/Blog';
 import Busqueda from "../../features/busqueda/view/Busqueda"
 import Habitaciones from '../../features/habitaciones/views/Habitaciones';
 import Promociones from '../../features/promociones/views/Promociones';
+import HabitacionSimple from '../../features/habitaciones/views/HabitacionSimple';
+import HabitacionDoble from '../../features/habitaciones/views/HabitacionDoble';
+import HabitacionTriple from '../../features/habitaciones/views/HabitacionTriple';
+import HabitacionMatrimonial from '../../features/habitaciones/views/HabitacionMatrimonial';
 
 // Vistas de la Feature: Autenticación (Sin Header ni Footer)
 import Login from '../../features/auth/views/Login';
@@ -34,6 +38,12 @@ function AppRoutes() {
          <Route path="/busqueda" element={<Busqueda />} />
          <Route path="/habitaciones" element={<Habitaciones />} />
          <Route path="/promociones" element={<Promociones />} />
+         <Route path="/habitacionsimple" element={<HabitacionSimple />} />
+         <Route path="/habitaciondoble" element={<HabitacionDoble />} />
+         <Route path="/habitaciontriple" element={<HabitacionTriple />} />
+         <Route path="/habitacionmatrimonial" element={<HabitacionMatrimonial />} />
+         
+         
       </Route>
 
       {/* ===================================================================

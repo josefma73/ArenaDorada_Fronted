@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   FaBed,
   FaWifi,
@@ -8,10 +9,13 @@ import {
   FaClock,
   FaCheckCircle,
   FaChevronDown,
+  FaArrowRight,
+  FaStar,
 } from 'react-icons/fa';
 import '../styles/Habitaciones.css';
 
 export default function Habitaciones() {
+  const navigate = useNavigate();
   const [expandedCategory, setExpandedCategory] = useState(null);
 
   const roomCategories = [
@@ -21,8 +25,10 @@ export default function Habitaciones() {
       capacity: '1-2 personas',
       beds: '1 cama individual o matrimonial',
       price: 'S/. 35-50/día',
-      description: 'Perfecta para viajeros en solitario o parejas. Acceso a la piscina con recargo.',
+      description: 'Perfecta para viajeros en solitario o parejas. Acceso a la piscina con recargo adicional.',
       icon: FaBed,
+      path: '/habitacionsimple',
+      premium: false,
     },
     {
       id: 2,
@@ -32,6 +38,8 @@ export default function Habitaciones() {
       price: 'S/. 60-80/día',
       description: 'Espaciosa y cómoda para familias pequeñas o grupos de amigos.',
       icon: FaBed,
+      path: '/habitaciondoble',
+      premium: false,
     },
     {
       id: 3,
@@ -41,6 +49,9 @@ export default function Habitaciones() {
       price: 'S/. 85-110/día',
       description: 'Ideal para grupos pequeños con distribuidor amplio y mayor espacio de almacenamiento.',
       icon: FaUsers,
+      path: '/habitaciontriple',
+      premium: true,
+      premiumBenefit: 'Acceso Gratis a Piscina y Bar',
     },
     {
       id: 4,
@@ -48,8 +59,11 @@ export default function Habitaciones() {
       capacity: '2 personas',
       beds: '1 cama matrimonial de lujo',
       price: 'S/. 90-130/día',
-      description: 'Premium. Acceso GRATUITO a la piscina. Máxima comodidad y elegancia.',
+      description: 'Premium. Máxima comodidad y elegancia con acceso exclusivo.',
       icon: FaBed,
+      path: '/habitacionmatrimonial',
+      premium: true,
+      premiumBenefit: 'Acceso Gratis a Piscina y Bar',
     },
   ];
 
@@ -85,52 +99,57 @@ export default function Habitaciones() {
       {/* Categorías de Habitaciones */}
       <section className="habitaciones-categories-section">
         <h2 className="habitaciones-section-title">Categorías Disponibles</h2>
-        <div className="habitaciones-grid">
+        <div className="habitaciones-stack-grid">
           {roomCategories.map((room) => {
             const IconComponent = room.icon;
             return (
               <div
                 key={room.id}
-                className="habitaciones-card"
-                onClick={() =>
-                  setExpandedCategory(
-                    expandedCategory === room.id ? null : room.id
-                  )
-                }
+                className="habitaciones-room-card"
               >
-                <div className="habitaciones-card-header">
-                  <div className="habitaciones-card-icon">
-                    <IconComponent size={32} />
+                {room.premium && (
+                  <div className="habitaciones-premium-badge">
+                    <FaStar size={14} />
+                    <span>{room.premiumBenefit}</span>
                   </div>
-                  <div className="habitaciones-card-title-section">
-                    <h3 className="habitaciones-card-name">{room.name}</h3>
-                    <p className="habitaciones-card-price">{room.price}</p>
-                  </div>
-                </div>
+                )}
+                
+                <div className="habitaciones-room-card-layout">
+                  <div className="habitaciones-room-left">
+                    <div className="habitaciones-room-header">
+                      <div className="habitaciones-room-icon">
+                        <IconComponent size={32} />
+                      </div>
+                      <div className="habitaciones-room-info">
+                        <h3 className="habitaciones-room-name">{room.name}</h3>
+                        <p className="habitaciones-room-price">{room.price}</p>
+                      </div>
+                    </div>
 
-                <div className="habitaciones-card-content">
-                  <p className="habitaciones-card-capacity">
-                    <FaUsers size={16} /> {room.capacity}
-                  </p>
-                  <p className="habitaciones-card-beds">
-                    <FaBed size={16} /> {room.beds}
-                  </p>
-
-                  {expandedCategory === room.id && (
-                    <div className="habitaciones-card-expanded">
-                      <p className="habitaciones-card-description">
+                    <div className="habitaciones-room-details">
+                      <p className="habitaciones-room-detail-item">
+                        <FaUsers size={16} /> {room.capacity}
+                      </p>
+                      <p className="habitaciones-room-detail-item">
+                        <FaBed size={16} /> {room.beds}
+                      </p>
+                      <p className="habitaciones-room-description">
                         {room.description}
                       </p>
                     </div>
-                  )}
-                </div>
+                  </div>
 
-                <div className="habitaciones-card-footer">
-                  <FaChevronDown
-                    className={`habitaciones-chevron ${
-                      expandedCategory === room.id ? 'active' : ''
-                    }`}
-                  />
+                  <div className="habitaciones-room-actions">
+                    <button 
+                      className="habitaciones-btn-secondary"
+                      onClick={() => navigate(room.path)}
+                    >
+                      Ver más <FaArrowRight />
+                    </button>
+                    <button className="habitaciones-btn-primary">
+                      Reserva tu estadía
+                    </button>
+                  </div>
                 </div>
               </div>
             );
