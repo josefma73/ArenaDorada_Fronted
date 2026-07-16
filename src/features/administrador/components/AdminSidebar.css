@@ -1,0 +1,242 @@
+.admin-sidebar {
+  width: 220px;
+  height: 100vh;
+  background: linear-gradient(180deg, #C5A059 0%, #B8945D 100%);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Logo Section */
+.admin-sidebar-logo {
+  padding: 1.5rem 1rem;
+  background: white;
+  border-bottom: 2px solid rgba(197, 160, 89, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  animation: fadeInDown 0.6s ease-out 0.1s backwards;
+}
+
+.admin-logo-container {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-logo-svg {
+  width: 100%;
+  height: 100%;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.admin-logo-text {
+  text-align: center;
+  margin: 0;
+}
+
+.admin-logo-text h1 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #C5A059;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.admin-logo-text p {
+  font-size: 0.75rem;
+  color: #757575;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* Navigation Menu */
+.admin-sidebar-nav {
+  flex: 1;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.admin-sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-sidebar-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin: 0 0.5rem;
+  border-radius: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.admin-menu-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  transform: translateX(4px);
+}
+
+.admin-menu-item.active {
+  background: white;
+  color: #C5A059;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+}
+
+.admin-menu-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease-out;
+}
+
+.admin-menu-item.active .admin-menu-icon {
+  transform: scale(1.15);
+}
+
+.admin-menu-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Logout Button */
+.admin-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 0.9rem 1rem;
+  margin: 1rem 0.5rem 1.5rem;
+  background: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #C5A059;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: fadeInUp 0.6s ease-out 0.3s backwards;
+}
+
+.admin-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.admin-logout-icon {
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 180px;
+  }
+
+  .admin-menu-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .admin-sidebar-logo {
+    display: none;
+  }
+
+  .admin-sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.2rem;
+  }
+
+  .admin-menu-item {
+    flex-shrink: 0;
+  }
+
+  .admin-logout-btn {
+    display: none;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

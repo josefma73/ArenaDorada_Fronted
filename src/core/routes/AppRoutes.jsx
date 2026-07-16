@@ -23,6 +23,12 @@ import Register from '../../features/auth/views/Register';
 import Recovery from '../../features/auth/views/ForgotPassword'
 import ResetPassword from '../../features/auth/views/ResetPassword';
 
+//Vistas de la Featura: Administrador
+import AdministradorInicio from '../../features/administrador/views/AdministradorInicio';
+import AdministradorProductos from '../../features/administrador/views/AdministradorProductos';
+import AdministradorUsuarios from '../../features/administrador/views/AdministradorUsuarios';
+
+
 function AppRoutes() {
   return (
     <Routes>
@@ -55,14 +61,11 @@ function AppRoutes() {
       <Route path="/reset-password" element={<ResetPassword />} />
 
       {/* ===================================================================
-          GRUPO 3: DASHBOARDS / PANELES PRIVADOS (Llevarán su propio Layout de Panel)
+          GRUPO 3: DASHBOARDS / PANELES PRIVADOS 
           =================================================================== */}
-      {/* En los siguientes Sprints, cuando crees los paneles, se estructurarán igual: */}
-      {/* <Route element={<DashboardLayout />}> */}
-      {/* <Route path="/panel/estudiante" element={<PanelEstudiante />} /> */}
-      {/* <Route path="/panel/propietario" element={<PanelPropietario />} /> */}
-      {/* <Route path="/panel/admin" element={<PanelAdmin />} /> */}
-      {/* </Route> */}
+      <Route path="/administrador/inicio" element={<AdministradorInicio />} />
+      <Route path="/administrador/productos" element={<AdministradorProductos />} />
+      <Route path="/administrador/usuarios" element={<AdministradorUsuarios />} />
 
       {/* Manejo de Errores global */}
       <Route path="/404" element={<h1>Error 404 - Página No Encontrada</h1>} />
