@@ -110,7 +110,7 @@ function Login() {
           
           <div className="login-header">
             <h1 className="brand-title">Arena Dorada</h1>
-            <p className="brand-subtitle">Tu hogar ideal</p>
+            <p className="brand-subtitle">Tu lugar ideal</p>
             <h2 className="form-title">Iniciar sesión</h2>
           </div>
 
