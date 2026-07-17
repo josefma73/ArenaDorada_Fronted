@@ -26,6 +26,7 @@ import AdministradorInicio from '../../features/administrador/views/Administrado
 import AdministradorProductos from '../../features/administrador/views/AdministradorProductos';
 import AdministradorUsuarios from '../../features/administrador/views/AdministradorUsuarios';
 import AdministradorCategorias from '../../features/administrador/views/AdministradorCategorias';
+import AdministradorHabitaciones from '../../features/administrador/views/AdministradorHabitaciones';
 
 // SEGURIDAD
 import ProtectedRoute from './ProtectedRoute';
@@ -82,6 +83,10 @@ function AppRoutes(){
       <Route 
           path="/administrador/categorias"
           element={<AdministradorCategorias/>}
+      />
+      <Route 
+          path="/administrador/habitaciones"
+          element={<AdministradorHabitaciones/>}
       />
       </Route>
 

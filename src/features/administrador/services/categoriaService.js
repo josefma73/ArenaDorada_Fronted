@@ -82,14 +82,18 @@ export const categoriaService = {
     return await response.json();
   },
 
-  // Desactivar una categoría (Soft Delete)
-  desactivar: async (id) => {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: 'DELETE',
+  
+// Cambiar estado de una categoría (Activar/Desactivar)
+  cambiarEstado: async (id, estadoActivo) => {
+    const response = await fetch(`${API_URL}/${id}/estado`, {
+      method: 'PATCH',
       headers: getHeaders(),
+      body: JSON.stringify({
+        activo: estadoActivo
+      })
     });
     if (!response.ok) {
-      throw new Error('Error al dar de baja la categoría.');
+      throw new Error('Error al cambiar el estado de la categoría.');
     }
     return true;
   }

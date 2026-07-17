@@ -133,7 +133,7 @@ export default function AdministradorCategorias() {
 
     if (result.isConfirmed) {
       try {
-        await categoriaService.desactivar(id);
+        await categoriaService.cambiarEstado(id, false);
         Swal.fire({
           icon: 'success',
           title: 'Baja completada',
@@ -156,16 +156,7 @@ export default function AdministradorCategorias() {
   // Toggle directo para activar/desactivar la categoría desde la tabla
   const handleToggleActive = async (category) => {
     try {
-      if (category.activo) {
-        // Si está activa, la desactivamos usando el endpoint de soft delete
-        await categoriaService.desactivar(category.id);
-      } else {
-        // Si está inactiva y la queremos reactivar, usamos el método actualizar enviando el mismo nombre
-        // El backend guardará el estado o puedes mandar un PUT para actualizar sus datos.
-        await categoriaService.actualizar(category.id, { nombre: category.nombre });
-        // Nota: Si tu backend requiere reactivar explícitamente y actualizar no cambia el booleano 'activo' por defecto,
-        // puedes configurar un endpoint específico o verificar si al Guardar/Actualizar se auto-activa.
-      }
+      await categoriaService.cambiarEstado(category.id, !category.activo);
       cargarCategorias();
     } catch (error) {
       console.error(error);

@@ -153,7 +153,7 @@ export default function AdministradorProductos() {
 
     if (result.isConfirmed) {
       try {
-        await productoService.desactivar(id);
+        await productoService.cambiarEstado(id, false);
         Swal.fire({
           icon: 'success',
           title: 'Baja completada',
@@ -175,15 +175,7 @@ export default function AdministradorProductos() {
 
   const handleToggleActive = async (product) => {
     try {
-      const updatedProduct = {
-        nombre: product.nombre,
-        categoriaId: product.categoriaId,
-        precio: product.precio,
-        imagenUrl: product.imagenUrl,
-        activo: !product.activo
-      };
-      
-      await productoService.actualizar(product.id, updatedProduct);
+      await productoService.cambiarEstado(product.id, !product.activo);
       cargarDatosIniciales();
     } catch (error) {
       console.error(error);

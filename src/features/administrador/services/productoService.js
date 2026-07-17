@@ -64,14 +64,18 @@ export const productoService = {
     return await response.json();
   },
 
-  // Desactivar / Dar de baja un producto (Soft Delete)
-  desactivar: async (id) => {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: 'DELETE',
+
+  // Cambiar estado de un producto (Activar/Desactivar)
+  cambiarEstado: async (id, estadoActivo) => {
+    const response = await fetch(`${API_URL}/${id}/estado`, {
+      method: 'PATCH',
       headers: getHeaders(),
+      body: JSON.stringify({
+        activo: estadoActivo
+      }),
     });
     if (!response.ok) {
-      throw new Error('Error al dar de baja el producto.');
+      throw new Error('Error al cambiar el estado del producto.');
     }
     return true;
   }
