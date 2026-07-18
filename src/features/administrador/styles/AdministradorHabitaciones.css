@@ -1,6 +1,3 @@
-/* =========================================
-   VARIABLES & LAYOUT
-========================================= */
 :root {
   --gold-primary: #C5A059;
   --gold-light: #D4B574;
@@ -11,14 +8,12 @@
   --text-muted: #757575;
   --border-color: rgba(197, 160, 89, 0.2);
   
-  --status-libre: #4CAF50;
-  --status-libre-bg: rgba(76, 175, 80, 0.15);
-  --status-ocupada: #F44336;
-  --status-ocupada-bg: rgba(244, 67, 54, 0.15);
-  --status-limpieza: #2196F3;
-  --status-limpieza-bg: rgba(33, 150, 243, 0.15);
+  --status-libre: #22C55E;
+  --status-libre-bg: rgba(34, 197, 94, 0.1);
+  --status-ocupado: #EF4444;
+  --status-ocupado-bg: rgba(239, 68, 68, 0.1);
   --status-mantenimiento: #FF9800;
-  --status-mantenimiento-bg: rgba(255, 152, 0, 0.15);
+  --status-mantenimiento-bg: rgba(255, 152, 0, 0.1);
 }
 
 .admin-habitaciones-container {
@@ -140,15 +135,17 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  background: var(--bg-white);
+  padding: 0.6rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
 }
 
 .admin-habitaciones-filter-tabs {
   display: inline-flex;
-  background: var(--bg-white);
-  padding: 0.4rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-  border: 1px solid var(--border-color);
+  background: var(--bg-cream);
+  padding: 0.3rem;
+  border-radius: 0.8rem;
   overflow-x: auto;
 }
 
@@ -156,15 +153,15 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1.1rem;
   background: transparent;
   border: none;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
   color: var(--text-muted);
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
   white-space: nowrap;
 }
 
@@ -176,14 +173,54 @@
 .admin-habitaciones-tab.active {
   background: var(--gold-primary);
   color: white;
-  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.25);
+}
+
+/* NUEVO: Contenedor y botones de filtros por estado físico */
+.admin-habitaciones-status-filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: var(--bg-cream);
+  border: 1.5px solid transparent;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.status-filter-btn .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #757575;
+}
+
+.filter-todos .status-dot { background: var(--text-muted); }
+.filter-libre .status-dot { background: var(--status-libre); }
+.filter-ocupado .status-dot { background: var(--status-ocupado); }
+.filter-mantenimiento .status-dot { background: var(--status-mantenimiento); }
+
+.status-filter-btn.active {
+  border-color: var(--gold-primary);
+  background: var(--bg-white);
+  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.15);
 }
 
 .admin-habitaciones-results-count {
-  padding: 0.6rem 1.2rem;
-  background: rgba(197, 160, 89, 0.1);
-  border-radius: 0.8rem;
-  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background: rgba(197, 160, 89, 0.08);
+  border-radius: 0.6rem;
+  font-size: 0.88rem;
   color: var(--gold-primary);
   font-weight: 700;
 }
@@ -283,10 +320,9 @@
   letter-spacing: 0.5px;
 }
 
-.status-libre { background: rgba(255,255,255,0.9); color: var(--status-libre); border: 1px solid var(--status-libre); }
-.status-ocupada { background: rgba(255,255,255,0.9); color: var(--status-ocupada); border: 1px solid var(--status-ocupada); }
-.status-limpieza { background: rgba(255,255,255,0.9); color: var(--status-limpieza); border: 1px solid var(--status-limpieza); }
-.status-mantenimiento { background: rgba(255,255,255,0.9); color: var(--status-mantenimiento); border: 1px solid var(--status-mantenimiento); }
+.status-libre { background: rgba(255,255,255,0.92); color: var(--status-libre); border: 1px solid var(--status-libre); }
+.status-ocupado { background: rgba(255,255,255,0.92); color: var(--status-ocupado); border: 1px solid var(--status-ocupado); }
+.status-mantenimiento { background: rgba(255,255,255,0.92); color: var(--status-mantenimiento); border: 1px solid var(--status-mantenimiento); }
 
 .room-card-body {
   padding: 2.5rem 1.5rem 1.5rem;
@@ -354,9 +390,9 @@
 }
 
 .room-toggle-btn.inactivo {
-  background: var(--status-ocupada-bg);
-  color: var(--status-ocupada);
-  border: 1.5px solid var(--status-ocupada);
+  background: var(--status-ocupado-bg);
+  color: var(--status-ocupado);
+  border: 1.5px solid var(--status-ocupado);
 }
 
 .room-toggle-btn:hover { transform: translateY(-2px); }
@@ -409,7 +445,7 @@
 }
 
 /* =========================================
-   MODAL
+   MODAL BASE & CONTENEDORES
 ========================================= */
 .admin-habitaciones-modal-overlay {
   position: fixed;
@@ -426,7 +462,7 @@
 .admin-habitaciones-modal {
   background: var(--bg-white);
   border-radius: 1.5rem;
-  max-width: 850px;
+  max-width: 880px;
   width: 95%;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   animation: slideUpModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -442,7 +478,7 @@
   color: white;
 }
 
-.admin-habitaciones-modal-header h2 { margin: 0; font-size: 1.6rem; font-weight: 800; }
+.admin-habitaciones-modal-header h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
 
 .admin-habitaciones-modal-close {
   background: rgba(255, 255, 255, 0.2);
@@ -466,7 +502,7 @@
 
 .admin-habitaciones-modal-content {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1.4fr;
   gap: 2.5rem;
   padding: 2.5rem;
 }
@@ -502,7 +538,7 @@
 .admin-habitaciones-modal-right {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .admin-habitaciones-row-group {
@@ -514,25 +550,25 @@
 .admin-habitaciones-divider {
   text-align: center;
   position: relative;
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
 }
 .admin-habitaciones-divider::before {
-  content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: rgba(0,0,0,0.1); z-index: 1;
+  content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: rgba(197, 160, 89, 0.2); z-index: 1;
 }
 .admin-habitaciones-divider span {
-  background: var(--bg-white); padding: 0 1rem; position: relative; z-index: 2; color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;
+  background: var(--bg-white); padding: 0 1rem; position: relative; z-index: 2; color: var(--gold-primary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
 }
 
 .admin-habitaciones-form-group { display: flex; flex-direction: column; gap: 0.6rem; }
 .input-full { width: 100%; }
 
 .admin-habitaciones-form-group label {
-  font-size: 0.85rem; font-weight: 800; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px;
+  font-size: 0.82rem; font-weight: 800; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px;
 }
 
 .admin-habitaciones-form-group input,
 .admin-habitaciones-form-group select {
-  padding: 0.9rem 1.2rem;
+  padding: 0.85rem 1.2rem;
   border: 2px solid var(--border-color);
   border-radius: 0.8rem;
   font-size: 0.95rem;
@@ -551,14 +587,182 @@
 }
 
 .input-locked {
-  background-color: #f0f0f0 !important; cursor: not-allowed; color: #888 !important; opacity: 0.7;
+  background-color: #f1ebd9 !important; cursor: not-allowed; color: #757575 !important; opacity: 0.8; border-color: rgba(197, 160, 89, 0.1) !important;
 }
 
 .input-with-icon { position: relative; display: flex; align-items: center; }
-.input-with-icon .input-icon { position: absolute; left: 1rem; color: var(--text-muted); font-size: 1.1rem; }
+.input-with-icon .input-icon { position: absolute; left: 1rem; color: var(--gold-primary); font-size: 1.1rem; }
 .input-with-icon input { padding-left: 2.8rem; width: 100%; }
 
-/* Modal Footer */
+/* ==========================================================================
+   NUEVO: BLOQUES EN TIEMPO REAL (RESERVA ACTIVA / LIBRE / MANTENIMIENTO)
+   ========================================================================== */
+.room-realtime-context-panel {
+  margin-top: 0.4rem;
+  width: 100%;
+}
+
+.context-box {
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin-top: 0.8rem;
+  border: 1px solid transparent;
+}
+
+.context-box-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin: 0 0 0.8rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.context-box-desc {
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Modificadores de Alertas Contextuales según estado en PostgreSQL */
+.state-occupied-panel {
+  background-color: var(--status-ocupado-bg);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+.state-occupied-panel .context-box-title { color: #D32F2F; }
+
+.state-free-panel {
+  background-color: var(--status-libre-bg);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+.state-free-panel .context-box-title { color: #1E88E5; }
+
+.state-maintenance-panel {
+  background-color: var(--status-mantenimiento-bg);
+  border-color: rgba(255, 152, 0, 0.2);
+}
+.state-maintenance-panel .context-box-title { color: #E65100; }
+
+/* Grid de detalles transaccionales de la reserva activa */
+.context-grid-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+}
+.context-grid-details p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.context-total-highlight {
+  grid-column: span 2;
+  font-weight: 800;
+  color: #1A1A1A;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  font-size: 0.95rem;
+}
+
+/* Botón interactivo redireccional */
+.btn-context-action {
+  width: 100%;
+  margin-top: 1.1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  letter-spacing: 0.5px;
+}
+
+.view-reserva {
+  background-color: #1A1A1A;
+  color: white;
+}
+.view-reserva:hover {
+  background-color: black;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Historial dinámico de última reserva */
+.last-reservation-helper {
+  margin-top: 0.8rem;
+  border-top: 1px dashed rgba(197, 160, 89, 0.4);
+  padding-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+.btn-last-res-detail {
+  background: #1A1A1A;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.2s ease;
+}
+.btn-last-res-detail:hover { 
+  background-color: var(--gold-primary); 
+  transform: translateY(-1px);
+}
+
+/* Sistema de Efecto Pulso Luminoso (Blinking) */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+.pulse-dot.red { background-color: var(--status-ocupado); }
+.pulse-dot.green { background-color: var(--status-libre); }
+.pulse-dot.orange { background-color: var(--status-mantenimiento); }
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  border-radius: 50%;
+  animation: pulse-animation 1.6s infinite ease-in-out;
+}
+.pulse-dot.red::after { box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); }
+.pulse-dot.green::after { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4); }
+.pulse-dot.orange::after { box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.4); }
+
+@keyframes pulse-animation {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* =========================================
+   MODAL FOOTER
+========================================= */
 .admin-habitaciones-modal-footer {
   display: flex;
   gap: 1rem;
@@ -588,7 +792,6 @@
 }
 .admin-habitaciones-btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(197, 160, 89, 0.4); }
 
-
 /* =========================================
    ANIMATIONS & RESPONSIVE
 ========================================= */
@@ -603,6 +806,11 @@
   .admin-habitaciones-container { grid-template-columns: 1fr; }
   .admin-habitaciones-workspace { grid-column: 1; }
   .admin-rooms-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+}
+
+@media (max-width: 1024px) {
+  .admin-habitaciones-filter-container { flex-direction: column; align-items: flex-start; }
+  .admin-habitaciones-status-filters { width: 100%; overflow-x: auto; padding-bottom: 0.2rem; }
 }
 
 @media (max-width: 900px) {
@@ -620,4 +828,6 @@
   .admin-habitaciones-modal-footer { flex-direction: column; }
   .admin-habitaciones-btn-cancel, .admin-habitaciones-btn-confirm { width: 100%; justify-content: center; }
   .admin-habitaciones-large-placeholder { width: 80%; }
+  .context-grid-details { grid-template-columns: 1fr; }
+  .context-total-highlight { grid-column: span 1; }
 }
