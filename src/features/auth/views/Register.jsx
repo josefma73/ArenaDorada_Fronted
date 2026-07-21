@@ -185,7 +185,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="email">Correo electrónico</label>
                   <div className="input-icon-wrapper">
-                    <Mail className="input-icon-left" size={18} />
+                    <Mail className="input-icon-leftt" size={18} />
                     <input
                       type="email"
                       id="email"
@@ -203,7 +203,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="nombres">Nombres</label>
                   <div className="input-icon-wrapper">
-                    <User className="input-icon-left" size={18} />
+                    <User className="input-icon-leftt" size={18} />
                     <input
                       type="text"
                       id="nombres"
@@ -221,7 +221,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="apellidos">Apellidos</label>
                   <div className="input-icon-wrapper">
-                    <User className="input-icon-left" size={18} />
+                    <User className="input-icon-leftt" size={18} />
                     <input
                       type="text"
                       id="apellidos"
@@ -239,7 +239,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="telefono">Número de teléfono</label>
                   <div className="input-icon-wrapper">
-                    <Phone className="input-icon-left" size={18} />
+                    <Phone className="input-icon-leftt" size={18} />
                     <input
                       type="tel"
                       id="telefono"
@@ -259,7 +259,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
                   <div className="input-icon-wrapper">
-                    <Calendar className="input-icon-left" size={18} />
+                    <Calendar className="input-icon-leftt" size={18} />
                     <input
                       type="date"
                       id="fechaNacimiento"
@@ -279,7 +279,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="password">Contraseña</label>
                   <div className="input-icon-wrapper">
-                    <Lock className="input-icon-left" size={18} />
+                    <Lock className="input-icon-leftt" size={18} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       id="password"
@@ -300,7 +300,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="confirmPassword">Repetir contraseña</label>
                   <div className="input-icon-wrapper">
-                    <Lock className="input-icon-left" size={18} />
+                    <Lock className="input-icon-leftt" size={18} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       id="confirmPassword"

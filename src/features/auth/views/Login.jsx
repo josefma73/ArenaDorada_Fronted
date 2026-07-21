@@ -120,7 +120,7 @@ function Login() {
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <div className="input-icon-wrapper">
-                <Mail className="input-icon-left" size={18} />
+                <Mail className="input-icon-leftt" size={18} />
                 <input
                   type="email"
                   id="email"
@@ -138,7 +138,7 @@ function Login() {
             <div className="form-group">
               <label htmlFor="password">Contraseña</label>
               <div className="input-icon-wrapper">
-                <Lock className="input-icon-left" size={18} />
+                <Lock className="input-icon-leftt" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'} // Cambia dinámicamente el tipo
                   id="password"

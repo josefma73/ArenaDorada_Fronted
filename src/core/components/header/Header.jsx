@@ -1,72 +1,163 @@
-import React from 'react';
-import '../header/Header.css';
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  HiOutlineBars3,
+  HiOutlineXMark,
+} from "react-icons/hi2";
+import {
+  FaHotel,
+  FaUserCircle,
+} from "react-icons/fa";
 
-const Header = ({ onNavClick = () => {}, currentPage = 'inicio' }) => {
-  const navLinks = [
-    { label: 'Inicio', id: 'inicio' },
-    { label: 'Habitaciones', id: 'habitaciones' },
-    { label: 'Servicios', id: 'servicios' },
-    { label: 'Promociones', id: 'promociones' },
-    { label: 'Blog', id: 'blog' },
-    { label: 'Contacto', id: 'contacto' },
-  ];
+import "./Header.css";
 
-  const handleNavClick = (id) => {
-    onNavClick(id);
-    announceSection(`Sección ${id}`);
+const navigation = [
+  {
+    name: "Inicio",
+    path: "/inicio",
+  },
+  {
+    name: "Habitaciones",
+    path: "/habitaciones",
+  },
+  {
+    name: "Servicios",
+    path: "/servicios",
+  },
+  {
+    name: "Promociones",
+    path: "/promociones",
+  },
+  {
+    name: "Blog",
+    path: "/blog",
+  },
+  {
+    name: "Contacto",
+    path: "/contacto",
+  },
+];
+
+function Header() {
+  const navigate = useNavigate();
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
-  const announceSection = (text) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'es-ES';
-      window.speechSynthesis.speak(utterance);
-    }
+  const handleLogin = () => {
+    navigate("/login");
+    closeMenu();
   };
 
-  const handleLoginClick = () => {
-    announceSection('Abrir sesión');
+  const handleReservation = () => {
+    navigate("/habitaciones");
+    closeMenu();
   };
 
   return (
-    <header className="hd-header__container">
-      <div className="hd-header__wrapper">
-        <a href="/" className="hd-header__logo">
-          ARENA DORADA
-        </a>
-        
-        <nav>
-          <ul className="hd-header__nav">
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <a
-                  href={`#${link.id}`}
-                  className="hd-header__nav-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.label);
-                  }}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+    <header
+      className={`hd-header ${
+        isScrolled ? "hd-header--scrolled" : ""
+      }`}
+    >
+      <div className="hd-header__container">
+
+        {/* ================= LOGO ================= */}
+
+        <NavLink
+          to="/inicio"
+          className="hd-header__logo"
+        >
+          <div className="hd-header__logo-icon">
+            <FaHotel />
+          </div>
+
+          <div className="hd-header__logo-text">
+            <span className="hd-header__brand">
+              Arena Dorada
+            </span>
+
+            <span className="hd-header__subtitle">
+              Hotel & Resort
+            </span>
+          </div>
+        </NavLink>
+
+        {/* ================= NAV ================= */}
+
+        <nav
+          className={`hd-header__nav ${
+            menuOpen ? "hd-header__nav--active" : ""
+          }`}
+        >
+          {navigation.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                isActive
+                  ? "hd-header__link hd-header__link--active"
+                  : "hd-header__link"
+              }
+            >
+              {item.name}
+            </NavLink>
+          ))}
         </nav>
 
+        {/* ================= BOTONES ================= */}
+
         <div className="hd-header__actions">
+
           <button
-            className="hd-header__session-btn"
-            onClick={handleLoginClick}
-            aria-label="Iniciar sesión"
+            className="hd-header__reservation-btn"
+            onClick={handleReservation}
           >
-            INICIAR SESIÓN
+            Reservar ahora
           </button>
+
+          <button
+            className="hd-header__login-btn"
+            onClick={handleLogin}
+          >
+            <FaUserCircle />
+            <span>Iniciar sesión</span>
+          </button>
+
+          <button
+            className="hd-header__menu-btn"
+            onClick={() =>
+              setMenuOpen(!menuOpen)
+            }
+            aria-label="Abrir menú"
+          >
+            {menuOpen ? (
+              <HiOutlineXMark />
+            ) : (
+              <HiOutlineBars3 />
+            )}
+          </button>
+
         </div>
+
       </div>
     </header>
   );
-};
+}
 
 export default Header;

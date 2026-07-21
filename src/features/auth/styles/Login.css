@@ -192,7 +192,7 @@
 
 .input-icon-left {
   position: absolute;
-  left: 14px;
+  left: 18px;
   color: #757575; /* Gris Medio */
   pointer-events: none;
   transition: color 0.2s ease;
@@ -211,7 +211,7 @@
 }
 
 /* Enfoque elegante de inputs */
-.input-icon-wrapper input:focus ~ .input-icon-left {
+.input-icon-wrapper:focus-within .input-icon-left {
   color: #C5A059; /* Cambia a Dorado */
 }
 

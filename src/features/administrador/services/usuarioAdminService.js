@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://hotelsistema-production.up.railway.app';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 const API_URL = `${API_BASE_URL}/api/admin/usuarios`;
 
 // Función auxiliar para obtener las cabeceras con el Token de autenticación
@@ -55,9 +55,32 @@ export const usuarioAdminService = {
     
     if (!response.ok) {
       // Intentamos extraer el mensaje de error personalizado que envía Spring Boot
-      // (ej. EmailYaRegistradoException o RolInvalidoException)
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || 'Error al registrar la cuenta de staff.');
+    }
+    
+    return await response.json();
+  },
+
+  // 4. Crear un cliente presencial (Walk-in)
+  crearClientePresencial: async (clienteData) => {
+    const response = await fetch(`${API_URL}/clientes`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({
+        nombre: clienteData.nombre,
+        apellidos: clienteData.apellidos,
+        email: clienteData.email,
+        telefono: clienteData.telefono,
+        password: clienteData.password
+        // El rol no se envía porque el backend lo asigna automáticamente como CLIENTE
+      }),
+    });
+    
+    if (!response.ok) {
+      // Intentamos extraer el mensaje de error personalizado que envía Spring Boot
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Error al registrar el cliente presencial.');
     }
     
     return await response.json();

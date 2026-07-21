@@ -10,21 +10,17 @@ function ResetPassword() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   
-  // Capturamos el token de la URL de forma automática (?token=...)
   const token = searchParams.get('token') || '';
 
-  // Estados de entrada
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // Estados de interfaz interactivos
   const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [touchedConfirm, setTouchedConfirm] = useState(false);
 
-  // Estados para los criterios visuales de fortaleza (Alineados a la arquitectura)
   const [criteria, setCriteria] = useState({
     length: false,
     lowercase: false,
@@ -33,18 +29,16 @@ function ResetPassword() {
     special: false
   });
 
-  // Validar criterios en tiempo real cada vez que se presiona una tecla
   useEffect(() => {
     setCriteria({
-      length: password.length >= 12 && password.length <= 16, // Sincronizado: 12 a 16 caract.
+      length: password.length >= 12 && password.length <= 16,
       lowercase: /[a-z]/.test(password),
       uppercase: /[A-Z]/.test(password),
       number: /[0-9]/.test(password),
-      special: /[¿?¡!@$#*.]/.test(password) // Agregados los nuevos caracteres solicitados
+      special: /[¿?¡!@$#*.]/.test(password)
     });
   }, [password]);
 
-  // Validar coincidencia general del formulario para activar el botón
   useEffect(() => {
     const allCriteriaMet = Object.values(criteria).every(v => v === true);
     const passwordsMatch = password === confirmPassword && confirmPassword.length > 0;
@@ -58,10 +52,10 @@ function ResetPassword() {
 
     if (!token) {
       Swal.fire({
-        title: 'Token Inválido',
-        text: 'No se detectó un token válido en la URL de restablecimiento. Solicite un nuevo enlace.',
+        title: 'Enlace Inválido',
+        text: 'No se detectó un token de seguridad. Por favor, solicita un nuevo enlace de recuperación.',
         icon: 'warning',
-        confirmButtonColor: '#EF6C00'
+        confirmButtonColor: '#C5A059'
       });
       return;
     }
@@ -69,16 +63,15 @@ function ResetPassword() {
     setIsLoading(true);
 
     try {
-      // Consumo de la promesa del backend en Railway
       await authService.resetPassword(token, password);
       
       setIsLoading(false);
 
       await Swal.fire({
-        title: '¡Contraseña restablecida exitosamente!',
-        text: 'Tu acceso ha sido actualizado de forma segura. Ya puedes iniciar sesión.',
+        title: '¡Contraseña actualizada!',
+        text: 'Tu acceso ha sido restablecido de forma segura. Ya puedes iniciar sesión.',
         icon: 'success',
-        confirmButtonColor: '#1565C0'
+        confirmButtonColor: '#C5A059'
       });
 
       navigate('/login');
@@ -88,8 +81,8 @@ function ResetPassword() {
       console.error("Error al restablecer:", error);
       
       Swal.fire({
-        title: 'Error al restablecer la contraseña',
-        text: 'El enlace ha expirado o es inválido. Por favor, vuelva a intentarlo más tarde.',
+        title: 'Error de validación',
+        text: 'El enlace ha expirado o es inválido. Por favor, solicita uno nuevo.',
         icon: 'error',
         confirmButtonColor: '#d32f2f'
       });
@@ -98,49 +91,47 @@ function ResetPassword() {
 
   return (
     <div className="reset-pass-container">
-      {/* LOADING OVERLAY INSTITUCIONAL */}
       {isLoading && (
-        <div className="roomica-loader-overlay">
-          <div className="roomica-loader-box">
-            <div className="roomica-spinner"></div>
-            <p className="roomica-loader-text">Actualizando credenciales en la base de datos...</p>
+        <div className="arena-loader-overlay">
+          <div className="arena-loader-box">
+            <div className="arena-spinner"></div>
+            <p className="arena-loader-text">Asegurando credenciales...</p>
           </div>
         </div>
       )}
 
-      {/* PANEL IZQUIERDO DE LOGO (Estilo Mockup Inmobiliario) */}
+      {/* PANEL IZQUIERDO: Branding Arena Dorada */}
       <div className="reset-brand-side">
         <div className="reset-logo-wrapper">
-          {/* Reemplazo dinámico del logo de la clínica por RoomIca */}
-          <div className="brand-logo-icon">🔑</div>
-          <h1 className="brand-logo-name">RoomIca</h1>
-          <p className="brand-logo-tagline">Tu hogar universitario ideal</p>
+          <h1 className="brand-logo-name">Arena Dorada</h1>
+          <p className="brand-logo-tagline">Hotel & Suites</p>
         </div>
         <div className="brand-lang-footer">
           <span>Español</span> | <span className="disabled-lang">English</span>
         </div>
       </div>
 
-      {/* PANEL DERECHO DEL FORMULARIO TRANSACCIONAL */}
+      {/* PANEL DERECHO: Formulario */}
       <div className="reset-form-side">
         <div className="reset-form-wrapper">
           
           <div className="reset-form-header">
-            <div className="lock-icon-badge"><ShieldAlert size={28} /></div>
-            <h2>Nueva Contraseña</h2>
+            <div className="lock-icon-badge"><ShieldAlert size={32} /></div>
+            <h2>Crear Nueva Contraseña</h2>
+            <p>Introduce una contraseña robusta para asegurar tu cuenta.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="reset-main-form">
             
             {/* Campo 1: Nueva Contraseña */}
             <div className="reset-group">
-              <label htmlFor="new-password">Ingrese la nueva contraseña</label>
+              <label htmlFor="new-password">Nueva contraseña</label>
               <div className="reset-input-wrapper">
-                <Lock className="reset-field-icon" size={16} />
+                <Lock className="reset-field-icon" size={18} />
                 <input
                   type={showPass ? 'text' : 'password'}
                   id="new-password"
-                  placeholder="Crea una contraseña segura"
+                  placeholder="Escribe tu nueva clave"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -151,42 +142,42 @@ function ResetPassword() {
               </div>
             </div>
 
-            {/* PANEL INTERACTIVO DE REQUISITOS (Estilo de tu captura de pantalla) */}
+            {/* PANEL DE REQUISITOS (Feedback en tiempo real) */}
             <div className="reset-criteria-box">
-              <p className="criteria-heading">Debes usar al menos:</p>
+              <p className="criteria-heading">Tu contraseña debe contener:</p>
               <div className="criteria-grid-layout">
                 <div className={`criteria-item ${criteria.length ? 'pass' : 'fail'}`}>
-                  {criteria.length ? <Check size={14} /> : <X size={14} />}
-                  <span>Entre 12 y 16 caracteres</span>
+                  {criteria.length ? <Check size={16} /> : <X size={16} />}
+                  <span>12 a 16 caracteres</span>
                 </div>
                 <div className={`criteria-item ${criteria.special ? 'pass' : 'fail'}`}>
-                  {criteria.special ? <Check size={14} /> : <X size={14} />}
+                  {criteria.special ? <Check size={16} /> : <X size={16} />}
                   <span>1 Carácter especial (¿?¡!@$#*.)</span>
                 </div>
                 <div className={`criteria-item ${criteria.lowercase ? 'pass' : 'fail'}`}>
-                  {criteria.lowercase ? <Check size={14} /> : <X size={14} />}
-                  <span>1 Minúscula (a-z)</span>
+                  {criteria.lowercase ? <Check size={16} /> : <X size={16} />}
+                  <span>1 Letra minúscula</span>
                 </div>
                 <div className={`criteria-item ${criteria.uppercase ? 'pass' : 'fail'}`}>
-                  {criteria.uppercase ? <Check size={14} /> : <X size={14} />}
-                  <span>1 Mayúscula (A-Z)</span>
+                  {criteria.uppercase ? <Check size={16} /> : <X size={16} />}
+                  <span>1 Letra mayúscula</span>
                 </div>
                 <div className={`criteria-item ${criteria.number ? 'pass' : 'fail'}`}>
-                  {criteria.number ? <Check size={14} /> : <X size={14} />}
-                  <span>1 Número (0-9)</span>
+                  {criteria.number ? <Check size={16} /> : <X size={16} />}
+                  <span>1 Número</span>
                 </div>
               </div>
             </div>
 
-            {/* Campo 2: Repetir Contraseña */}
+            {/* Campo 2: Confirmar Contraseña */}
             <div className="reset-group">
-              <label htmlFor="confirm-password">Ingrese nuevamente la nueva contraseña</label>
+              <label htmlFor="confirm-password">Confirmar contraseña</label>
               <div className="reset-input-wrapper">
-                <Lock className="reset-field-icon" size={16} />
+                <Lock className="reset-field-icon" size={18} />
                 <input
                   type={showConfirmPass ? 'text' : 'password'}
                   id="confirm-password"
-                  placeholder="Confirma la contraseña ingresada"
+                  placeholder="Repite tu nueva clave"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   onBlur={() => setTouchedConfirm(true)}
@@ -202,17 +193,15 @@ function ResetPassword() {
               )}
             </div>
 
-            {/* BOTÓN DE ACCIÓN CONTROLADO POR ESTADO */}
             <button
               type="submit"
               className={`btn-reset-action ${isFormValid ? 'state-ready' : 'state-locked'}`}
               disabled={!isFormValid || isLoading}
             >
-              Restablecer Contraseña
+              Confirmar y Actualizar
             </button>
 
           </form>
-
         </div>
       </div>
     </div>

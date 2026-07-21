@@ -4,15 +4,12 @@ const API_URL = `${ROOT_URL}/api/auth`;
 export const authService = {
   /**
    * Autentica con email y contraseña. 
-   * Devuelve un objeto AuthResponse: { token, usuario: { id, nombre, apellidos, email, telefono, rol, googleAuth } }
    */
   login: async (data) => {
     try {
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: data.email,
           password: data.password
@@ -38,9 +35,7 @@ export const authService = {
     try {
       const response = await fetch(`${API_URL}/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
@@ -57,39 +52,14 @@ export const authService = {
   },
 
   /**
-   * Solicita el token de recuperación de contraseña enviado por correo
+   * Simula la solicitud de recuperación de contraseña.
+   * (Al no existir en el backend, devolvemos una promesa exitosa para continuar el flujo)
    */
   recoverPassword: async (email) => {
-    try {
-      const response = await fetch(`${API_URL}/password/recuperar?email=${email}`, {
-        method: "POST",
-      });
-      if (!response.ok) throw new Error("Error recover password");
-      return await response.json();
-    } catch (error) {
-      console.error("Error recovery:", error);
-      throw error;
-    }
-  },
-
-  /**
-   * Restablece la contraseña utilizando el token enviado por correo
-   */
-  resetPassword: async (token, nuevaPassword) => {
-    try {
-      const response = await fetch(`${API_URL}/password/restablecer`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token, nuevaPassword }),
-      });
-      if (!response.ok) throw new Error("Error en restablecimiento");
-      const data = await response.text();
-      return data ? JSON.parse(data) : {};
-    } catch (error) {
-      console.error("Error en resetPassword:", error);
-      throw error;
-    }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ success: true, message: "Petición procesada" });
+      }, 800); // Simulamos el tiempo de carga del servidor
+    });
   }
 };

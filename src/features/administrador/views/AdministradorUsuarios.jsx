@@ -8,38 +8,49 @@ import {
   FaTimes,
   FaCheck,
   FaEnvelope,
-  FaPhoneAlt
+  FaPhoneAlt,
+  FaIdCard
 } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import AdminSidebar from '../../administrador/components/AdminSidebar';
 import AdminHeader from '../../administrador/components/AdminHeader';
 import { usuarioAdminService } from '../services/usuarioAdminService';
+import { emailService } from '../services/emailServices';
 import '../styles/AdministradorUsuarios.css';
 
 export default function AdministradorUsuarios() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('CLIENTE'); // 'CLIENTE' | 'STAFF'
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRole, setFilterRole] = useState('Todos');
 
-  // Estado para el formulario de creación (Solo Staff)
+  // Estado del formulario
   const [newUser, setNewUser] = useState({
     nombre: '',
     apellidos: '',
     email: '',
     telefono: '',
     password: '',
-    rol: 'RECEPCIONISTA' // Valor por defecto
+    rol: 'CLIENTE'
   });
 
   const roles = ['Todos', 'ADMINISTRADOR', 'RECEPCIONISTA', 'CLIENTE'];
+
+  // --- LÓGICA DE VALIDACIÓN ESTRICTA ---
+  const isNameValid = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,}$/.test(newUser.nombre.trim());
+  const isLastNameValid = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{2,}$/.test(newUser.apellidos.trim());
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newUser.email);
+  const isPhoneValid = /^\d{9}$/.test(newUser.telefono); // Exactamente 9 dígitos
+  const isPasswordValid = newUser.password.length >= 6;
+
+  const isFormValid = isNameValid && isLastNameValid && isEmailValid && isPhoneValid && isPasswordValid;
 
   const cargarUsuarios = async () => {
     try {
       setLoading(true);
       const data = await usuarioAdminService.listarTodos();
-      // Ordenamos por ID descendente para ver los más recientes primero
       const sortedData = data.sort((a, b) => b.id - a.id);
       setUsers(sortedData);
     } catch (error) {
@@ -59,39 +70,59 @@ export default function AdministradorUsuarios() {
     cargarUsuarios();
   }, []);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (type) => {
+    setModalType(type);
     setNewUser({
       nombre: '',
       apellidos: '',
       email: '',
       telefono: '',
       password: '',
-      rol: 'RECEPCIONISTA'
+      rol: type === 'CLIENTE' ? 'CLIENTE' : 'RECEPCIONISTA'
     });
     setShowModal(true);
   };
 
-  const handleCreateStaff = async () => {
-    // Validaciones del Frontend
-    if (!newUser.nombre.trim() || !newUser.apellidos.trim()) {
-      return Swal.fire({ icon: 'warning', title: 'Campos incompletos', text: 'El nombre y apellidos son obligatorios.', confirmButtonColor: '#C5A059' });
-    }
-    if (!newUser.email.trim() || !/^\S+@\S+\.\S+$/.test(newUser.email)) {
-      return Swal.fire({ icon: 'warning', title: 'Email inválido', text: 'Ingrese un correo electrónico válido.', confirmButtonColor: '#C5A059' });
-    }
-    if (!newUser.password || newUser.password.length < 6) {
-      return Swal.fire({ icon: 'warning', title: 'Contraseña débil', text: 'La contraseña debe tener al menos 6 caracteres.', confirmButtonColor: '#C5A059' });
-    }
+  const handleRegisterUser = async () => {
+    if (!isFormValid) return; // Doble seguridad por si manipulan el DOM
+
+    Swal.fire({
+      title: 'Registrando...',
+      text: 'Por favor, espere un momento.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     try {
-      await usuarioAdminService.crearStaff(newUser);
+      // 1. Guardar en Base de Datos según el tipo
+      if (modalType === 'CLIENTE') {
+        await usuarioAdminService.crearClientePresencial(newUser);
+      } else {
+        await usuarioAdminService.crearStaff(newUser);
+      }
+
+      // 2. Enviar correo de bienvenida al cliente/staff
+      try {
+        await emailService.enviarCorreoBienvenida(
+          newUser.email,
+          `${newUser.nombre} ${newUser.apellidos}`,
+          newUser.password
+        );
+      } catch (emailError) {
+        console.warn("Usuario creado en BD, pero falló el envío del correo:", emailError);
+        // No bloqueamos el flujo porque el usuario ya existe en el sistema
+      }
+
       Swal.fire({
         icon: 'success',
-        title: '¡Staff Registrado!',
-        text: `El usuario ha sido creado como ${newUser.rol}.`,
-        timer: 2000,
+        title: modalType === 'CLIENTE' ? '¡Cliente Registrado!' : '¡Staff Registrado!',
+        text: `Se ha creado la cuenta y enviado las credenciales a ${newUser.email}.`,
+        timer: 3000,
         showConfirmButton: false
       });
+      
       setShowModal(false);
       cargarUsuarios();
     } catch (error) {
@@ -99,15 +130,14 @@ export default function AdministradorUsuarios() {
       Swal.fire({
         icon: 'error',
         title: 'Error al registrar',
-        text: error.message || 'Hubo un error al crear la cuenta de staff.',
+        text: error.message || 'Hubo un error al crear la cuenta. Verifique los datos.',
         confirmButtonColor: '#C5A059'
       });
     }
   };
 
-  // Filtrado de usuarios (Búsqueda + Filtro por Rol)
+  // Filtrado de usuarios
   const filteredUsers = users.filter((user) => {
-    // Prevención contra nulos concatenando con strings vacíos
     const nombreSafe = user.nombre || '';
     const apellidosSafe = user.apellidos || '';
     const emailSafe = user.email || '';
@@ -125,7 +155,6 @@ export default function AdministradorUsuarios() {
     return matchesSearch && matchesRole;
   });
 
-  // Renderizador de iconos según el rol
   const getRoleIcon = (rol) => {
     switch(rol) {
       case 'ADMINISTRADOR': return <FaUserShield />;
@@ -146,9 +175,14 @@ export default function AdministradorUsuarios() {
             <h2 className="admin-usuarios-title">Directorio de Usuarios</h2>
             <p className="admin-usuarios-subtitle">Visualiza a los clientes y gestiona las cuentas del personal (Staff).</p>
           </div>
-          <button className="admin-usuarios-add-btn" onClick={handleOpenModal}>
-            <FaPlus /> Nuevo Staff
-          </button>
+          <div className="header-actions">
+            <button className="admin-usuarios-outline-btn" onClick={() => handleOpenModal('STAFF')}>
+              <FaUserShield /> Nuevo Staff
+            </button>
+            <button className="admin-usuarios-add-btn" onClick={() => handleOpenModal('CLIENTE')}>
+              <FaPlus /> Nuevo Cliente
+            </button>
+          </div>
         </div>
 
         {/* Controles y Filtros */}
@@ -213,12 +247,10 @@ export default function AdministradorUsuarios() {
                       <td className="admin-table-usuario">
                         <div className="user-profile-info">
                           <div className="user-avatar">
-                            {/* Prevención de error charAt usando opcionales */}
                             {user.nombre?.charAt(0)?.toUpperCase() || 'U'}
                             {user.apellidos?.charAt(0)?.toUpperCase() || ''}
                           </div>
                           <div className="user-names">
-                            {/* Mostrar Nombres o "Usuario" si están nulos */}
                             <strong>{user.nombre || 'Usuario'} {user.apellidos || ''}</strong>
                           </div>
                         </div>
@@ -246,12 +278,12 @@ export default function AdministradorUsuarios() {
           )}
         </div>
 
-        {/* Modal Creación de Staff */}
+        {/* Modal Dinámico (Cliente / Staff) */}
         {showModal && (
           <div className="admin-usuarios-modal-overlay" onClick={() => setShowModal(false)}>
             <div className="admin-usuarios-modal" onClick={(e) => e.stopPropagation()}>
               <div className="admin-usuarios-modal-header">
-                <h2>Registrar Nuevo Miembro del Staff</h2>
+                <h2>{modalType === 'CLIENTE' ? 'Registrar Nuevo Cliente' : 'Registrar Miembro del Staff'}</h2>
                 <button className="admin-usuarios-modal-close" onClick={() => setShowModal(false)}>
                   <FaTimes />
                 </button>
@@ -259,8 +291,12 @@ export default function AdministradorUsuarios() {
 
               <div className="admin-usuarios-modal-content">
                 <div className="admin-usuarios-info-banner">
-                  <FaUserShield className="banner-icon" />
-                  <p>Este formulario es exclusivo para crear cuentas de <strong>Administradores</strong> o <strong>Recepcionistas</strong>. El registro de clientes se realiza desde la vista pública.</p>
+                  {modalType === 'CLIENTE' ? <FaIdCard className="banner-icon client-icon" /> : <FaUserShield className="banner-icon" />}
+                  <p>
+                    {modalType === 'CLIENTE' 
+                      ? 'Registre los datos del huésped en mostrador. Se le enviará un correo automáticamente con sus credenciales de acceso.'
+                      : 'Registre cuentas con privilegios elevados (Administrador o Recepcionista). Las credenciales se enviarán por correo.'}
+                  </p>
                 </div>
 
                 <div className="admin-usuarios-row-group">
@@ -271,7 +307,9 @@ export default function AdministradorUsuarios() {
                       value={newUser.nombre}
                       onChange={(e) => setNewUser({ ...newUser, nombre: e.target.value })}
                       placeholder="Ej: Carlos Alberto"
+                      className={newUser.nombre.length > 0 && !isNameValid ? 'input-error' : ''}
                     />
+                    {newUser.nombre.length > 0 && !isNameValid && <span className="error-text">Solo letras (mín. 2)</span>}
                   </div>
                   <div className="admin-usuarios-form-group">
                     <label>Apellidos *</label>
@@ -280,7 +318,9 @@ export default function AdministradorUsuarios() {
                       value={newUser.apellidos}
                       onChange={(e) => setNewUser({ ...newUser, apellidos: e.target.value })}
                       placeholder="Ej: García Pérez"
+                      className={newUser.apellidos.length > 0 && !isLastNameValid ? 'input-error' : ''}
                     />
+                    {newUser.apellidos.length > 0 && !isLastNameValid && <span className="error-text">Solo letras (mín. 2)</span>}
                   </div>
                 </div>
 
@@ -294,20 +334,28 @@ export default function AdministradorUsuarios() {
                         value={newUser.email}
                         onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                         placeholder="correo@hotel.com"
+                        className={newUser.email.length > 0 && !isEmailValid ? 'input-error' : ''}
                       />
                     </div>
+                    {newUser.email.length > 0 && !isEmailValid && <span className="error-text">Formato de correo inválido</span>}
                   </div>
                   <div className="admin-usuarios-form-group">
-                    <label>Teléfono</label>
+                    <label>Teléfono (9 dígitos) *</label>
                     <div className="input-with-icon">
                       <FaPhoneAlt className="input-icon" />
                       <input
                         type="text"
+                        maxLength="9"
                         value={newUser.telefono}
-                        onChange={(e) => setNewUser({ ...newUser, telefono: e.target.value })}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, ''); // Solo números
+                          setNewUser({ ...newUser, telefono: val });
+                        }}
                         placeholder="Ej: 987654321"
+                        className={newUser.telefono.length > 0 && !isPhoneValid ? 'input-error' : ''}
                       />
                     </div>
+                    {newUser.telefono.length > 0 && !isPhoneValid && <span className="error-text">Debe tener exactamente 9 dígitos</span>}
                   </div>
                 </div>
 
@@ -316,13 +364,17 @@ export default function AdministradorUsuarios() {
                 <div className="admin-usuarios-row-group">
                   <div className="admin-usuarios-form-group">
                     <label>Rol del Sistema *</label>
-                    <select
-                      value={newUser.rol}
-                      onChange={(e) => setNewUser({ ...newUser, rol: e.target.value })}
-                    >
-                      <option value="RECEPCIONISTA">Recepcionista</option>
-                      <option value="ADMINISTRADOR">Administrador</option>
-                    </select>
+                    {modalType === 'CLIENTE' ? (
+                      <input type="text" value="CLIENTE (Automático)" disabled className="input-locked" />
+                    ) : (
+                      <select
+                        value={newUser.rol}
+                        onChange={(e) => setNewUser({ ...newUser, rol: e.target.value })}
+                      >
+                        <option value="RECEPCIONISTA">Recepcionista</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                      </select>
+                    )}
                   </div>
                   <div className="admin-usuarios-form-group">
                     <label>Contraseña Temporal *</label>
@@ -331,15 +383,21 @@ export default function AdministradorUsuarios() {
                       value={newUser.password}
                       onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                       placeholder="Mínimo 6 caracteres"
+                      className={newUser.password.length > 0 && !isPasswordValid ? 'input-error' : ''}
                     />
+                    {newUser.password.length > 0 && !isPasswordValid && <span className="error-text">Mínimo 6 caracteres requeridos</span>}
                   </div>
                 </div>
               </div>
 
               <div className="admin-usuarios-modal-footer">
                 <button className="admin-usuarios-btn-cancel" onClick={() => setShowModal(false)}>Cancelar</button>
-                <button className="admin-usuarios-btn-confirm" onClick={handleCreateStaff}>
-                  <FaCheck /> Registrar Staff
+                <button 
+                  className="admin-usuarios-btn-confirm" 
+                  onClick={handleRegisterUser}
+                  disabled={!isFormValid} // Se deshabilita si no pasa la validación
+                >
+                  <FaCheck /> Confirmar Registro
                 </button>
               </div>
             </div>

@@ -45,7 +45,7 @@ function AppRoutes(){
 
       <Routes>
         <Route element={<PublicLayout/>}>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/inicio" element={<Home/>}/>
         <Route path="/servicios" element={<Servicios/>}/>
         <Route path="/contacto" element={<Contacto/>}/>
         <Route path="/blog" element={<Blog/>}/>

@@ -14,6 +14,7 @@
   padding: 4rem 2rem;
   text-align: center;
   animation: fadeInDown 0.8s ease-out;
+  border-top: 85px solid #ffffff;
 }
 
 .servicios-hero-content {

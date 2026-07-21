@@ -1,117 +1,491 @@
-/* Header Component Styles - BEM Naming with hd- prefix */
+/* ==========================================================
+   HEADER - ARENA DORADA
+   Diseño Premium | React + Vite
+   ========================================================== */
 
-.hd-header__container {
+:root {
+  --hd-primary: #143b2d;
+  --hd-primary-dark: #0f2f24;
+  --hd-gold: #c5a059;
+  --hd-gold-light: #d8b875;
+  --hd-white: #ffffff;
+  --hd-bg: rgba(255, 255, 255, 0.88);
+  --hd-text: #262626;
+  --hd-text-light: #707070;
+  --hd-border: rgba(197, 160, 89, .18);
+
+  --hd-shadow:
+    0 10px 35px rgba(0,0,0,.08);
+
+  --hd-transition: all .35s ease;
+}
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.hd-header {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  background-color: #f5f5f0;
-  border-bottom: 1px solid #e0e0e0;
-  z-index: 1000;
-  padding: 1rem 2rem;
+  width: 100%;
+  z-index: 1200;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  background: rgba(255,255,255,.35);
+
+  transition: var(--hd-transition);
 }
 
-.hd-header__wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
+.hd-header--scrolled{
+
+  background: var(--hd-bg);
+
+  box-shadow: var(--hd-shadow);
+
+  border-bottom:1px solid var(--hd-border);
 }
 
-.hd-header__logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-decoration: none;
-  min-width: 180px;
+/* ==========================================================
+   CONTENEDOR
+   ========================================================== */
+
+.hd-header__container{
+
+  max-width:1400px;
+
+  height:82px;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 32px;
 }
 
-.hd-header__nav {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+/* ==========================================================
+   LOGO
+   ========================================================== */
+
+.hd-header__logo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+  text-decoration:none;
 }
 
-.hd-header__nav-link {
-  text-decoration: none;
-  color: #1a1a1a;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
-  border-bottom: 2px solid transparent;
+.hd-header__logo-icon{
+
+  width:54px;
+
+  height:54px;
+
+  border-radius:50%;
+
+  background:linear-gradient(135deg,
+      var(--hd-gold),
+      #edd8a2);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:white;
+
+  font-size:1.4rem;
+
+  box-shadow:
+  0 8px 20px rgba(197,160,89,.35);
+
+  transition:var(--hd-transition);
 }
 
-.hd-header__nav-link:hover {
-  color: #c5a059;
-  border-bottom-color: #c5a059;
+.hd-header__logo:hover
+.hd-header__logo-icon{
+
+  transform:rotate(-10deg)
+  scale(1.06);
 }
 
-.hd-header__actions {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.hd-header__logo-text{
+
+  display:flex;
+
+  flex-direction:column;
 }
 
-.hd-header__session-btn {
-  background-color: #c5a059;
-  color: #f5f5f0;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+.hd-header__brand{
+
+  color:var(--hd-primary);
+
+  font-size:1.35rem;
+
+  font-weight:700;
+
+  letter-spacing:.6px;
 }
 
-.hd-header__session-btn:hover {
-  background-color: #0f3d25;
+.hd-header__subtitle{
+
+  color:var(--hd-text-light);
+
+  font-size:.78rem;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hd-header__container {
-    padding: 1rem;
-  }
+/* ==========================================================
+   NAV
+   ========================================================== */
 
-  .hd-header__wrapper {
-    gap: 1rem;
-  }
+.hd-header__nav{
 
-  .hd-header__nav {
-    display: none;
-  }
+  display:flex;
 
-  .hd-header__logo {
-    min-width: auto;
-    font-size: 1.2rem;
-  }
+  align-items:center;
 
-  .hd-header__session-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
+  gap:34px;
 }
 
-@media (max-width: 480px) {
-  .hd-header__container {
-    padding: 0.75rem;
-  }
+.hd-header__link{
 
-  .hd-header__wrapper {
-    gap: 0.5rem;
-  }
+  position:relative;
 
-  .hd-header__logo {
-    font-size: 1rem;
-  }
+  color:var(--hd-text);
 
-  .hd-header__session-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-  }
+  text-decoration:none;
+
+  font-size:.96rem;
+
+  font-weight:500;
+
+  transition:var(--hd-transition);
+
+  padding:6px 0;
+}
+
+.hd-header__link:hover{
+
+  color:var(--hd-gold);
+}
+
+.hd-header__link::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  bottom:-8px;
+
+  width:0;
+
+  height:3px;
+
+  border-radius:20px;
+
+  background:linear-gradient(
+  90deg,
+  var(--hd-gold),
+  #f0d59a);
+
+  transition:.3s ease;
+}
+
+.hd-header__link:hover::after{
+
+  width:100%;
+}
+
+.hd-header__link--active{
+
+  color:var(--hd-primary);
+
+  font-weight:700;
+}
+
+.hd-header__link--active::after{
+
+  width:100%;
+}
+
+/* ==========================================================
+   BOTONES
+   ========================================================== */
+
+.hd-header__actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+}
+
+/* Reservar */
+
+.hd-header__reservation-btn{
+
+  background:linear-gradient(
+  135deg,
+  var(--hd-gold),
+  var(--hd-gold-light));
+
+  color:white;
+
+  border:none;
+
+  padding:12px 22px;
+
+  border-radius:40px;
+
+  font-size:.92rem;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:var(--hd-transition);
+
+  box-shadow:
+  0 10px 24px
+  rgba(197,160,89,.30);
+}
+
+.hd-header__reservation-btn:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+  0 16px 30px
+  rgba(197,160,89,.45);
+}
+
+/* Login */
+
+.hd-header__login-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  background:white;
+
+  color:var(--hd-primary);
+
+  border:1px solid rgba(20,59,45,.15);
+
+  padding:11px 18px;
+
+  border-radius:40px;
+
+  cursor:pointer;
+
+  transition:var(--hd-transition);
+
+  font-weight:600;
+}
+
+.hd-header__login-btn svg{
+
+  font-size:1.2rem;
+}
+
+.hd-header__login-btn:hover{
+
+  background:var(--hd-primary);
+
+  color:white;
+
+  transform:translateY(-2px);
+}
+
+/* ==========================================================
+   BOTON MENU
+   ========================================================== */
+
+.hd-header__menu-btn{
+
+  display:none;
+
+  border:none;
+
+  background:none;
+
+  cursor:pointer;
+
+  font-size:2rem;
+
+  color:var(--hd-primary);
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media(max-width:1100px){
+
+.hd-header__container{
+
+padding:0 22px;
+
+}
+
+.hd-header__nav{
+
+gap:20px;
+
+}
+
+}
+
+@media(max-width:950px){
+
+.hd-header__menu-btn{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.hd-header__nav{
+
+position:fixed;
+
+top:82px;
+
+right:-100%;
+
+width:300px;
+
+height:calc(100vh - 82px);
+
+background:white;
+
+flex-direction:column;
+
+justify-content:flex-start;
+
+align-items:flex-start;
+
+padding:40px;
+
+gap:28px;
+
+box-shadow:-10px 0 35px rgba(0,0,0,.08);
+
+transition:.35s ease;
+
+}
+
+.hd-header__nav--active{
+
+right:0;
+
+}
+
+.hd-header__actions{
+
+gap:10px;
+
+}
+
+.hd-header__reservation-btn{
+
+display:none;
+
+}
+
+}
+
+@media(max-width:650px){
+
+.hd-header__container{
+
+height:74px;
+
+padding:0 18px;
+
+}
+
+.hd-header__logo-icon{
+
+width:46px;
+
+height:46px;
+
+font-size:1.2rem;
+
+}
+
+.hd-header__brand{
+
+font-size:1.08rem;
+
+}
+
+.hd-header__subtitle{
+
+font-size:.68rem;
+
+letter-spacing:1.3px;
+
+}
+
+.hd-header__login-btn span{
+
+display:none;
+
+}
+
+.hd-header__login-btn{
+
+padding:10px;
+
+}
+
+.hd-header__nav{
+
+top:74px;
+
+height:calc(100vh - 74px);
+
+}
+
+}
+
+@media(max-width:420px){
+
+.hd-header__nav{
+
+width:100%;
+
+}
+
+.hd-header__brand{
+
+font-size:1rem;
+
+}
+
 }

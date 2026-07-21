@@ -18,6 +18,7 @@
   justify-content: center;
   overflow: hidden;
   animation: fadeInDown 0.8s ease-out;
+  border-top: 85px solid #ffffff;
 }
 
 .contacto-hero-overlay {
