@@ -68,7 +68,7 @@ function Login() {
       } else if (userRol === 'RECEPCIONISTA') {
         navigate('/panel/recepcion');
       } else {
-        navigate('/habitaciones'); // Redirección por defecto para clientes
+        navigate('/cliente/inicio');
       }
 
     } catch (error) {

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://hotelsistema-production.up.railway.app';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 const API_URL = `${API_BASE_URL}/api/habitaciones`;
 
 // Función auxiliar para obtener las cabeceras con el Token de autenticación

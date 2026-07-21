@@ -28,6 +28,12 @@ import AdministradorUsuarios from '../../features/administrador/views/Administra
 import AdministradorCategorias from '../../features/administrador/views/AdministradorCategorias';
 import AdministradorHabitaciones from '../../features/administrador/views/AdministradorHabitaciones';
 
+// CLIENTE
+import ClienteInicio from '../../features/cliente/views/ClienteInicio';
+
+// METODO PAGO
+import MetodoPago from '../../features/metodopago/views/MetodoPago';
+
 // SEGURIDAD
 import ProtectedRoute from './ProtectedRoute';
 import RoleRoute from './RoleRoute';
@@ -56,7 +62,9 @@ function AppRoutes(){
         <Route path="/register" element={<Register/>}/>
         <Route path="/recovery" element={<Recovery/>}/>
         <Route path="/reset-password" element={<ResetPassword/>}/>
+        <Route path="/metodospago" element={<MetodoPago/>}/>
 
+        
 
       {/*    RUTAS PRIVADAS -Requieren TOKEN */}
       <Route element={<ProtectedRoute/>}>
@@ -132,47 +140,21 @@ function AppRoutes(){
 
 
 
-
-
-
-
-  /* =====================================================
-      CLIENTE
-      Futuras paginas
-
-      Ejemplo:
-
-      /cliente/inicio
-      /cliente/reservas
-      /cliente/perfil
-
-      Rol permitido:
-
-      CLIENTE
-  ===================================================== */
-
-
-
-  /*
-  <Route element={
-      <RoleRoute
-          allowedRoles={[
-              "CLIENTE"
-          ]}
-      />
-  }>
-  <Route
-      path="/cliente/inicio"
-      element={<ClienteInicio/>}
-  />
-  <Route
-      path="/cliente/reservas"
-      element={<ClienteReservas/>}
-  />
-
-  </Route>
-  */}
-  </Route>
+    
+    <Route element={
+        <RoleRoute
+            allowedRoles={[
+                "CLIENTE"
+            ]}
+        />
+    }>
+        <Route
+            path="/cliente/inicio"
+            element={<ClienteInicio/>}
+        />
+    </Route>
+  }
+  </Route>*/
 
 
 

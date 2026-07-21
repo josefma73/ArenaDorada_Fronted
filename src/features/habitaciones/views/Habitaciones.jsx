@@ -28,6 +28,7 @@ export default function Habitaciones() {
       description: 'Perfecta para viajeros en solitario o parejas. Acceso a la piscina con recargo adicional.',
       icon: FaBed,
       path: '/habitacionsimple',
+      image: '/habitacion-simple-detail.png',
       premium: false,
     },
     {
@@ -39,6 +40,7 @@ export default function Habitaciones() {
       description: 'Espaciosa y cómoda para familias pequeñas o grupos de amigos.',
       icon: FaBed,
       path: '/habitaciondoble',
+      image: '/habitacion-doble-detail.png',
       premium: false,
     },
     {
@@ -50,6 +52,7 @@ export default function Habitaciones() {
       description: 'Ideal para grupos pequeños con distribuidor amplio y mayor espacio de almacenamiento.',
       icon: FaUsers,
       path: '/habitaciontriple',
+      image: '/habitacion-triple-detail.png',
       premium: true,
       premiumBenefit: 'Acceso Gratis a Piscina y Bar',
     },
@@ -62,6 +65,7 @@ export default function Habitaciones() {
       description: 'Premium. Máxima comodidad y elegancia con acceso exclusivo.',
       icon: FaBed,
       path: '/habitacionmatrimonial',
+      image: '/habitacion-matrimonial-detail.png',
       premium: true,
       premiumBenefit: 'Acceso Gratis a Piscina y Bar',
     },
@@ -113,6 +117,14 @@ export default function Habitaciones() {
                     <span>{room.premiumBenefit}</span>
                   </div>
                 )}
+                
+                <div className="habitaciones-room-image-container">
+                  <img 
+                    src={room.image} 
+                    alt={room.name}
+                    className="habitaciones-room-image"
+                  />
+                </div>
                 
                 <div className="habitaciones-room-card-layout">
                   <div className="habitaciones-room-left">

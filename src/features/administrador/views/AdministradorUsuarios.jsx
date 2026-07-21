@@ -1,122 +1,138 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
+  FaUserShield,
+  FaUserTie,
   FaUser,
-  FaEnvelope,
-  FaPhone,
-  FaShieldAlt,
-  FaTimes,
-  FaEdit,
-  FaKey,
-  FaCheck,
-  FaSearch,
   FaPlus,
-  FaGoogle,
-  FaCalendarAlt,
+  FaSearch,
+  FaTimes,
+  FaCheck,
+  FaEnvelope,
+  FaPhoneAlt
 } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 import AdminSidebar from '../../administrador/components/AdminSidebar';
 import AdminHeader from '../../administrador/components/AdminHeader';
+import { usuarioAdminService } from '../services/usuarioAdminService';
 import '../styles/AdministradorUsuarios.css';
 
 export default function AdministradorUsuarios() {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      nombre: 'Juan',
-      apellidos: 'Pérez García',
-      email: 'juan.perez@email.com',
-      telefono: '951234567',
-      rol: 'Administrador',
-      google_auth: false,
-      activo: true,
-      fecha_creacion: '2024-01-15',
-    },
-    {
-      id: 2,
-      nombre: 'María',
-      apellidos: 'López Ruiz',
-      email: 'maria.lopez@email.com',
-      telefono: '952345678',
-      rol: 'Recepcionista',
-      google_auth: true,
-      activo: true,
-      fecha_creacion: '2024-02-20',
-    },
-    {
-      id: 3,
-      nombre: 'Carlos',
-      apellidos: 'Sánchez Toro',
-      email: 'carlos.sanchez@email.com',
-      telefono: '953456789',
-      rol: 'Cliente',
-      google_auth: false,
-      activo: true,
-      fecha_creacion: '2024-03-10',
-    },
-    {
-      id: 4,
-      nombre: 'Ana',
-      apellidos: 'Martínez Cruz',
-      email: 'ana.martinez@email.com',
-      telefono: '954567890',
-      rol: 'Recepcionista',
-      google_auth: false,
-      activo: false,
-      fecha_creacion: '2024-01-05',
-    },
-  ]);
-
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [editingField, setEditingField] = useState(null);
-  const [editValue, setEditValue] = useState('');
+  const [filterRole, setFilterRole] = useState('Todos');
 
-  const getRolColor = (rol) => {
-    switch (rol) {
-      case 'Administrador':
-        return 'rol-admin';
-      case 'Recepcionista':
-        return 'rol-recep';
-      case 'Cliente':
-        return 'rol-cliente';
-      default:
-        return '';
+  // Estado para el formulario de creación (Solo Staff)
+  const [newUser, setNewUser] = useState({
+    nombre: '',
+    apellidos: '',
+    email: '',
+    telefono: '',
+    password: '',
+    rol: 'RECEPCIONISTA' // Valor por defecto
+  });
+
+  const roles = ['Todos', 'ADMINISTRADOR', 'RECEPCIONISTA', 'CLIENTE'];
+
+  const cargarUsuarios = async () => {
+    try {
+      setLoading(true);
+      const data = await usuarioAdminService.listarTodos();
+      // Ordenamos por ID descendente para ver los más recientes primero
+      const sortedData = data.sort((a, b) => b.id - a.id);
+      setUsers(sortedData);
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de conexión',
+        text: 'No se pudo obtener la lista de usuarios. Vuelva a intentarlo.',
+        confirmButtonColor: '#C5A059'
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleViewDetails = (user) => {
-    setSelectedUser({ ...user });
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
+
+  const handleOpenModal = () => {
+    setNewUser({
+      nombre: '',
+      apellidos: '',
+      email: '',
+      telefono: '',
+      password: '',
+      rol: 'RECEPCIONISTA'
+    });
     setShowModal(true);
   };
 
-  const handleDisable = (id) => {
-    setUsers(users.map((u) => (u.id === id ? { ...u, activo: false } : u)));
-  };
+  const handleCreateStaff = async () => {
+    // Validaciones del Frontend
+    if (!newUser.nombre.trim() || !newUser.apellidos.trim()) {
+      return Swal.fire({ icon: 'warning', title: 'Campos incompletos', text: 'El nombre y apellidos son obligatorios.', confirmButtonColor: '#C5A059' });
+    }
+    if (!newUser.email.trim() || !/^\S+@\S+\.\S+$/.test(newUser.email)) {
+      return Swal.fire({ icon: 'warning', title: 'Email inválido', text: 'Ingrese un correo electrónico válido.', confirmButtonColor: '#C5A059' });
+    }
+    if (!newUser.password || newUser.password.length < 6) {
+      return Swal.fire({ icon: 'warning', title: 'Contraseña débil', text: 'La contraseña debe tener al menos 6 caracteres.', confirmButtonColor: '#C5A059' });
+    }
 
-  const handleToggleStatus = (id) => {
-    setUsers(users.map((u) => (u.id === id ? { ...u, activo: !u.activo } : u)));
-  };
-
-  const handleSaveChanges = () => {
-    if (selectedUser && editingField) {
-      setUsers(
-        users.map((u) =>
-          u.id === selectedUser.id
-            ? { ...u, [editingField]: editValue }
-            : u
-        )
-      );
-      setEditingField(null);
-      setEditValue('');
+    try {
+      await usuarioAdminService.crearStaff(newUser);
+      Swal.fire({
+        icon: 'success',
+        title: '¡Staff Registrado!',
+        text: `El usuario ha sido creado como ${newUser.rol}.`,
+        timer: 2000,
+        showConfirmButton: false
+      });
+      setShowModal(false);
+      cargarUsuarios();
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al registrar',
+        text: error.message || 'Hubo un error al crear la cuenta de staff.',
+        confirmButtonColor: '#C5A059'
+      });
     }
   };
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.apellidos.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filtrado de usuarios (Búsqueda + Filtro por Rol)
+  const filteredUsers = users.filter((user) => {
+    // Prevención contra nulos concatenando con strings vacíos
+    const nombreSafe = user.nombre || '';
+    const apellidosSafe = user.apellidos || '';
+    const emailSafe = user.email || '';
+    const telefonoSafe = user.telefono || '';
+
+    const fullName = `${nombreSafe} ${apellidosSafe}`.toLowerCase();
+    const searchLower = searchTerm.toLowerCase();
+    
+    const matchesSearch = fullName.includes(searchLower) || 
+                          emailSafe.toLowerCase().includes(searchLower) ||
+                          telefonoSafe.includes(searchLower);
+    
+    const matchesRole = filterRole === 'Todos' || user.rol === filterRole;
+    
+    return matchesSearch && matchesRole;
+  });
+
+  // Renderizador de iconos según el rol
+  const getRoleIcon = (rol) => {
+    switch(rol) {
+      case 'ADMINISTRADOR': return <FaUserShield />;
+      case 'RECEPCIONISTA': return <FaUserTie />;
+      default: return <FaUser />;
+    }
+  };
 
   return (
     <div className="admin-usuarios-container">
@@ -124,256 +140,207 @@ export default function AdministradorUsuarios() {
       <AdminHeader title="Gestión de Usuarios" />
 
       <main className="admin-usuarios-workspace">
-        {/* Header */}
+        {/* Encabezado */}
         <div className="admin-usuarios-header">
-          <h2 className="admin-usuarios-title">Usuarios del Sistema</h2>
-          <button className="admin-usuarios-add-btn">
-            <FaPlus /> Nuevo Usuario
+          <div>
+            <h2 className="admin-usuarios-title">Directorio de Usuarios</h2>
+            <p className="admin-usuarios-subtitle">Visualiza a los clientes y gestiona las cuentas del personal (Staff).</p>
+          </div>
+          <button className="admin-usuarios-add-btn" onClick={handleOpenModal}>
+            <FaPlus /> Nuevo Staff
           </button>
         </div>
 
-        {/* Search Bar */}
-        <div className="admin-usuarios-search">
-          <div className="admin-search-box">
-            <FaSearch className="admin-search-icon" />
+        {/* Controles y Filtros */}
+        <div className="admin-usuarios-controls">
+          <div className="admin-usuarios-search-box">
+            <FaSearch className="admin-usuarios-search-icon" />
             <input
               type="text"
-              placeholder="Buscar por nombre, apellido o email..."
+              placeholder="Buscar por nombre, apellidos, email o teléfono..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="admin-search-input"
+              className="admin-usuarios-search-input"
             />
           </div>
-          <span className="admin-search-result">
-            {filteredUsers.length} usuario(s) encontrado(s)
-          </span>
-        </div>
 
-        {/* Users Table */}
-        <div className="admin-usuarios-table-wrapper">
-          <table className="admin-usuarios-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Usuario / Nombre</th>
-                <th>Correo Electrónico</th>
-                <th>Teléfono</th>
-                <th>Rol</th>
-                <th>Autenticación</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map((user) => (
-                <tr key={user.id} className={`estado-${user.activo ? 'activo' : 'inactivo'}`}>
-                  <td className="admin-table-id">#{user.id}</td>
-                  <td className="admin-table-nombre">
-                    <div className="admin-user-cell">
-                      <div className="admin-user-avatar">
-                        {user.nombre[0]}{user.apellidos[0]}
-                      </div>
-                      <div>
-                        <strong>{user.nombre} {user.apellidos}</strong>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="admin-table-email">
-                    <FaEnvelope size={14} /> {user.email}
-                  </td>
-                  <td className="admin-table-telefono">
-                    <FaPhone size={14} /> {user.telefono}
-                  </td>
-                  <td>
-                    <span className={`admin-rol-badge ${getRolColor(user.rol)}`}>
-                      {user.rol}
-                    </span>
-                  </td>
-                  <td className="admin-table-auth">
-                    {user.google_auth ? (
-                      <span className="admin-auth-badge google">
-                        <FaGoogle /> Google
-                      </span>
-                    ) : (
-                      <span className="admin-auth-badge local">Local</span>
-                    )}
-                  </td>
-                  <td className="admin-table-estado">
-                    <button
-                      className={`admin-status-toggle ${user.activo ? 'activo' : 'inactivo'}`}
-                      onClick={() => handleToggleStatus(user.id)}
-                      title={user.activo ? 'Activo' : 'Inactivo'}
-                    >
-                      <FaCheck /> {user.activo ? 'Activo' : 'Inactivo'}
-                    </button>
-                  </td>
-                  <td className="admin-table-acciones">
-                    <button
-                      className="admin-action-detail"
-                      onClick={() => handleViewDetails(user)}
-                    >
-                      <FaEdit /> Detalles
-                    </button>
-                    {user.activo && (
-                      <button
-                        className="admin-action-disable"
-                        onClick={() => handleDisable(user.id)}
-                      >
-                        <FaTimes /> Inhabilitar
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Modal */}
-        {showModal && selectedUser && (
-          <div className="admin-usuarios-modal-overlay" onClick={() => setShowModal(false)}>
-            <div
-              className="admin-usuarios-modal"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="admin-modal-header">
-                <div className="admin-modal-user-info">
-                  <div className="admin-modal-avatar">
-                    {selectedUser.nombre[0]}{selectedUser.apellidos[0]}
-                  </div>
-                  <div>
-                    <h2 className="admin-modal-name">
-                      {selectedUser.nombre} {selectedUser.apellidos}
-                    </h2>
-                    <p className="admin-modal-rol">{selectedUser.rol}</p>
-                  </div>
-                </div>
+          <div className="admin-usuarios-filter-container">
+            <div className="admin-usuarios-filter-tabs">
+              {roles.map((rol) => (
                 <button
-                  className="admin-modal-close"
-                  onClick={() => setShowModal(false)}
+                  key={rol}
+                  className={`admin-usuarios-tab ${filterRole === rol ? 'active' : ''}`}
+                  onClick={() => setFilterRole(rol)}
                 >
+                  {rol}
+                </button>
+              ))}
+            </div>
+            <span className="admin-usuarios-results-count">
+              {filteredUsers.length} usuario(s)
+            </span>
+          </div>
+        </div>
+
+        {/* Tabla de Usuarios */}
+        <div className="admin-usuarios-table-wrapper">
+          {loading ? (
+            <div className="admin-usuarios-loading">
+              <div className="spinner"></div>
+              <h3>Cargando directorio de usuarios...</h3>
+            </div>
+          ) : (
+            <table className="admin-usuarios-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Usuario</th>
+                  <th>Contacto</th>
+                  <th>Rol / Acceso</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="admin-usuarios-empty">
+                      No se encontraron usuarios que coincidan con la búsqueda.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredUsers.map((user) => (
+                    <tr key={user.id}>
+                      <td className="admin-table-id">#{user.id}</td>
+                      <td className="admin-table-usuario">
+                        <div className="user-profile-info">
+                          <div className="user-avatar">
+                            {/* Prevención de error charAt usando opcionales */}
+                            {user.nombre?.charAt(0)?.toUpperCase() || 'U'}
+                            {user.apellidos?.charAt(0)?.toUpperCase() || ''}
+                          </div>
+                          <div className="user-names">
+                            {/* Mostrar Nombres o "Usuario" si están nulos */}
+                            <strong>{user.nombre || 'Usuario'} {user.apellidos || ''}</strong>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="admin-table-contacto">
+                        <div className="contact-detail">
+                          <FaEnvelope className="contact-icon" /> {user.email || 'Sin correo'}
+                        </div>
+                        {user.telefono && (
+                          <div className="contact-detail">
+                            <FaPhoneAlt className="contact-icon" /> {user.telefono}
+                          </div>
+                        )}
+                      </td>
+                      <td className="admin-table-rol">
+                        <span className={`role-badge role-${(user.rol || 'cliente').toLowerCase()}`}>
+                          {getRoleIcon(user.rol)} {user.rol || 'CLIENTE'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        {/* Modal Creación de Staff */}
+        {showModal && (
+          <div className="admin-usuarios-modal-overlay" onClick={() => setShowModal(false)}>
+            <div className="admin-usuarios-modal" onClick={(e) => e.stopPropagation()}>
+              <div className="admin-usuarios-modal-header">
+                <h2>Registrar Nuevo Miembro del Staff</h2>
+                <button className="admin-usuarios-modal-close" onClick={() => setShowModal(false)}>
                   <FaTimes />
                 </button>
               </div>
 
-              {/* Modal Content */}
-              <div className="admin-modal-content">
-                {/* Datos Personales */}
-                <section className="admin-modal-section">
-                  <h3 className="admin-modal-section-title">Datos Personales</h3>
-                  <div className="admin-modal-form">
-                    <div className="admin-form-group">
-                      <label>Nombre</label>
-                      <input
-                        type="text"
-                        value={
-                          editingField === 'nombre'
-                            ? editValue
-                            : selectedUser.nombre
-                        }
-                        onChange={(e) => setEditValue(e.target.value)}
-                        onFocus={() => {
-                          setEditingField('nombre');
-                          setEditValue(selectedUser.nombre);
-                        }}
-                        className={editingField === 'nombre' ? 'editing' : ''}
-                      />
-                    </div>
-                    <div className="admin-form-group">
-                      <label>Apellidos</label>
-                      <input
-                        type="text"
-                        value={
-                          editingField === 'apellidos'
-                            ? editValue
-                            : selectedUser.apellidos
-                        }
-                        onChange={(e) => setEditValue(e.target.value)}
-                        onFocus={() => {
-                          setEditingField('apellidos');
-                          setEditValue(selectedUser.apellidos);
-                        }}
-                        className={editingField === 'apellidos' ? 'editing' : ''}
-                      />
-                    </div>
-                    <div className="admin-form-group">
-                      <label>Email</label>
+              <div className="admin-usuarios-modal-content">
+                <div className="admin-usuarios-info-banner">
+                  <FaUserShield className="banner-icon" />
+                  <p>Este formulario es exclusivo para crear cuentas de <strong>Administradores</strong> o <strong>Recepcionistas</strong>. El registro de clientes se realiza desde la vista pública.</p>
+                </div>
+
+                <div className="admin-usuarios-row-group">
+                  <div className="admin-usuarios-form-group">
+                    <label>Nombres *</label>
+                    <input
+                      type="text"
+                      value={newUser.nombre}
+                      onChange={(e) => setNewUser({ ...newUser, nombre: e.target.value })}
+                      placeholder="Ej: Carlos Alberto"
+                    />
+                  </div>
+                  <div className="admin-usuarios-form-group">
+                    <label>Apellidos *</label>
+                    <input
+                      type="text"
+                      value={newUser.apellidos}
+                      onChange={(e) => setNewUser({ ...newUser, apellidos: e.target.value })}
+                      placeholder="Ej: García Pérez"
+                    />
+                  </div>
+                </div>
+
+                <div className="admin-usuarios-row-group">
+                  <div className="admin-usuarios-form-group">
+                    <label>Correo Electrónico *</label>
+                    <div className="input-with-icon">
+                      <FaEnvelope className="input-icon" />
                       <input
                         type="email"
-                        value={
-                          editingField === 'email'
-                            ? editValue
-                            : selectedUser.email
-                        }
-                        onChange={(e) => setEditValue(e.target.value)}
-                        onFocus={() => {
-                          setEditingField('email');
-                          setEditValue(selectedUser.email);
-                        }}
-                        className={editingField === 'email' ? 'editing' : ''}
+                        value={newUser.email}
+                        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                        placeholder="correo@hotel.com"
                       />
                     </div>
-                    <div className="admin-form-group">
-                      <label>Teléfono</label>
+                  </div>
+                  <div className="admin-usuarios-form-group">
+                    <label>Teléfono</label>
+                    <div className="input-with-icon">
+                      <FaPhoneAlt className="input-icon" />
                       <input
-                        type="tel"
-                        value={
-                          editingField === 'telefono'
-                            ? editValue
-                            : selectedUser.telefono
-                        }
-                        onChange={(e) => setEditValue(e.target.value)}
-                        onFocus={() => {
-                          setEditingField('telefono');
-                          setEditValue(selectedUser.telefono);
-                        }}
-                        className={editingField === 'telefono' ? 'editing' : ''}
+                        type="text"
+                        value={newUser.telefono}
+                        onChange={(e) => setNewUser({ ...newUser, telefono: e.target.value })}
+                        placeholder="Ej: 987654321"
                       />
                     </div>
                   </div>
-                </section>
+                </div>
 
-                {/* Seguridad */}
-                <section className="admin-modal-section">
-                  <h3 className="admin-modal-section-title">
-                    <FaShieldAlt /> Seguridad
-                  </h3>
-                  <div className="admin-security-info">
-                    <div className="admin-security-item">
-                      <span className="admin-security-label">Tipo de Autenticación:</span>
-                      <span className="admin-security-value">
-                        {selectedUser.google_auth ? 'Google Auth' : 'Registro Local'}
-                      </span>
-                    </div>
-                    <div className="admin-security-item">
-                      <span className="admin-security-label">Fecha de Registro:</span>
-                      <span className="admin-security-value">
-                        <FaCalendarAlt /> {selectedUser.fecha_creacion}
-                      </span>
-                    </div>
+                <div className="admin-usuarios-divider"><span>Credenciales de Acceso</span></div>
+
+                <div className="admin-usuarios-row-group">
+                  <div className="admin-usuarios-form-group">
+                    <label>Rol del Sistema *</label>
+                    <select
+                      value={newUser.rol}
+                      onChange={(e) => setNewUser({ ...newUser, rol: e.target.value })}
+                    >
+                      <option value="RECEPCIONISTA">Recepcionista</option>
+                      <option value="ADMINISTRADOR">Administrador</option>
+                    </select>
                   </div>
-                  {selectedUser.rol !== 'Cliente' && (
-                    <button className="admin-reset-password-btn">
-                      <FaKey /> Restablecer Contraseña
-                    </button>
-                  )}
-                </section>
+                  <div className="admin-usuarios-form-group">
+                    <label>Contraseña Temporal *</label>
+                    <input
+                      type="password"
+                      value={newUser.password}
+                      onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                      placeholder="Mínimo 6 caracteres"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Modal Footer */}
-              <div className="admin-modal-footer">
-                <button
-                  className="admin-btn-cancel"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cerrar
+              <div className="admin-usuarios-modal-footer">
+                <button className="admin-usuarios-btn-cancel" onClick={() => setShowModal(false)}>Cancelar</button>
+                <button className="admin-usuarios-btn-confirm" onClick={handleCreateStaff}>
+                  <FaCheck /> Registrar Staff
                 </button>
-                {editingField && (
-                  <button className="admin-btn-save" onClick={handleSaveChanges}>
-                    Guardar Cambios
-                  </button>
-                )}
               </div>
             </div>
           </div>
