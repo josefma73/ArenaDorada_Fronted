@@ -11,13 +11,13 @@ const getAuthHeaders = () => {
 
 export const reservaService = {
   /**
-1. POST /api/reservas
-   * Crea una nueva reserva (Huésped o Staff a nombre de un tercero)
+   * 1. POST /api/reservas/presencial
+   * Crea una nueva reserva en mostrador (Exclusivo Staff). Asigna el estado CONFIRMADA.
    * @param {Object} reservaData - { usuarioId, habitacionId, modalidad, fechaHoraEntrada, fechaHoraSalida, cantAdultos, cantNinos, accesoPiscina }
    */
-  crear: async (reservaData) => {
+  crearPresencial: async (reservaData) => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/presencial`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(reservaData)
@@ -25,18 +25,43 @@ export const reservaService = {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Error al crear reserva: ${response.status}`);
+        throw new Error(errorData.message || `Error al crear reserva en mostrador: ${response.status}`);
       }
 
       return await response.json();
     } catch (error) {
-      console.error("Error en reservaService.crear:", error);
+      console.error("Error en reservaService.crearPresencial:", error);
       throw error;
     }
   },
 
   /**
-   * 2. GET /api/reservas/mias
+   * 2. POST /api/reservas/online
+   * Crea una nueva reserva web (Cliente). Asigna automáticamente el estado PENDIENTE.
+   * @param {Object} reservaData - { usuarioId, habitacionId, modalidad, fechaHoraEntrada, fechaHoraSalida, cantAdultos, cantNinos, accesoPiscina }
+   */
+  crearOnline: async (reservaData) => {
+    try {
+      const response = await fetch(`${API_URL}/online`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(reservaData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Error al crear reserva web: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error en reservaService.crearOnline:", error);
+      throw error;
+    }
+  },
+
+  /**
+   * 3. GET /api/reservas/mias
    * Recupera el historial completo de reservas asociadas al cliente autenticado.
    */
   listarMias: async () => {
@@ -58,7 +83,7 @@ export const reservaService = {
   },
 
   /**
-   * 3. GET /api/reservas
+   * 4. GET /api/reservas
    * Obtiene el registro global de todas las reservas del hotel (Exclusivo Staff)
    */
   listarTodas: async () => {
@@ -80,7 +105,7 @@ export const reservaService = {
   },
 
   /**
-   * 4. GET /api/reservas/habitacion/{habitacionId}
+   * 5. GET /api/reservas/habitacion/{habitacionId}
    * Devuelve el historial cronológico de ocupación de una habitación específica (Staff)
    * @param {number} habitacionId
    */
@@ -103,7 +128,7 @@ export const reservaService = {
   },
 
   /**
-   * 5. GET /api/reservas/{id}
+   * 6. GET /api/reservas/{id}
    * Recupera los detalles técnicos y desgloses de costo de una reserva puntual.
    * @param {number} id - Identificador de la reserva
    */
@@ -127,8 +152,8 @@ export const reservaService = {
   },
 
   /**
-   * 6. PATCH /api/reservas/{id}/cancelar
-   * Ejecuta la anulación lógica de la reserva.
+   * 7. PATCH /api/reservas/{id}/cancelar
+   * Ejecuta la anulación lógica de la reserva (Cliente o Staff).
    * @param {number} id - Identificador de la reserva
    */
   cancelar: async (id) => {
@@ -151,10 +176,10 @@ export const reservaService = {
   },
 
   /**
-   * 7. PATCH /api/reservas/{id}/estado
+   * 8. PATCH /api/reservas/{id}/estado
    * Transición operativa de estados lógicos (PENDIENTE, PAGADA, FINALIZADA) efectuada por el Staff.
    * @param {number} id - Identificador de la reserva
-   * @param {string} nuevoEstado - El string correspondiente al Enum ('PENDIENTE', 'PAGADA', 'FINALIZADA', 'ANULADA')
+   * @param {string} nuevoEstado - El string correspondiente al Enum
    */
   cambiarEstado: async (id, nuevoEstado) => {
     try {

@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+
 // Layout público
 import PublicLayout from '../components/PublicLayout';
 
-// PAGINAS PUBLICAS
+// PÁGINAS PÚBLICAS
 import Home from '../../features/home/views/Home';
 import Servicios from '../../features/services/views/Servicios';
 import Contacto from '../../features/contact/views/Contacto';
@@ -15,7 +16,7 @@ import HabitacionDoble from '../../features/habitaciones/views/HabitacionDoble';
 import HabitacionTriple from '../../features/habitaciones/views/HabitacionTriple';
 import HabitacionMatrimonial from '../../features/habitaciones/views/HabitacionMatrimonial';
 
-// AUTENTICACION
+// AUTENTICACIÓN
 import Login from '../../features/auth/views/Login';
 import Register from '../../features/auth/views/Register';
 import Recovery from '../../features/auth/views/ForgotPassword';
@@ -27,162 +28,152 @@ import AdministradorProductos from '../../features/administrador/views/Administr
 import AdministradorUsuarios from '../../features/administrador/views/AdministradorUsuarios';
 import AdministradorCategorias from '../../features/administrador/views/AdministradorCategorias';
 import AdministradorHabitaciones from '../../features/administrador/views/AdministradorHabitaciones';
+import AdministradorReservas from '../../features/administrador/views/AdministradorReservas';
 
 // CLIENTE
 import ClienteInicio from '../../features/cliente/views/ClienteInicio';
 
-// METODO PAGO
+// MÉTODO DE PAGO
 import MetodoPago from '../../features/metodopago/views/MetodoPago';
 
 // SEGURIDAD
 import ProtectedRoute from './ProtectedRoute';
 import RoleRoute from './RoleRoute';
 
-
-function AppRoutes(){
-
+function AppRoutes() {
   return (
+    <Routes>
 
-      <Routes>
-        <Route element={<PublicLayout/>}>
-        <Route path="/inicio" element={<Home/>}/>
-        <Route path="/servicios" element={<Servicios/>}/>
-        <Route path="/contacto" element={<Contacto/>}/>
-        <Route path="/blog" element={<Blog/>}/>
-        <Route path="/busqueda" element={<Busqueda/>}/>
-        <Route path="/habitaciones" element={<Habitaciones/>}/>
-        <Route path="/promociones" element={<Promociones/>}/>
-        <Route path="/habitacionsimple" element={<HabitacionSimple/>}/>
-        <Route path="/habitaciondoble" element={<HabitacionDoble/>}/>
-        <Route path="/habitaciontriple" element={<HabitacionTriple/>}/>
-        <Route path="/habitacionmatrimonial" element={<HabitacionMatrimonial/>}/>
+      {/* RUTAS PÚBLICAS */}
+      <Route element={<PublicLayout />}>
+        <Route path="/inicio" element={<Home />} />
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/busqueda" element={<Busqueda />} />
+        <Route path="/habitaciones" element={<Habitaciones />} />
+        <Route path="/promociones" element={<Promociones />} />
+        <Route path="/habitacionsimple" element={<HabitacionSimple />} />
+        <Route path="/habitaciondoble" element={<HabitacionDoble />} />
+        <Route path="/habitaciontriple" element={<HabitacionTriple />} />
+        <Route path="/habitacionmatrimonial" element={<HabitacionMatrimonial />} />
       </Route>
 
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/recovery" element={<Recovery/>}/>
-        <Route path="/reset-password" element={<ResetPassword/>}/>
-        <Route path="/metodospago" element={<MetodoPago/>}/>
+      {/* AUTENTICACIÓN */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/recovery" element={<Recovery />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/metodospago" element={<MetodoPago />} />
 
-        
+      {/* RUTAS PRIVADAS */}
+      <Route element={<ProtectedRoute />}>
 
-      {/*    RUTAS PRIVADAS -Requieren TOKEN */}
-      <Route element={<ProtectedRoute/>}>
-      {/*ADMINISTRADOR*/}
-      <Route element={
-          <RoleRoute
-              allowedRoles={[
-                  "ADMINISTRADOR"
-              ]}
-          />
-      }>
-      <Route 
-          path="/administrador/inicio"
-          element={<AdministradorInicio/>}
-      />
-      <Route 
-          path="/administrador/productos"
-          element={<AdministradorProductos/>}
-      />
-      <Route 
-          path="/administrador/usuarios"
-          element={<AdministradorUsuarios/>}
-      />
-      <Route 
-          path="/administrador/categorias"
-          element={<AdministradorCategorias/>}
-      />
-      <Route 
-          path="/administrador/habitaciones"
-          element={<AdministradorHabitaciones/>}
-      />
-      </Route>
-
-
-  {/*      RECEPCIONISTA
-      Futuras paginas
-      Ejemplo:
-      /recepcionista/inicio
-      /recepcionista/reservas
-      /recepcionista/habitaciones
-
-      Roles permitidos:
-
-      RECEPCIONISTA
-  ===================================================== */
-
-
-
-  /*
-  <Route element={
-      <RoleRoute
-          allowedRoles={[
-              "RECEPCIONISTA"
-          ]}
-      />
-  }>
-
-
-  <Route
-      path="/recepcionista/inicio"
-      element={<RecepcionistaInicio/>}
-  />
-
-
-  <Route
-      path="/recepcionista/reservas"
-      element={<RecepcionistaReservas/>}
-  />
-
-
-  </Route>
-  */
-
-
-
-    
-    <Route element={
-        <RoleRoute
-            allowedRoles={[
-                "CLIENTE"
-            ]}
-        />
-    }>
+        {/* ADMINISTRADOR */}
         <Route
-            path="/cliente/inicio"
-            element={<ClienteInicio/>}
-        />
-    </Route>
-  }
-  </Route>*/
-
-
-
-
-
-  {/*ERRORES*/}
-  <Route 
-      path="/404"
-      element={
-          <h1>
-              Error 404 - Página no encontrada
-          </h1>
-      }
-  />
-
-  <Route
-      path="*"
-      element={
-          <Navigate
-              to="/404"
-              replace
+          element={
+            <RoleRoute
+              allowedRoles={["ADMINISTRADOR"]}
+            />
+          }
+        >
+          <Route
+            path="/administrador/inicio"
+            element={<AdministradorInicio />}
           />
-      }
-  />
 
-  </Routes>
+          <Route
+            path="/administrador/productos"
+            element={<AdministradorProductos />}
+          />
+
+          <Route
+            path="/administrador/usuarios"
+            element={<AdministradorUsuarios />}
+          />
+
+          <Route
+            path="/administrador/categorias"
+            element={<AdministradorCategorias />}
+          />
+
+          <Route
+            path="/administrador/habitaciones"
+            element={<AdministradorHabitaciones />}
+          />
+
+          {/* RUTA BASE DE RESERVAS */}
+          <Route
+            path="/administrador/reservas"
+            element={<AdministradorReservas />}
+          />
+          
+          {/* RUTA PARAMETRIZADA PARA ABRIR EL MODAL DIRECTAMENTE */}
+          <Route
+            path="/administrador/reserva/:id"
+            element={<AdministradorReservas />}
+          />
+        </Route>
+
+        {/* CLIENTE */}
+        <Route
+          element={
+            <RoleRoute
+              allowedRoles={["CLIENTE"]}
+            />
+          }
+        >
+          <Route
+            path="/cliente/inicio"
+            element={<ClienteInicio />}
+          />
+        </Route>
+
+        {/*
+        ===============================================
+        RECEPCIONISTA (FUTURAS RUTAS)
+        ===============================================
+
+        <Route
+          element={
+            <RoleRoute
+              allowedRoles={["RECEPCIONISTA"]}
+            />
+          }
+        >
+          <Route
+            path="/recepcionista/inicio"
+            element={<RecepcionistaInicio />}
+          />
+
+          <Route
+            path="/recepcionista/reservas"
+            element={<RecepcionistaReservas />}
+          />
+
+          <Route
+            path="/recepcionista/habitaciones"
+            element={<RecepcionistaHabitaciones />}
+          />
+        </Route>
+
+        */}
+      </Route>
+
+      {/* ERROR 404 */}
+      <Route
+        path="/404"
+        element={<h1>Error 404 - Página no encontrada</h1>}
+      />
+
+      {/* REDIRECCIÓN */}
+      <Route
+        path="*"
+        element={<Navigate to="/404" replace />}
+      />
+
+    </Routes>
   );
-
 }
 
 export default AppRoutes;
