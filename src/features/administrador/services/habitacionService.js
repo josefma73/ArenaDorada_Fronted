@@ -20,7 +20,7 @@ export const habitacionService = {
       method: 'GET',
       headers: getHeaders(),
     });
-    if (!response.ok) {
+    if (!response.ok) { 
       throw new Error('Error al obtener la lista de habitaciones activas.');
     }
     return await response.json();

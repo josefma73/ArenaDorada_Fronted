@@ -14,7 +14,7 @@ const getHeaders = () => {
 };
 
 export const productoService = {
-  // Obtener todos los productos (incluyendo inactivos, solo para ADMIN)
+  // 1. Obtener todos los productos (incluyendo inactivos, solo para ADMIN)
   listarTodos: async () => {
     const response = await fetch(`${API_URL}/admin/todos`, {
       method: 'GET',
@@ -26,7 +26,36 @@ export const productoService = {
     return await response.json();
   },
 
-  // Crear un nuevo producto
+  // 2. Obtener solo productos activos (opcional: filtrar por categoría)
+  listarActivos: async (categoriaId = null) => {
+    let url = API_URL;
+    // Si se envía un categoriaId, se agrega como parámetro de consulta
+    if (categoriaId) {
+      url += `?categoriaId=${categoriaId}`;
+    }
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error('Error al obtener los productos.');
+    }
+    return await response.json();
+  },
+
+  // 3. Obtener detalle de un producto específico por su ID
+  obtenerPorId: async (id) => {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error('Error al obtener la información del producto.');
+    }
+    return await response.json();
+  },
+
+  // 4. Crear un nuevo producto
   crear: async (productoData) => {
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -45,7 +74,7 @@ export const productoService = {
     return await response.json();
   },
 
-  // Actualizar un producto existente
+  // 5. Actualizar un producto existente
   actualizar: async (id, productoData) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'PUT',
@@ -64,8 +93,7 @@ export const productoService = {
     return await response.json();
   },
 
-
-  // Cambiar estado de un producto (Activar/Desactivar)
+  // 6. Cambiar estado de un producto (Activar/Desactivar)
   cambiarEstado: async (id, estadoActivo) => {
     const response = await fetch(`${API_URL}/${id}/estado`, {
       method: 'PATCH',
@@ -77,6 +105,6 @@ export const productoService = {
     if (!response.ok) {
       throw new Error('Error al cambiar el estado del producto.');
     }
-    return true;
+    return true; // En PATCH de estado el Swagger indica que no retorna links, devolver true es suficiente
   }
 };

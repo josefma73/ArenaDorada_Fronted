@@ -11,7 +11,8 @@ import {
   FaSearch,
   FaFilter,
   FaEye,
-  FaDoorOpen
+  FaDoorOpen,
+  FaPlus // <-- Nuevo ícono importado
 } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
@@ -22,13 +23,11 @@ import { reservaService } from '../services/reservaService';
 import { habitacionService } from '../services/habitacionService';
 import '../styles/AdministradorReservas.css';
 
-// Configuración de Moment.js en español
 moment.locale('es');
 const localizer = momentLocalizer(moment);
 
 export default function AdministradorReservas() {
-  // === INTEGRACIÓN DE RUTAS ===
-  const { id } = useParams(); // Capturamos el ID si venimos redireccionados de Habitaciones
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [reservas, setReservas] = useState([]);
@@ -47,7 +46,6 @@ export default function AdministradorReservas() {
 
   const estadosReserva = ['Todos', 'PENDIENTE', 'PAGADA', 'FINALIZADA', 'ANULADA'];
 
-  // === EFECTO DE REDIRECCIÓN (Abre el modal automáticamente si hay ID en la URL) ===
   useEffect(() => {
     if (id) {
       setSelectedReservaId(parseInt(id));
@@ -56,11 +54,9 @@ export default function AdministradorReservas() {
     }
   }, [id]);
 
-  // Limpiamos la URL al cerrar el modal para no causar un bucle
   const handleCloseModal = () => {
     setSelectedReservaId(null);
     if (id) {
-      // Reemplazamos la URL actual por la base de reservas
       navigate('/administrador/reservas', { replace: true });
     }
   };
@@ -162,24 +158,37 @@ export default function AdministradorReservas() {
 
       <main className="admin-reservas-workspace">
         
+        {/* ENCABEZADO MODIFICADO CON EL NUEVO BOTÓN */}
         <div className="admin-reservas-header">
           <div>
             <h2 className="admin-reservas-title">Reservas y Ocupación</h2>
             <p className="admin-reservas-subtitle">Gestiona las estadías, verifica el calendario de ocupación y revisa los estados de pago.</p>
           </div>
-          <div className="admin-reservas-view-toggle">
+          
+          <div className="header-actions-group">
+            {/* BOTÓN NUEVA RESERVA */}
             <button 
-              className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
-              onClick={() => setViewMode('list')}
+              className="admin-btn-nueva-reserva" 
+              onClick={() => navigate('/administrador/reservas/nueva')}
             >
-              <FaList /> Lista
+              <FaPlus /> Nueva Reserva
             </button>
-            <button 
-              className={`toggle-btn ${viewMode === 'calendar' ? 'active' : ''}`}
-              onClick={() => setViewMode('calendar')}
-            >
-              <FaCalendarAlt /> Calendario
-            </button>
+
+            {/* TOGGLE VISTA LISTA / CALENDARIO */}
+            <div className="admin-reservas-view-toggle">
+              <button 
+                className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+                onClick={() => setViewMode('list')}
+              >
+                <FaList /> Lista
+              </button>
+              <button 
+                className={`toggle-btn ${viewMode === 'calendar' ? 'active' : ''}`}
+                onClick={() => setViewMode('calendar')}
+              >
+                <FaCalendarAlt /> Calendario
+              </button>
+            </div>
           </div>
         </div>
 
@@ -310,11 +319,10 @@ export default function AdministradorReservas() {
           )}
         </div>
 
-        {/* MODAL DE DETALLES */}
         {selectedReservaId && (
           <ReservaDetalle 
             reservaId={selectedReservaId} 
-            onClose={handleCloseModal} // Usamos la nueva función controlada
+            onClose={handleCloseModal}
           />
         )}
 

@@ -25,7 +25,9 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Encabezado y Toggle */
+/* ====================================
+   ENCABEZADO Y ACCIONES
+   ==================================== */
 .admin-reservas-header {
   display: flex;
   justify-content: space-between;
@@ -37,6 +39,7 @@
   font-weight: 800;
   color: var(--text-dark);
   margin: 0 0 0.5rem 0;
+  letter-spacing: -0.5px;
 }
 
 .admin-reservas-subtitle {
@@ -44,6 +47,37 @@
   margin: 0;
 }
 
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Botón Nueva Reserva */
+.admin-btn-nueva-reserva {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-btn-nueva-reserva:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
+}
+
+/* Toggle Lista/Calendario */
 .admin-reservas-view-toggle {
   display: flex;
   background: #ffffff;
@@ -57,7 +91,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.2rem;
   border: none;
   background: transparent;
   color: var(--text-muted);
@@ -68,12 +102,14 @@
 }
 
 .toggle-btn.active {
-  background: var(--gold-primary);
+  background: var(--text-dark);
   color: #fff;
-  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Controles y Filtros */
+/* ====================================
+   CONTROLES Y FILTROS
+   ==================================== */
 .admin-reservas-controls {
   display: flex;
   justify-content: space-between;
@@ -92,6 +128,12 @@
   border: 2px solid var(--border-color);
   flex: 1;
   max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.admin-reservas-search-box:focus-within {
+  border-color: var(--gold-primary);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.15);
 }
 
 .admin-reservas-search-box input {
@@ -130,7 +172,9 @@
   cursor: pointer;
 }
 
-/* Tabla de Reservas */
+/* ====================================
+   ÁREA DE CONTENIDO (TABLA Y CALENDARIO)
+   ==================================== */
 .admin-reservas-content-area {
   background: #fff;
   border-radius: 1.2rem;
@@ -140,20 +184,14 @@
   min-height: 500px;
 }
 
-.admin-reservas-table-wrapper {
-  overflow-x: auto;
-}
-
-.admin-reservas-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+.admin-reservas-table-wrapper { overflow-x: auto; }
+.admin-reservas-table { width: 100%; border-collapse: collapse; }
 
 .admin-reservas-table th {
   background: var(--bg-cream);
   padding: 1.2rem 1rem;
   text-align: left;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   font-size: 0.85rem;
   color: var(--text-dark);
@@ -168,9 +206,7 @@
   font-size: 0.95rem;
 }
 
-.admin-reservas-table tr:hover {
-  background-color: rgba(197, 160, 89, 0.03);
-}
+.admin-reservas-table tr:hover { background-color: rgba(197, 160, 89, 0.03); }
 
 .fw-bold { font-weight: 700; }
 .gold-text { color: var(--gold-primary); }
@@ -190,14 +226,15 @@
 .status-finalizada { background: rgba(33, 150, 243, 0.15); color: #2196F3; border: 1px solid #2196F3; }
 .status-anulada { background: rgba(244, 67, 54, 0.15); color: #F44336; border: 1px solid #F44336; }
 
+/* Botón Ver Detalles */
 .btn-view-details {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.6rem 1rem;
-  background: var(--text-dark);
-  color: #fff;
-  border: none;
+  background: var(--bg-cream);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
   border-radius: 0.6rem;
   font-weight: 700;
   cursor: pointer;
@@ -205,23 +242,29 @@
 }
 
 .btn-view-details:hover {
-  background: var(--gold-primary);
+  background: var(--text-dark);
+  color: #fff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* React Big Calendar Overrides para Arena Dorada */
+/* ====================================
+   CALENDARIO PERSONALIZADO
+   ==================================== */
 .admin-reservas-calendar-wrapper .rbc-toolbar button {
   color: var(--text-dark);
-  font-weight: 600;
+  font-weight: 700;
   border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   margin: 0 4px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
 }
 
 .admin-reservas-calendar-wrapper .rbc-toolbar button.rbc-active {
-  background-color: var(--gold-primary);
+  background-color: var(--text-dark);
   color: white;
-  border-color: var(--gold-primary);
+  border-color: var(--text-dark);
   box-shadow: none;
 }
 
@@ -230,17 +273,25 @@
 }
 
 .admin-reservas-calendar-wrapper .rbc-today {
-  background-color: rgba(197, 160, 89, 0.1);
+  background-color: rgba(197, 160, 89, 0.08);
 }
 
 .admin-reservas-calendar-wrapper .rbc-header {
-  padding: 10px 0;
-  font-weight: 700;
+  padding: 12px 0;
+  font-weight: 800;
   background: var(--bg-cream);
   border-bottom: 2px solid var(--border-color);
+  text-transform: capitalize;
 }
 
-/* Loading y Vacio */
+.admin-reservas-calendar-wrapper .rbc-event {
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ====================================
+   ESTADOS VACÍOS Y CARGA
+   ==================================== */
 .admin-reservas-loading, .empty-state {
   text-align: center;
   padding: 4rem;
@@ -258,3 +309,20 @@
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ====================================
+   RESPONSIVIDAD
+   ==================================== */
+@media (max-width: 1024px) {
+  .admin-reservas-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .header-actions-group { width: 100%; justify-content: space-between; }
+}
+
+@media (max-width: 768px) {
+  .header-actions-group { flex-direction: column; align-items: stretch; }
+  .admin-reservas-search-box { max-width: 100%; }
+  .admin-reservas-filters { flex-direction: column; width: 100%; }
+  .filter-group { width: 100%; }
+  .admin-btn-nueva-reserva, .admin-reservas-view-toggle { width: 100%; justify-content: center; }
+  .toggle-btn { flex: 1; justify-content: center; }
+}
