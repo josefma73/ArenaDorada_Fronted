@@ -1,567 +1,718 @@
-.home-container {
+.home {
   width: 100%;
+  overflow-x: hidden;
   background-color: #ffffff;
+  color: #2d2d2d;
 }
 
-/* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-  color: #ffffff;
-  padding: 4rem 2rem;
-  text-align: center;
-  min-height: 400px;
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+
+.home__hero {
+  min-height: 720px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hero-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: #d0d0d0;
-  margin: 0 0 2.5rem 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* Search Container */
-.search-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 1rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-  align-items: flex-end;
-}
-
-.search-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.search-label {
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.search-input {
-  padding: 0.75rem 1rem;
-  border: 1px solid #404040;
-  border-radius: 4px;
-  background-color: #2a2a2a;
-  color: #ffffff;
-  font-size: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.search-input:hover {
-  border-color: #e74c3c;
-  background-color: #333333;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #e74c3c;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-}
-
-.search-button {
-  padding: 0.75rem 2rem;
-  background-color: #e74c3c;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.search-button:hover {
-  background-color: #d93d2b;
-  transform: translateY(-2px);
-}
-
-.search-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
-}
-
-/* Benefits Section */
-.benefits-section {
-  background-color: #f9f9f9;
-  padding: 4rem 2rem;
-}
-
-.benefits-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 3rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.benefit-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
-}
-
-.benefit-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  border-color: #e74c3c;
-}
-
-.benefit-icon {
-  color: #e74c3c;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.benefit-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0 0 0.75rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-.benefit-description {
-  font-size: 0.95rem;
-  color: #666666;
-  margin: 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-}
-
-/* Rooms Section */
-.rooms-section {
-  background-color: #ffffff;
-  padding: 4rem 2rem;
-}
-
-.rooms-container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.carousel-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
   position: relative;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15,61,37,0.88),
+      rgba(197,160,89,0.75)
+    ),
+    url("/ubicacion-ica.png");
+  background-size: cover;
+  background-position: center;
+  padding: 120px 20px 80px;
 }
 
-.carousel-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  background-color: #ffffff;
-  color: #000000;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
+
+.home__hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(to bottom, transparent,rgba(0,0,0,.35));
 }
 
-.carousel-btn:hover {
-  background-color: #e74c3c;
-  color: #ffffff;
-  border-color: #e74c3c;
+.home__hero-content {
+
+  position:relative;
+  z-index:2;
+
+  max-width:850px;
+
+  text-align:center;
+
+  color:white;
+
 }
 
-.carousel-btn:focus {
-  outline: 2px solid #e74c3c;
-  outline-offset: 2px;
+
+.home__hero-subtitle {
+
+  color:#f8df9c;
+
+  font-size:.95rem;
+
+  letter-spacing:4px;
+
+  font-weight:600;
+
+  text-transform:uppercase;
+
+  margin-bottom:25px;
+
 }
 
-.carousel-track {
-  display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  flex: 1;
-  padding: 1rem 0;
+
+.home__hero-title {
+
+  font-size:4rem;
+
+  line-height:1.15;
+
+  font-weight:700;
+
+  margin-bottom:25px;
+
 }
 
-.carousel-track::-webkit-scrollbar {
-  display: none;
+
+.home__hero-title-accent {
+
+  color:#e7c77a;
+
 }
 
-.room-card {
-  flex: 0 0 calc(33.333% - 1.5rem);
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  position: relative;
-  min-width: 280px;
+
+
+.home__hero-description {
+
+  max-width:720px;
+
+  margin:auto;
+
+  font-size:1.15rem;
+
+  line-height:1.8;
+
+  color:rgba(255,255,255,.92);
+
+  margin-bottom:45px;
+
 }
 
-.room-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
+
+
+.home__cta-button {
+
+  background:#C5A059;
+
+  color:white;
+
+  border:none;
+
+  padding:18px 45px;
+
+  border-radius:50px;
+
+  font-size:1rem;
+
+  font-weight:700;
+
+  letter-spacing:.5px;
+
+  cursor:pointer;
+
+  transition:.35s ease;
+
 }
 
-.room-image-placeholder {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  border-bottom: 1px solid #e0e0e0;
+
+.home__cta-button:hover {
+
+  background:#0F3D25;
+
+  transform:translateY(-4px);
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.25);
+
 }
 
-.verified-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: #27ae60;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+
+.home__welcome {
+
+  padding:100px 20px;
+
+  text-align:center;
+
+  max-width:1000px;
+
+  margin:auto;
+
 }
 
-.room-content {
-  padding: 1.5rem;
+
+.home__welcome-title {
+
+  font-size:2.5rem;
+
+  color:#0F3D25;
+
+  margin-bottom:30px;
+
 }
 
-.room-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+.home__welcome-text {
+
+  font-size:1.1rem;
+
+  line-height:1.9;
+
+  color:#666;
+
 }
 
-.room-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #666666;
-  font-size: 0.9rem;
-  margin: 0 0 1rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+
+/* =====================================================
+   GENERIC SECTION TITLE
+===================================================== */
+
+
+.home__section-title {
+
+  text-align:center;
+
+  font-size:2.4rem;
+
+  color:#0F3D25;
+
+  margin-bottom:60px;
+
 }
 
-.room-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+
+.home__section-title::after {
+
+  content:"";
+
+  display:block;
+
+  width:70px;
+
+  height:3px;
+
+  background:#C5A059;
+
+  margin:20px auto 0;
+
 }
 
-.room-price {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #e74c3c;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+
+/* =====================================================
+   ROOMS
+===================================================== */
+
+
+.home__rooms-section {
+
+  padding:100px 20px;
+
+  background:#F8F5EE;
+
 }
 
-.room-action-btn {
-  padding: 0.5rem 1rem;
-  background-color: #0f0f0f;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+.home__rooms-container {
+
+  max-width:1200px;
+
+  margin:auto;
+
 }
 
-.room-action-btn:hover {
-  background-color: #e74c3c;
+
+
+.home__rooms-grid {
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(270px,1fr));
+
+  gap:35px;
+
 }
 
-.room-action-btn:focus {
-  outline: 2px solid #e74c3c;
-  outline-offset: 1px;
+
+
+.home__room-card {
+
+  background:white;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,.08);
+
+  transition:.35s ease;
+
 }
 
-/* Testimonials Section */
-.testimonials-section {
-  background-color: #f9f9f9;
-  padding: 4rem 2rem;
+
+
+.home__room-card:hover {
+
+  transform:translateY(-10px);
+
+  box-shadow:
+  0 20px 45px rgba(0,0,0,.15);
+
 }
 
-.testimonials-container {
-  max-width: 1400px;
-  margin: 0 auto;
+
+
+.home__room-image {
+
+  height:220px;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:white;
+
+  font-size:1.2rem;
+
+  font-weight:700;
+
+
+  background:
+
+  linear-gradient(
+    135deg,
+    #C5A059,
+    #8c6a30
+  );
+
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+
+
+.home__room-content {
+
+  padding:30px;
+
 }
 
-.testimonial-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
+
+
+.home__room-title {
+
+  color:#0F3D25;
+
+  font-size:1.3rem;
+
+  margin-bottom:12px;
+
 }
 
-.testimonial-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
+
+
+.home__room-price {
+
+  color:#C5A059;
+
+  font-weight:700;
+
+  font-size:1.1rem;
+
 }
 
-.testimonial-stars {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1rem;
+
+.home__room-description {
+
+  color:#666;
+
+  line-height:1.7;
+
 }
 
-.star {
-  color: #ffc107;
-  fill: #ffc107;
+
+
+.home__room-badge {
+
+  display:inline-block;
+
+  margin-top:20px;
+
+  background:#0F3D25;
+
+  color:white;
+
+  padding:6px 18px;
+
+  border-radius:20px;
+
+  font-size:.75rem;
+
 }
 
-.testimonial-text {
-  font-size: 0.95rem;
-  color: #333333;
-  margin: 0 0 1.5rem 0;
-  line-height: 1.6;
-  font-style: italic;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+
+/* =====================================================
+   POOL SECTION
+===================================================== */
+
+
+.home__pool-section {
+
+  padding:100px 20px;
+
 }
 
-.testimonial-author {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 1rem;
+
+
+.home__pool-container {
+
+  max-width:1200px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:60px;
+
+  align-items:center;
+
 }
 
-.author-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.25rem 0;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+
+.home__pool-image {
+
+  height:430px;
+
+  border-radius:20px;
+
+  background:
+
+  linear-gradient(
+  135deg,
+  #C5A059,
+  #0F3D25
+  );
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:white;
+
+  font-size:1.5rem;
+
+  font-weight:700;
+
 }
 
-.author-role {
-  font-size: 0.85rem;
-  color: #999999;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+
+.home__pool-content h2 {
+
+  color:#0F3D25;
+
+  font-size:2.2rem;
+
+  margin-bottom:25px;
+
 }
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
 
-  .search-container {
-    grid-template-columns: 1fr;
-  }
+.home__pool-content p {
 
-  .carousel-track {
-    gap: 1rem;
-  }
+  color:#666;
 
-  .room-card {
-    flex: 0 0 calc(50% - 0.5rem);
-  }
+  line-height:1.8;
+
 }
 
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 2.5rem 1rem;
-    min-height: 350px;
-  }
 
-  .hero-title {
-    font-size: 1.75rem;
-  }
 
-  .hero-subtitle {
-    font-size: 1rem;
-  }
+/* =====================================================
+   PROMOTIONS
+===================================================== */
 
-  .search-container {
-    padding: 1.5rem;
-    gap: 0.75rem;
-  }
 
-  .search-input {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.9rem;
-  }
+.home__promotions-section {
 
-  .search-button {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-  }
+ padding:100px 20px;
 
-  .benefits-section,
-  .rooms-section,
-  .testimonials-section {
-    padding: 2.5rem 1rem;
-  }
+ background:#F8F5EE;
 
-  .section-title {
-    font-size: 1.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .benefits-grid,
-  .testimonials-grid {
-    gap: 1.5rem;
-  }
-
-  .room-card {
-    flex: 0 0 100%;
-  }
-
-  .carousel-wrapper {
-    gap: 1rem;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-  }
 }
 
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
 
-  .hero-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
+.home__promotions-container {
 
-  .search-container {
-    padding: 1rem;
-  }
+ max-width:1200px;
 
-  .search-group,
-  .search-button {
-    width: 100%;
-  }
+ margin:auto;
 
-  .search-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-  }
-
-  .search-button {
-    grid-column: 1;
-  }
-
-  .benefit-card,
-  .room-card,
-  .testimonial-card {
-    padding: 1.25rem;
-  }
-
-  .room-image-placeholder {
-    height: 150px;
-    font-size: 3rem;
-  }
 }
 
-/* High Contrast Mode */
-.home-container.high-contrast {
-  background-color: #000000;
+
+
+.home__promotions-grid {
+
+ display:grid;
+
+ grid-template-columns:
+ repeat(auto-fit,minmax(300px,1fr));
+
+ gap:30px;
+
 }
 
-.home-container.high-contrast .hero-section {
-  background: #000000;
-  border-bottom: 2px solid #ffff00;
+
+
+.home__promo-card {
+
+ background:
+ linear-gradient(
+ 135deg,
+ #0F3D25,
+ #164d30
+ );
+
+ color:white;
+
+ padding:40px 30px;
+
+ border-radius:20px;
+
+ text-align:center;
+
+ transition:.3s;
+
 }
 
-.home-container.high-contrast .hero-title,
-.home-container.high-contrast .section-title {
-  color: #ffff00;
+
+.home__promo-card:hover {
+
+ transform:translateY(-8px);
+
 }
 
-.home-container.high-contrast .hero-subtitle {
-  color: #ffffff;
+
+.home__promo-title {
+
+ font-size:1.4rem;
+
+ margin-bottom:20px;
+
 }
 
-.home-container.high-contrast .benefit-card,
-.home-container.high-contrast .room-card,
-.home-container.high-contrast .testimonial-card {
-  background-color: #000000;
-  border-color: #ffff00;
-  color: #ffff00;
+
+.home__promo-description {
+
+ line-height:1.7;
+
+ opacity:.9;
+
 }
 
-.home-container.high-contrast .benefit-title,
-.home-container.high-contrast .room-title,
-.home-container.high-contrast .author-name {
-  color: #ffff00;
+
+
+.home__promo-button {
+
+
+ margin-top:25px;
+
+ background:#C5A059;
+
+ color:white;
+
+ border:none;
+
+ padding:12px 30px;
+
+ border-radius:30px;
+
+ cursor:pointer;
+
+ font-weight:600;
+
 }
 
-/* No Animations */
-@media (prefers-reduced-motion: reduce) {
-  .hero-section,
-  .benefit-card,
-  .room-card,
-  .testimonial-card,
-  .carousel-btn {
-    animation: none;
-    transition: none;
-  }
+
+
+
+/* =====================================================
+   TESTIMONIALS
+===================================================== */
+
+
+.home__testimonials-section {
+
+ padding:100px 20px;
+
+}
+
+
+.home__testimonials-container {
+
+ max-width:1200px;
+
+ margin:auto;
+
+}
+
+
+
+.home__testimonials-grid {
+
+ display:grid;
+
+ grid-template-columns:
+ repeat(auto-fit,minmax(280px,1fr));
+
+ gap:35px;
+
+}
+
+
+
+.home__testimonial-card {
+
+ background:white;
+
+ padding:35px;
+
+ border-radius:18px;
+
+ box-shadow:
+ 0 10px 30px rgba(0,0,0,.08);
+
+ border-top:4px solid #C5A059;
+
+}
+
+
+
+.home__testimonial-quote {
+
+ font-style:italic;
+
+ line-height:1.8;
+
+ color:#555;
+
+}
+
+
+.home__testimonial-author {
+
+ margin-top:25px;
+
+ font-weight:700;
+
+ color:#0F3D25;
+
+}
+
+
+.home__testimonial-role {
+
+ color:#C5A059;
+
+}
+
+
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+
+@media(max-width:900px){
+
+
+.home__hero-title{
+
+font-size:2.8rem;
+
+}
+
+
+.home__pool-container{
+
+grid-template-columns:1fr;
+
+}
+
+
+.home__pool-image{
+
+height:300px;
+
+}
+
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.home__hero{
+
+min-height:600px;
+
+}
+
+
+.home__hero-title{
+
+font-size:2rem;
+
+}
+
+
+.home__section-title{
+
+font-size:1.8rem;
+
+}
+
+
+.home__cta-button{
+
+padding:15px 30px;
+
+}
+
+
 }

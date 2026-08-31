@@ -1,0 +1,850 @@
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.metodos-pago-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* Contenido principal */
+.metodos-pago-content {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+@media (max-width: 767px) {
+  .metodos-pago-content {
+    flex-direction: column;
+  }
+}
+
+/* Opciones de pago */
+.metodos-pago-opciones {
+  flex: 0 0 400px;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metodos-pago-header-section {
+  margin-bottom: 1.5rem;
+}
+
+.metodos-pago-header-section h2 {
+  font-size: 1.25rem;
+  color: #1f2937;
+  margin-top: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.boton-volver {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #4b5563;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.boton-volver:hover {
+  color: #1f2937;
+}
+
+.boton-volver svg {
+  margin-right: 0.5rem;
+}
+
+.metodos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: auto;
+}
+
+.metodo-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 70px;
+}
+
+.metodo-item:hover {
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.metodo-item.selected {
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.05);
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+}
+
+.metodo-icono {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  color: #4b5563;
+}
+
+.metodo-icono.mercadopago {
+  color: #009ee3;
+}
+
+.metodo-icono.paypal {
+  color: #003087;
+}
+
+.metodo-icono.yape {
+  color: #6c2e94;
+}
+
+.metodo-icono.plin {
+  color: #00bce4;
+}
+
+.metodo-info {
+  flex: 1;
+}
+
+.metodo-info h3 {
+  font-size: 0.9rem;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.metodo-info p {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.tarjetas-aceptadas {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.tarjetas-aceptadas svg {
+  font-size: 1.25rem;
+}
+
+.tarjetas-aceptadas svg:nth-child(1) {
+  color: #1a1f71; /* Visa */
+}
+
+.tarjetas-aceptadas svg:nth-child(2) {
+  color: #eb001b; /* Mastercard */
+}
+
+.tarjetas-aceptadas svg:nth-child(3) {
+  color: #2e77bc; /* Amex */
+}
+
+/* Formulario de pago */
+.metodos-pago-formulario {
+  flex: 1;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding:  1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Tarjeta Form */
+.tarjeta-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tarjeta-form-content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+}
+
+.tarjeta-form-left {
+  flex: 1;
+}
+
+.tarjeta-form-right {
+  flex: 0 0 300px;
+  margin-top: 4.5rem; /* Alineado con el primer form-group */
+}
+
+.tarjeta-form h3,
+.mercadopago-form h3,
+.yape-form h3,
+.plin-form h3 {
+  font-size: 1.125rem;
+  color: #1f2937;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.form-group label svg {
+  margin-right: 0.5rem;
+  color: #6b7280;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.input-con-icono {
+  position: relative;
+}
+
+.icono-tarjeta {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+}
+
+.tarjeta-icono.visa {
+  color: #1a1f71;
+}
+
+.tarjeta-icono.mastercard {
+  color: #eb001b;
+}
+
+.tarjeta-icono.amex {
+  color: #2e77bc;
+}
+
+/* Mercado Pago */
+.mercadopago-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mercadopago-form-content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+}
+
+.mercadopago-form-left {
+  flex: 1;
+}
+
+.mercadopago-form-right {
+  flex: 0 0 300px;
+  margin-top: 4.5rem; /* Alineado con mercadopago-beneficios */
+}
+
+.mercadopago-form-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mercadopago-beneficios {
+  margin-bottom: 1.5rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.mercadopago-beneficio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mercadopago-beneficio:last-child {
+  margin-bottom: 0;
+}
+
+.mercadopago-beneficio-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(0, 158, 227, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: #009ee3;
+  font-size: 1.25rem;
+}
+
+.mercadopago-beneficio-text h4 {
+  font-size: 0.875rem;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.mercadopago-beneficio-text p {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.mercadopago-info {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  margin-top: 1.5rem;
+}
+
+.mercadopago-info p {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.mercadopago-info svg {
+  margin-right: 0.5rem;
+  color: #2563eb;
+}
+
+/* PayPal */
+.paypal-button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../public/img/font-clinica.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.paypal-button-overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.paypal-button-overlay h1 {
+  font-size: 1.5rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.paypal-info-items {
+  margin-bottom: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.paypal-info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.paypal-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.paypal-info-item .monto {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.paypal-button-overlay h2 {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 1rem;
+  font-weight: normal;
+}
+
+.paypal-buttons {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.volver-link {
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.volver-link:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  text-decoration: none;
+}
+
+/* Yape */
+.yape-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.yape-form-content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+}
+
+.yape-form-left {
+  flex: 1;
+}
+
+.yape-form-right {
+  flex: 0 0 300px;
+  margin-top: 4.5rem; /* Alineado con el primer form-group */
+}
+
+.yape-qr-container {
+  height: 210px;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.yape-qr-container p {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.yape-qr-code {
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.yape-qr-placeholder {
+  font-size: 100px;
+  color: #6c2e94;
+}
+
+.codigo-yape-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.codigo-yape-input {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+}
+
+.codigo-yape-input:focus {
+  outline: none;
+  border-color: #6c2e94;
+  box-shadow: 0 0 0 2px rgba(108, 46, 148, 0.2);
+}
+
+.yape-seguridad {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.yape-seguridad-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.yape-seguridad-icon {
+  font-size: 1.25rem;
+  color: #6c2e94;
+  margin-bottom: 0.5rem;
+}
+
+.yape-seguridad-item span {
+  font-size: 0.75rem;
+  color: #4b5563;
+}
+
+.boton-yapear {
+  background-color: #6c2e94 !important;
+}
+
+.boton-yapear:hover {
+  background-color: #5a2678 !important;
+}
+
+.yape-icon {
+  font-size: 1.25rem;
+}
+
+/* Plin */
+.plin-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.plin-resumen {
+  margin-bottom: 1.5rem;
+  padding: 1 rem;
+  max-height: 200px;
+}
+
+.plin-qr-container {
+  background-color: #00bce4;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  color: white;
+}
+
+.plin-qr-wrapper {
+  height: 303px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.plin-instruccion {
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+  max-width: 600px;
+}
+
+.plin-qr-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 2rem;
+}
+
+.plin-info {
+  text-align: center;
+}
+
+.plin-info-item {
+  margin-bottom: 0.75rem;
+}
+
+.plin-info-label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.plin-add-contact {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ff4d94;
+  color: white;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.plin-add-contact svg {
+  margin-right: 0.5rem;
+}
+
+.plin-qr-code {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plin-qr-placeholder {
+  font-size: 100px;
+  color: #00bce4;
+}
+
+.plin-seguridad-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.plin-seguridad {
+  display: flex;
+  justify-content: space-between;
+}
+
+.plin-seguridad-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.plin-seguridad-icon {
+  font-size: 1.25rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.plin-seguridad-item span {
+  font-size: 0.75rem;
+  color: white;
+}
+
+.plin-confirmacion {
+  height: 55px;
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.plin-confirmacion p {
+  display: flex;
+  align-items: center;
+  color: #16a34a;
+  font-size: 0.875rem;
+}
+
+.plin-confirmacion svg {
+  margin-right: 0.5rem;
+}
+
+/* Resumen de pago */
+.resumen-pago {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+}
+
+.resumen-pago h3 {
+  font-size: 1.125rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.resumen-item span:first-child {
+  color: #6b7280;
+}
+
+.resumen-item span.monto {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 1.125rem;
+}
+
+.seguridad-info {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 1.5rem 0;
+}
+
+.seguridad-info svg {
+  margin-right: 0.5rem;
+  color: #10b981;
+}
+
+.boton-pagar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.boton-pagar:hover {
+  background-color: #059669;
+}
+
+.boton-pagar svg {
+  margin-right: 0.5rem;
+}
+
+.boton-pagar.cargando {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .tarjeta-form-content,
+  .mercadopago-form-content,
+  .yape-form-content {
+    flex-direction: column;
+  }
+
+  .tarjeta-form-right,
+  .mercadopago-form-right,
+  .yape-form-right {
+    flex: 1 0 auto;
+    margin-top: 0;
+  }
+
+  .plin-qr-content {
+    flex-direction: column;
+  }
+
+  .plin-info {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .plin-qr-code {
+    margin: 0 auto;
+  }
+
+  .plin-seguridad {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .metodos-pago-opciones {
+    flex: 1 0 auto;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .yape-seguridad {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .codigo-yape-container {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .metodos-pago-opciones {
+    flex: 0 0 250px;
+  }
+}
+
+@media (min-width: 992px) {
+  .metodos-pago-opciones {
+    flex: 0 0 400px;
+  }
+}

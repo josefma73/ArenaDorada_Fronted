@@ -1,56 +1,163 @@
-'use client';
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  HiOutlineBars3,
+  HiOutlineXMark,
+} from "react-icons/hi2";
+import {
+  FaHotel,
+  FaUserCircle,
+} from "react-icons/fa";
 
-import React, { useState } from 'react';
-import { User, ShoppingCart } from 'lucide-react';
-import './Header.css';
+import "./Header.css";
 
-export default function Header() {
-  const [cartCount] = useState(0);
+const navigation = [
+  {
+    name: "Inicio",
+    path: "/inicio",
+  },
+  {
+    name: "Habitaciones",
+    path: "/habitaciones",
+  },
+  {
+    name: "Servicios",
+    path: "/servicios",
+  },
+  {
+    name: "Promociones",
+    path: "/promociones",
+  },
+  {
+    name: "Blog",
+    path: "/blog",
+  },
+  {
+    name: "Contacto",
+    path: "/contacto",
+  },
+];
 
-  const navLinks = [
-    { label: 'Inicio', href: '/' },
-    { label: 'Habitaciones', href: '/' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Servicios', href: '/servicios' },
-    { label: 'Contacto', href: '/contacto' },
-  ];
+function Header() {
+  const navigate = useNavigate();
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+    closeMenu();
+  };
+
+  const handleReservation = () => {
+    navigate("/habitaciones");
+    closeMenu();
+  };
 
   return (
-    <header className="header-container">
-      <div className="header-wrapper">
-        {/* Logo */}
-        <div className="header-logo">
-          <h1>RoomIca</h1>
-        </div>
+    <header
+      className={`hd-header ${
+        isScrolled ? "hd-header--scrolled" : ""
+      }`}
+    >
+      <div className="hd-header__container">
 
-        {/* Navigation Links */}
-        <nav className="header-nav">
-          <ul className="nav-list">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="nav-link">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* ================= LOGO ================= */}
+
+        <NavLink
+          to="/inicio"
+          className="hd-header__logo"
+        >
+          <div className="hd-header__logo-icon">
+            <FaHotel />
+          </div>
+
+          <div className="hd-header__logo-text">
+            <span className="hd-header__brand">
+              Arena Dorada
+            </span>
+
+            <span className="hd-header__subtitle">
+              Hotel & Resort
+            </span>
+          </div>
+        </NavLink>
+
+        {/* ================= NAV ================= */}
+
+        <nav
+          className={`hd-header__nav ${
+            menuOpen ? "hd-header__nav--active" : ""
+          }`}
+        >
+          {navigation.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                isActive
+                  ? "hd-header__link hd-header__link--active"
+                  : "hd-header__link"
+              }
+            >
+              {item.name}
+            </NavLink>
+          ))}
         </nav>
 
-        {/* Right Icons */}
-        <div className="header-actions">
-          <button className="action-btn profile-btn" aria-label="Perfil de usuario">
-            <User size={24} />
+        {/* ================= BOTONES ================= */}
+
+        <div className="hd-header__actions">
+
+          <button
+            className="hd-header__reservation-btn"
+            onClick={handleReservation}
+          >
+            Reservar ahora
           </button>
-          <div className="cart-wrapper">
-            <button className="action-btn cart-btn" aria-label="Carrito de reservas">
-              <ShoppingCart size={24} />
-            </button>
-            {cartCount > 0 && (
-              <span className="cart-counter">{cartCount}</span>
+
+          <button
+            className="hd-header__login-btn"
+            onClick={handleLogin}
+          >
+            <FaUserCircle />
+            <span>Iniciar sesión</span>
+          </button>
+
+          <button
+            className="hd-header__menu-btn"
+            onClick={() =>
+              setMenuOpen(!menuOpen)
+            }
+            aria-label="Abrir menú"
+          >
+            {menuOpen ? (
+              <HiOutlineXMark />
+            ) : (
+              <HiOutlineBars3 />
             )}
-          </div>
+          </button>
+
         </div>
+
       </div>
     </header>
   );
 }
+
+export default Header;

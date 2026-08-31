@@ -43,30 +43,32 @@ function Login() {
       const sessionData = await authService.login(credentials);
       
       // Persistencia en LocalStorage
-      localStorage.setItem('accessToken', sessionData.accessToken);
-      localStorage.setItem('refreshToken', sessionData.refreshToken);
-      localStorage.setItem('usuarioId', sessionData.usuarioId);
-      localStorage.setItem('usuarioNombre', sessionData.nombre);
-      localStorage.setItem('usuarioEmail', sessionData.email);
-      localStorage.setItem('usuarioRoles', JSON.stringify(sessionData.roles));
+      localStorage.setItem('token', sessionData.token);
+      localStorage.setItem('usuarioId', sessionData.usuario.id);
+      localStorage.setItem('usuarioNombre', sessionData.usuario.nombre);
+      localStorage.setItem('usuarioApellidos', sessionData.usuario.apellidos);
+      localStorage.setItem('usuarioEmail', sessionData.usuario.email);
+      localStorage.setItem('usuarioRol', sessionData.usuario.rol);
 
       // Alerta de Éxito con SweetAlert2
       await Swal.fire({
         title: '¡Acceso Autorizado!',
         text: `Bienvenido de vuelta, ${sessionData.nombre}`,
         icon: 'success',
-        confirmButtonColor: '#1565C0', // Azul institucional de RoomIca
+        confirmButtonColor: '#C5A059', // Azul institucional de Arena Dorada
         timer: 2000,
         timerProgressBar: true
       });
 
-      // Redirección inteligente por roles basada en Screaming Architecture
-      if (sessionData.roles.includes('PROPIETARIO')) {
-        navigate('/panel/propietario');
-      } else if (sessionData.roles.includes('ADMIN')) {
-        navigate('/panel/admin');
+      // Redirección inteligente por roles del Hostal Arena Dorada
+      const userRol = sessionData.usuario.rol; // 'ADMINISTRADOR', 'RECEPCIONISTA' o 'CLIENTE'
+      
+      if (userRol === 'ADMINISTRADOR') {
+        navigate('/administrador/inicio');
+      } else if (userRol === 'RECEPCIONISTA') {
+        navigate('/panel/recepcion');
       } else {
-        navigate('/habitaciones'); // Redirección por defecto para ESTUDIANTE
+        navigate('/cliente/inicio');
       }
 
     } catch (error) {
@@ -75,7 +77,7 @@ function Login() {
         title: 'Error en la autenticación',
         text: 'El correo electrónico o la contraseña ingresada son incorrectos. Por favor, verifícalos e inténtalo de nuevo.',
         icon: 'error',
-        confirmButtonColor: '#d32f2f'
+        confirmButtonColor: '#1A1A1A'
       });
     } finally {
       setIsLoading(false); // Apaga el Spinner de carga
@@ -84,12 +86,12 @@ function Login() {
 
   return (
     <div className="login-container">
-      {/* COMPONENTE DE LOADING INTERNO (Relacionado con la identidad de RoomIca) */}
+      {/* COMPONENTE DE LOADING INTERNO (Relacionado con la identidad de Arena Dorada) */}
       {isLoading && (
         <div className="roomica-loader-overlay">
           <div className="roomica-loader-box">
             <div className="roomica-spinner"></div>
-            <p className="roomica-loader-text">Validando credenciales en RoomIca...</p>
+            <p className="roomica-loader-text">Validando credenciales en Arena Dorada...</p>
           </div>
         </div>
       )}
@@ -97,8 +99,8 @@ function Login() {
       {/* PANEL IZQUIERDO: Portada de Alta Fidelidad */}
       <div className="login-image-panel">
         <div className="login-image-overlay">
-          <h2>RoomIca</h2>
-          <p>Tu hogar universitario ideal en la ciudad de Ica.</p>
+          <h2>Arena Dorada</h2>
+          <p>Tu hogar ideal en la ciudad de Ica.</p>
         </div>
       </div>
 
@@ -107,8 +109,8 @@ function Login() {
         <div className="login-form-card">
           
           <div className="login-header">
-            <h1 className="brand-title">RoomIca</h1>
-            <p className="brand-subtitle">Tu hogar universitario ideal</p>
+            <h1 className="brand-title">Arena Dorada</h1>
+            <p className="brand-subtitle">Tu lugar ideal</p>
             <h2 className="form-title">Iniciar sesión</h2>
           </div>
 
@@ -118,7 +120,7 @@ function Login() {
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <div className="input-icon-wrapper">
-                <Mail className="input-icon-left" size={18} />
+                <Mail className="input-icon-leftt" size={18} />
                 <input
                   type="email"
                   id="email"
@@ -136,7 +138,7 @@ function Login() {
             <div className="form-group">
               <label htmlFor="password">Contraseña</label>
               <div className="input-icon-wrapper">
-                <Lock className="input-icon-left" size={18} />
+                <Lock className="input-icon-leftt" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'} // Cambia dinámicamente el tipo
                   id="password"

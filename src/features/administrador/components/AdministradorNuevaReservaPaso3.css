@@ -1,0 +1,210 @@
+:root {
+  --gold-primary: #C5A059;
+  --gold-light: #D4B574;
+  --bg-cream: #F9F6F0;
+  --text-dark: #2D2D2D;
+  --text-muted: #757575;
+  --border-color: rgba(197, 160, 89, 0.2);
+  --yape-color: #6C1E6A; /* Color oficial de Yape para detalles */
+}
+
+.wizard-grid-layout-paso3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Estado de Carga Inicial */
+.loading-workspace {
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.loading-workspace h2 {
+  color: var(--text-dark);
+  margin-top: 1rem;
+}
+
+/* Columna Izquierda: Métodos de Pago */
+.wizard-payment-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-instructions {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.payment-methods-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.payment-method-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 1rem;
+  background: var(--bg-cream);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-method-card:hover {
+  border-color: var(--gold-light);
+  background: #ffffff;
+  transform: translateX(5px);
+}
+
+.payment-method-card.selected {
+  border-color: var(--gold-primary);
+  background: rgba(197, 160, 89, 0.05);
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.15);
+}
+
+.payment-icon {
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-right: 1.5rem;
+  width: 50px;
+  text-align: center;
+}
+
+.payment-method-card.selected .payment-icon {
+  color: var(--gold-primary);
+}
+
+.payment-method-card.selected .yape-icon {
+  color: var(--yape-color);
+}
+
+.payment-details {
+  flex: 1;
+}
+
+.payment-details h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.payment-details p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.payment-radio {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.payment-method-card.selected .payment-radio {
+  border-color: var(--gold-primary);
+}
+
+.radio-inner {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.payment-method-card.selected .radio-inner {
+  background: var(--gold-primary);
+}
+
+/* Columna Derecha: Factura y Resumen */
+.summary-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.guest-quick-info {
+  background: var(--bg-cream);
+  padding: 1rem 1.5rem;
+  border-radius: 0.8rem;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  border-left: 4px solid var(--gold-primary);
+}
+
+.invoice-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex: 1;
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.invoice-row span:last-child {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.invoice-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-color);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.total-amount {
+  font-size: 2.2rem;
+  color: #4CAF50; /* Color Verde de éxito para el dinero a cobrar */
+}
+
+.payment-ready-badge {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+  .wizard-grid-layout-paso3 {
+    grid-template-columns: 1fr;
+  }
+}

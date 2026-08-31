@@ -2,33 +2,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Mail, User, Calendar, Lock, Eye, EyeOff, Check, X } from 'lucide-react';
-import { authService } from '../services/authService'; // Consistencia con tu infraestructura modular
+import { Mail, User, Calendar, Phone, Lock, Eye, EyeOff, Check, X } from 'lucide-react';
+import { authService } from '../services/authService'; 
 import '../styles/Register.css';
 
 function Register() {
   const navigate = useNavigate();
 
-  // Estado del formulario idéntico al de tu compañero
+  // Estado del formulario adaptado para capturar también el teléfono requerido por Spring Boot
   const [form, setForm] = useState({
     email: "",
     nombres: "",
     apellidos: "",
+    telefono: "",
     fechaNacimiento: "",
     password: "",
     confirmPassword: "",
   });
 
-  // Estados dinámicos de UI solicitados
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // Estados de control para pintar bordes de los inputs
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
 
-  // Criterios de fortaleza de contraseña en tiempo real
   const [passwordCriteria, setPasswordCriteria] = useState({
     hasUppercase: false,
     hasLowercase: false,
@@ -37,7 +35,6 @@ function Register() {
     hasLength: false
   });
 
-  // Evaluar robustez de la contraseña
   useEffect(() => {
     const pass = form.password;
     setPasswordCriteria({
@@ -49,7 +46,6 @@ function Register() {
     });
   }, [form.password]);
 
-  // Motor síncrono de validación perimetral (Activa o desactiva el botón de envío)
   useEffect(() => {
     const currentErrors = {};
 
@@ -60,6 +56,7 @@ function Register() {
 
     if (!form.nombres.trim()) currentErrors.nombres = 'Requerido';
     if (!form.apellidos.trim()) currentErrors.apellidos = 'Requerido';
+    if (!form.telefono.trim()) currentErrors.telefono = 'Requerido';
 
     if (!form.fechaNacimiento) {
       currentErrors.fechaNacimiento = 'Requerido';
@@ -107,34 +104,33 @@ function Register() {
 
     setIsLoading(true);
 
-    // Adaptado con la estructura exacta que le funcionó a tu compañero
-    const data = {
+    // Filtrado del Payload: Enviamos solo los campos mapeados en RegisterRequest de Spring Boot
+    const payload = {
       nombre: form.nombres,
-      apellido: form.apellidos,
+      apellidos: form.apellidos,
       email: form.email,
-      password: form.password,
-      rol: "ESTUDIANTE"
+      telefono: form.telefono,
+      password: form.password
     };
 
     try {
-      // Invocación a través del servicio adaptado con variables .env
-      const response = await authService.registerUser(data);
-      console.log("Registro Exitoso:", response);
+      const response = await authService.registerUser(payload);
+      console.log("Registro Exitoso en Arena Dorada Backend:", response);
 
       setIsLoading(false);
 
-      // Alerta SweetAlert exitosa
       await Swal.fire({
-        title: '¡Acceso Autorizado!',
-        text: 'Usuario registrado correctamente de forma segura.',
+        title: '¡Registro Exitoso!',
+        text: 'Tu cuenta ha sido creada correctamente de forma segura en el sistema.',
         icon: 'success',
-        confirmButtonColor: '#1565C0'
+        confirmButtonColor: '#C5A059' // Dorado corporativo
       });
 
       setForm({
         email: "",
         nombres: "",
         apellidos: "",
+        telefono: "",
         fechaNacimiento: "",
         password: "",
         confirmPassword: "",
@@ -147,12 +143,11 @@ function Register() {
       setIsLoading(false);
       console.error("Error capturado:", error);
 
-      // Alerta SweetAlert fallida
       Swal.fire({
         title: 'Registro fallido',
-        text: 'No se pudo completar el alta del usuario. Inténtelo nuevamente.',
+        text: error.message || 'No se pudo completar el alta del usuario. Inténtelo nuevamente.',
         icon: 'error',
-        confirmButtonColor: '#d32f2f'
+        confirmButtonColor: '#1A1A1A'
       });
     }
   };
@@ -166,10 +161,10 @@ function Register() {
     <div className="register-container">
       {/* SPINNER DE CARGA CORPORATIVO */}
       {isLoading && (
-        <div className="roomica-loader-overlay">
-          <div className="roomica-loader-box">
-            <div className="roomica-spinner"></div>
-            <p className="roomica-loader-text">Procesando registro en RoomIca...</p>
+        <div className="hotel-loader-overlay">
+          <div className="hotel-loader-box">
+            <div className="hotel-spinner"></div>
+            <p className="hotel-loader-text">Procesando registro en Arena Dorada System...</p>
           </div>
         </div>
       )}
@@ -178,8 +173,8 @@ function Register() {
       <div className="register-form-panel">
         <div className="register-form-card">
           <div className="register-header">
-            <h1 className="brand-title">RoomIca</h1>
-            <p className="brand-subtitle">Crea tu cuenta universitaria</p>
+            <h1 className="brand-title">Arena Dorada</h1>
+            <p className="brand-subtitle">Crea tu cuenta de huésped</p>
             <h2 className="form-title">Crear cuenta</h2>
           </div>
 
@@ -190,12 +185,12 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="email">Correo electrónico</label>
                   <div className="input-icon-wrapper">
-                    <Mail className="input-icon-left" size={18} />
+                    <Mail className="input-icon-leftt" size={18} />
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      placeholder="Ingresa tu correo electrónico"
+                      placeholder="ejemplo@correo.com"
                       value={form.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -208,30 +203,30 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="nombres">Nombres</label>
                   <div className="input-icon-wrapper">
-                    <User className="input-icon-left" size={18} />
+                    <User className="input-icon-leftt" size={18} />
                     <input
                       type="text"
                       id="nombres"
                       name="nombres"
-                      placeholder="Ingresa tus nombres"
+                      placeholder="Tus nombres"
                       value={form.nombres}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       className={getInputClass('nombres')}
                       required
-                />
+                    />
                   </div>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="apellidos">Apellidos</label>
                   <div className="input-icon-wrapper">
-                    <User className="input-icon-left" size={18} />
+                    <User className="input-icon-leftt" size={18} />
                     <input
                       type="text"
                       id="apellidos"
                       name="apellidos"
-                      placeholder="Ingresa tus apellidos"
+                      placeholder="Tus apellidos"
                       value={form.apellidos}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -242,9 +237,29 @@ function Register() {
                 </div>
 
                 <div className="form-group">
+                  <label htmlFor="telefono">Número de teléfono</label>
+                  <div className="input-icon-wrapper">
+                    <Phone className="input-icon-leftt" size={18} />
+                    <input
+                      type="tel"
+                      id="telefono"
+                      name="telefono"
+                      placeholder="Ej. 970678393"
+                      value={form.telefono}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={getInputClass('telefono')}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid-column">
+                <div className="form-group">
                   <label htmlFor="fechaNacimiento">Fecha de nacimiento</label>
                   <div className="input-icon-wrapper">
-                    <Calendar className="input-icon-left" size={18} />
+                    <Calendar className="input-icon-leftt" size={18} />
                     <input
                       type="date"
                       id="fechaNacimiento"
@@ -260,13 +275,11 @@ function Register() {
                     <span className="error-text-msg">Debes ser mayor de edad (Mínimo 18 años).</span>
                   )}
                 </div>
-              </div>
 
-              <div className="grid-column">
                 <div className="form-group">
                   <label htmlFor="password">Contraseña</label>
                   <div className="input-icon-wrapper">
-                    <Lock className="input-icon-left" size={18} />
+                    <Lock className="input-icon-leftt" size={18} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       id="password"
@@ -287,7 +300,7 @@ function Register() {
                 <div className="form-group">
                   <label htmlFor="confirmPassword">Repetir contraseña</label>
                   <div className="input-icon-wrapper">
-                    <Lock className="input-icon-left" size={18} />
+                    <Lock className="input-icon-leftt" size={18} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       id="confirmPassword"
@@ -306,7 +319,7 @@ function Register() {
                 </div>
 
                 <div className="password-criteria-panel">
-                  <p className="criteria-title">Debes usar al menos:</p>
+                  <p className="criteria-title">La contraseña debe contener:</p>
                   <ul className="criteria-list">
                     <li className={passwordCriteria.hasUppercase ? 'meet' : 'unmeet'}>
                       {passwordCriteria.hasUppercase ? <Check size={14} /> : <X size={14} />}
@@ -345,11 +358,11 @@ function Register() {
         </div>
       </div>
 
-      {/* PANEL DERECHO: Imagen de Portada Reversible (Layout Invertido) */}
+      {/* PANEL DERECHO: Imagen de Portada Reversible */}
       <div className="register-image-panel">
         <div className="register-image-overlay">
-          <h2>¿Ya tienes una cuenta?</h2>
-          <p>Inicia sesión para continuar buscando el hospedaje perfecto para ti.</p>
+          <h2>¿Ya tienes una cuenta en el Hostal?</h2>
+          <p>Inicia sesión para continuar planificando tu estadía perfecta en Ica.</p>
           <Link to="/login" className="btn-redirect-login">
             Inicia Sesión
           </Link>

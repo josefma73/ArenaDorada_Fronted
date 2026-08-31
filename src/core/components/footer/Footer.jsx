@@ -1,90 +1,132 @@
-'use client';
-
 import React from 'react';
-import { Heart, Share2, MessageCircle, Phone, Mail, MapPin, FileText } from 'lucide-react';
-import './Footer.css';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
-export default function Footer() {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import '../footer/Footer.css';
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const navigationLinks = [
+    { label: 'Inicio', href: '#inicio' },
+    { label: 'Habitaciones', href: '#habitaciones' },
+    { label: 'Servicios', href: '#servicios' },
+    { label: 'Promociones', href: '#promociones' },
+    { label: 'Blog', href: '#blog' },
+    { label: 'Contacto', href: '#contacto' },
+    { label: 'Iniciar Sesión', href: '#login' },
+  ];
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      label: 'Ubicanos',
+      value: 'Av. Juan de Loyola 1026, Ica, Perú',
+      ariaLabel: 'Dirección',
+    },
+    {
+      icon: Phone,
+      label: 'Teléfono',
+      value: '+51 970-678-393',
+      ariaLabel: 'Número de teléfono',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'info@arenadorada.com',
+      ariaLabel: 'Correo electrónico',
+    },
+  ];
+
   return (
-    <footer className="footer-container">
-      <div className="footer-content">
-        {/* Column 1: Logo and Social */}
-        <div className="footer-column">
-          <div className="footer-logo">
-            <h2>RoomIca</h2>
-          </div>
-          <p className="footer-description">
-            Conectando estudiantes con habitaciones verificadas y seguras
+    <footer className="ft-footer__container">
+      <div className="ft-footer__wrapper">
+        <div className="ft-footer__grid">
+          <section>
+            <h3 className="ft-footer__section-title">Hostal Arena Dorada</h3>
+            <p className="ft-footer__section-text">
+              Tu refugio de lujo en el corazón de Ica, Perú. Ofrecemos una experiencia única combinando comfort, elegancia y servicio excepcional.
+            </p>
+            <ul className="ft-footer__social-list">
+              <li>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ft-footer__social-link"
+                  aria-label="Síguenos en Facebook"
+                >
+                  <FontAwesomeIcon icon={faFacebook} size="lg" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ft-footer__social-link"
+                  aria-label="Síguenos en Instagram"
+                >
+                  <FontAwesomeIcon icon={faInstagram} size="lg" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ft-footer__social-link"
+                  aria-label="Síguenos en Twitter"
+                >
+                  <FontAwesomeIcon icon={faTwitter} size="lg" />
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h3 className="ft-footer__section-title">Enlaces Rápidos</h3>
+            <ul className="ft-footer__link-list">
+              {navigationLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="ft-footer__link">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h3 className="ft-footer__section-title">Contacto</h3>
+            {contactInfo.map((info) => {
+              const Icon = info.icon;
+              return (
+                <div key={info.label} className="ft-footer__contact-item">
+                  <div className="ft-footer__contact-icon">
+                    <Icon size={20} />
+                  </div>
+                  <div className="ft-footer__contact-info">
+                    <strong>{info.label}</strong>
+                    <span aria-label={info.ariaLabel}>{info.value}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+        </div>
+
+        <div className="ft-footer__copyright">
+          <p>
+            &copy; {currentYear} Hostal Arena Dorada. Todos los derechos reservados.
           </p>
-          <div className="social-links">
-            <a href="https://instagram.com" aria-label="Instagram" className="social-link" target="_blank" rel="noopener noreferrer">
-              <Heart size={20} />
-            </a>
-            <a href="https://facebook.com" aria-label="Facebook" className="social-link" target="_blank" rel="noopener noreferrer">
-              <Share2 size={20} />
-            </a>
-            <a href="https://wa.me/51956123456" aria-label="WhatsApp" className="social-link" target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={20} />
-            </a>
-          </div>
         </div>
-
-        {/* Column 2: Explore */}
-        <div className="footer-column">
-          <h3 className="footer-column-title">Explora</h3>
-          <ul className="footer-links">
-            <li><a href="/" className="footer-link">Inicio</a></li>
-            <li><a href="/" className="footer-link">Habitaciones</a></li>
-            <li><a href="/" className="footer-link">Reservas</a></li>
-            <li><a href="/" className="footer-link">Promociones</a></li>
-            <li><a href="/contacto" className="footer-link">Contacto</a></li>
-          </ul>
-        </div>
-
-        {/* Column 3: Contact Info */}
-        <div className="footer-column">
-          <h3 className="footer-column-title">Contacto</h3>
-          <div className="contact-info">
-            <div className="contact-item">
-              <span className="contact-label">Horario:</span>
-              <p>Lun - Vie: 9:00 AM - 6:00 PM</p>
-              <p>Sábado: 10:00 AM - 2:00 PM</p>
-            </div>
-            <div className="contact-item">
-              <span className="contact-label">Teléfono:</span>
-              <a href="tel:+51956123456" className="contact-link">+51 956 123 456</a>
-            </div>
-            <div className="contact-item">
-              <span className="contact-label">Email:</span>
-              <a href="mailto:soporte@roomica.com" className="contact-link">soporte@roomica.com</a>
-            </div>
-            <div className="contact-item">
-              <span className="contact-label">Dirección:</span>
-              <p>Avenida Grau 456, Ica, Perú</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 4: Legal */}
-        <div className="footer-column">
-          <h3 className="footer-column-title">Legal</h3>
-          <ul className="footer-links">
-            <li><a href="/terminos" className="footer-link">Términos de Servicio</a></li>
-            <li><a href="/privacidad" className="footer-link">Política de Privacidad</a></li>
-            <li><a href="/reclamaciones" className="footer-link">Libro de Reclamaciones</a></li>
-          </ul>
-          <div className="ruc-info">
-            <p className="ruc-label">RUC: 20654321234</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Bottom */}
-      <div className="footer-bottom">
-        <p className="copyright">
-          &copy; 2024 RoomIca. Todos los derechos reservados.
-        </p>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

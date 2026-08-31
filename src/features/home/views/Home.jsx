@@ -1,221 +1,273 @@
-'use client';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/Home.css";
 
-import React, { useState } from 'react';
-import { Shield, MapPin, FileText, ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import '../styles/Home.css';
+const rooms = [
+  {
+    id: 1,
+    name: "Habitación Simple",
+    price: "S/. 60 / noche",
+    description:
+      "Espacio confortable diseñado para viajeros que buscan tranquilidad y descanso.",
+    badge: "Económica",
+    image: "/habitacion-simple-detail.png",
+  },
+  {
+    id: 2,
+    name: "Habitación Doble",
+    price: "S/. 100 / noche",
+    description:
+      "Ambiente amplio y acogedor ideal para parejas con servicios premium.",
+    badge: "Popular",
+    image: "/habitacion-doble-detail.png",
+  },
+  {
+    id: 3,
+    name: "Habitación Triple",
+    price: "S/. 140 / noche",
+    description:
+      "Perfecta para familias pequeñas o grupos que buscan comodidad.",
+    badge: "Familiar",
+    image: "/habitacion-triple-detail.png",
+  },
+  {
+    id: 4,
+    name: "Habitación Matrimonial",
+    price: "S/. 180 / noche",
+    description:
+      "Experiencia exclusiva con detalles de lujo y acceso a piscina.",
+    badge: "Premium",
+    image: "/habitacion-matrimonial-detail.png",
+  },
+];
 
-export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const promotions = [
+  {
+    id:1,
+    title:"Descuento Grupal",
+    description:
+      "Reserva cuatro habitaciones o más y recibe un descuento especial."
+  },
+  {
+    id:2,
+    title:"Estadía Extendida",
+    description:
+      "Disfruta más noches con beneficios exclusivos."
+  },
+  {
+    id:3,
+    title:"Experiencia Piscina",
+    description:
+      "Relájate con acceso preferencial a nuestra piscina."
+  }
+];
 
-  const rooms = [
-    {
-      id: 1,
-      title: 'Habitación Doble Premium',
-      price: 550,
-      distance: '0.8 km a UNAP',
-      image: '🏠',
-      verified: true,
-    },
-    {
-      id: 2,
-      title: 'Cuarto Individual Cómodo',
-      price: 380,
-      distance: '1.2 km a Facultad de Derecho',
-      image: '🏠',
-      verified: true,
-    },
-    {
-      id: 3,
-      title: 'Suite Ejecutiva',
-      price: 750,
-      distance: '0.5 km a Facultad de Ingeniería',
-      image: '🏠',
-      verified: true,
-    },
-  ];
+const testimonials = [
+  {
+    id:1,
+    quote:
+    "Una experiencia increíble, instalaciones cómodas y excelente atención.",
+    author:"María García",
+    role:"Turista"
+  },
+  {
+    id:2,
+    quote:
+    "El servicio fue impecable y la ubicación perfecta.",
+    author:"Carlos Mendoza",
+    role:"Cliente frecuente"
+  },
+  {
+    id:3,
+    quote:
+    "Excelente relación calidad-precio. Volveremos pronto.",
+    author:"Ana Rodríguez",
+    role:"Visitante"
+  }
+];
 
-  const benefits = [
-    {
-      icon: Shield,
-      title: 'Identidad Verificada',
-      description: 'Validación de DNI de propietarios para mitigar estafas informales',
-    },
-    {
-      icon: MapPin,
-      title: 'Geolocalización Real',
-      description: 'Distancia exacta caminando a los campus principales',
-    },
-    {
-      icon: FileText,
-      title: 'Contratos Legales Digitales',
-      description: 'Formalización transparente y protección legal',
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: 'María García',
-      role: 'Estudiante de Ingeniería - UNAP',
-      text: 'RoomIca me ayudó a encontrar la habitación perfecta en Ica. El proceso fue transparente y seguro. ¡Recomendado!',
-      rating: 5,
-    },
-    {
-      name: 'Juan Rodríguez',
-      role: 'Estudiante de Derecho - Universidad Católica',
-      text: 'La plataforma es intuitiva y los propietarios verificados dan confianza. Pagué un mes sin preocupaciones.',
-      rating: 5,
-    },
-    {
-      name: 'Sofia López',
-      role: 'Estudiante de Medicina - Facultad Local',
-      text: 'Excelente servicio. La ubicación exacta de los cuartos me permitió ahorrar tiempo de búsqueda.',
-      rating: 5,
-    },
-  ];
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % rooms.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + rooms.length) % rooms.length);
+const Home = () => {
+  const navigate = useNavigate();
+  const handleReservation = () => {
+    navigate("/habitaciones");
   };
 
   return (
-    <div className="home-container">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Tu espacio ideal para triunfar en la universidad</h1>
-          <p className="hero-subtitle">
-            Encuentra habitaciones verificadas, seguras y equipadas cerca de las principales facultades
-            de Ica sin moverte de casa
+    <main className="home">
+      {/* HERO */}
+      <section 
+        className="home__hero"
+        aria-label="Presentación del hotel Arena Dorada"
+      >
+        <div className="home__hero-content">
+          <p className="home__hero-subtitle">
+            Lujo en el corazón de Ica
           </p>
+          <h1 className="home__hero-title">
+            Tu refugio de
+            <br/>
+            <span className="home__hero-title-accent">
+              Arena Dorada
+            </span>
+          </h1>
 
-          {/* Search Mock */}
-          <div className="search-container">
-            <div className="search-group">
-              <label htmlFor="university" className="search-label">Universidad de Destino</label>
-              <select id="university" className="search-input">
-                <option>Selecciona una universidad</option>
-                <option>UNAP - Universidad Nacional Autónoma del Perú</option>
-                <option>Facultad de Derecho</option>
-                <option>Facultad de Ingeniería</option>
-                <option>Universidad Católica</option>
-              </select>
-            </div>
-            <div className="search-group">
-              <label htmlFor="price-range" className="search-label">Rango de Precio (S/.)</label>
-              <select id="price-range" className="search-input">
-                <option>Rango de precio</option>
-                <option>300 - 500</option>
-                <option>500 - 700</option>
-                <option>700 - 1000</option>
-                <option>1000+</option>
-              </select>
-            </div>
-            <button className="search-button">Buscar Habitaciones</button>
-          </div>
+          <p className="home__hero-description">
+            Vive una experiencia única de descanso,
+            comodidad y elegancia en nuestro hotel.
+          </p>
+          <button
+            className="home__cta-button"
+            onClick={handleReservation}
+            aria-label="Realizar reserva de habitación"
+          >
+            RESERVAR AHORA
+          </button>
         </div>
       </section>
 
-      {/* Benefits Grid */}
-      <section className="benefits-section">
-        <div className="benefits-container">
-          <h2 className="section-title">¿Por qué elegir RoomIca?</h2>
-          <div className="benefits-grid">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
-              return (
-                <div key={benefit.title} className="benefit-card">
-                  <div className="benefit-icon">
-                    <Icon size={40} />
-                  </div>
-                  <h3 className="benefit-title">{benefit.title}</h3>
-                  <p className="benefit-description">{benefit.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      {/* BIENVENIDA */}
+      <section className="home__welcome">
+        <h2 className="home__welcome-title">
+          Bienvenido a Arena Dorada
+        </h2>
+        <p className="home__welcome-text">
+          Nuestro hotel combina elegancia, tranquilidad
+          y atención personalizada para ofrecerte una
+          experiencia inolvidable en Ica.
+        </p>
       </section>
 
-      {/* Featured Rooms Carousel */}
-      <section className="rooms-section">
-        <div className="rooms-container">
-          <h2 className="section-title">Habitaciones Destacadas</h2>
-          <div className="carousel-wrapper">
-            <button
-              className="carousel-btn prev-btn"
-              onClick={prevSlide}
-              aria-label="Habitación anterior"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <div className="carousel-track">
-              {rooms.map((room, index) => (
-                <div
+      {/* HABITACIONES */}
+      <section className="home__rooms-section">
+        <div className="home__rooms-container">
+          <h2 className="home__section-title">
+            Nuestras Habitaciones
+          </h2>
+          <div className="home__rooms-grid">
+            {
+              rooms.map(room=>(
+                <article
                   key={room.id}
-                  className={`room-card ${index === currentSlide ? 'active' : ''}`}
+                  className="home__room-card"
                 >
-                  <div className="room-image-placeholder">{room.image}</div>
-                  {room.verified && (
-                    <div className="verified-badge">
-                      <Shield size={16} />
-                      Verificado
-                    </div>
-                  )}
-                  <div className="room-content">
-                    <h3 className="room-title">{room.title}</h3>
-                    <p className="room-location">
-                      <MapPin size={16} />
-                      {room.distance}
-                    </p>
-                    <div className="room-footer">
-                      <span className="room-price">S/. {room.price}/mes</span>
-                      <button className="room-action-btn">Ver Detalles</button>
-                    </div>
+                  <div 
+                    className="home__room-image"
+                    style={{
+                      backgroundImage:
+                      `linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+                      url(${room.image})`
+                    }}
+                  >
+                    {room.name}
                   </div>
-                </div>
-              ))}
-            </div>
 
-            <button
-              className="carousel-btn next-btn"
-              onClick={nextSlide}
-              aria-label="Siguiente habitación"
-            >
-              <ChevronRight size={24} />
-            </button>
+                  <div className="home__room-content">
+                    <h3 className="home__room-title">
+                      {room.name}
+                    </h3>
+                    <p className="home__room-price">
+                      {room.price}
+                    </p>
+                    <p className="home__room-description">
+                      {room.description}
+                    </p>
+                    <span className="home__room-badge">
+                      {room.badge}
+                    </span>
+                  </div>
+                </article>
+              ))
+            }
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="testimonials-section">
-        <div className="testimonials-container">
-          <h2 className="section-title">Lo que dicen nuestros estudiantes</h2>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial-stars">
-                  {Array(testimonial.rating)
-                    .fill(null)
-                    .map((_, i) => (
-                      <Star key={i} size={16} className="star" />
-                    ))}
-                </div>
-                <p className="testimonial-text">"{testimonial.text}"</p>
-                <div className="testimonial-author">
-                  <p className="author-name">{testimonial.name}</p>
-                  <p className="author-role">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
+      {/* PISCINA */}
+      <section className="home__pool-section">
+        <div className="home__pool-container">
+          <div className="home__pool-image">
+            Piscina Premium
+          </div>
+          <div className="home__pool-content">
+            <h2>
+              Un espacio para relajarte
+            </h2>
+            <p>
+              Disfruta nuestra piscina exclusiva,
+              diseñada para complementar tu estadía.
+            </p>
+            <p>
+              Horario:
+              <strong> 9:00 AM - 6:00 PM</strong>
+            </p>
           </div>
         </div>
       </section>
-    </div>
+
+      {/* PROMOCIONES */}
+      <section className="home__promotions-section">
+        <div className="home__promotions-container">
+          <h2 className="home__section-title">
+            Promociones
+          </h2>
+          <div className="home__promotions-grid">
+
+          {
+            promotions.map(promo=>(
+              <article
+                key={promo.id}
+                className="home__promo-card"
+              >
+                <h3 className="home__promo-title">
+                  {promo.title}
+                </h3>
+                <p className="home__promo-description">
+                  {promo.description}
+                </p>
+                <button
+                  className="home__promo-button"
+                  onClick={()=>navigate("/promociones")}
+                >
+                  Ver detalles
+                </button>
+              </article>
+            ))
+          }
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIOS */}
+      <section className="home__testimonials-section">
+        <div className="home__testimonials-container">
+          <h2 className="home__section-title">
+            Opiniones de nuestros clientes
+          </h2>
+
+          <div className="home__testimonials-grid">
+          {
+            testimonials.map(item=>(
+              <article
+                key={item.id}
+                className="home__testimonial-card"
+              >
+                <p className="home__testimonial-quote">
+                  "{item.quote}"
+                </p>
+                <p className="home__testimonial-author">
+                  {item.author}
+                </p>
+                <p className="home__testimonial-role">
+                  {item.role}
+                </p>
+              </article>
+            ))
+          }
+          </div>
+        </div>
+      </section>
+    </main>
   );
-}
+};
+
+export default Home;
