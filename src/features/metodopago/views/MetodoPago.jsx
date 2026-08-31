@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Swal from "sweetalert2"
-import "../styles/metodopago.css"
+import "../styles/MetodoPago.css"
 import "../styles/paypalButton.css"
 
 // Iconos
