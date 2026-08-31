@@ -11,7 +11,9 @@ import AdminHeader from '../../administrador/components/AdminHeader';
 import { categoriaService } from '../services/categoriaService';
 import { productoService } from '../services/productoService';
 import { reservaProductoService } from '../services/reservaProductoService';
-import '../components/AdministradorNuevaReservaPaso2.css';
+
+// Asegúrate de que la ruta del CSS sea la correcta en tu proyecto
+import '../components/AdministradorNuevaReservaPaso2.css'; 
 
 export default function AdministradorNuevaReservaPaso2() {
   const navigate = useNavigate();
@@ -109,39 +111,49 @@ export default function AdministradorNuevaReservaPaso2() {
 
   const totalCarrito = carrito.reduce((acc, item) => acc + (item.producto.precio * item.cantidad), 0);
 
-  // Enviar Consumos al Backend
-const handleSiguiente = async () => {
+  // --- ENVÍO BATCH AL BACKEND ---
+  const handleSiguiente = async () => {
     if (!reservaContext || !reservaContext.id) return;
+
     try {
       setLoading(true);
+      
+      // Solo hace el POST si el carrito tiene productos
       if (carrito.length > 0) {
-        const promesas = carrito.map(item => 
-          reservaProductoService.agregar(reservaContext.id, {
-            productoId: item.producto.id,
-            cantidad: item.cantidad
-          })
-        );
-        await Promise.all(promesas);
+        // Mapeo exacto al AgregarProductoRequest del Backend
+        const payloadMultiple = carrito.map(item => ({
+          productoId: Number(item.producto.id),
+          cantidad: Number(item.cantidad)
+        }));
+
+        await reservaProductoService.agregarMultiples(reservaContext.id, payloadMultiple);
       }
+
       Swal.fire({
         icon: 'success',
         title: 'Consumos Registrados',
-        text: 'Redirigiendo a la pasarela de pagos...',
+        text: 'Los productos han sido cargados a la cuenta.',
         timer: 1500,
         showConfirmButton: false
       });
+
+      // Ir al paso final (Pagos)
       setTimeout(() => {
-        // AQUÍ ESTÁ LA REDIRECCIÓN AL PASO 3
         navigate('/administrador/reservas/nueva/paso3'); 
       }, 1500);
+
     } catch (error) {
-      console.error(error);
-      Swal.fire('Error', 'No se pudieron registrar algunos productos.', 'error');
+      console.error("Detalle del error:", error);
+      Swal.fire({
+        title: 'Error de conexión',
+        text: error.message || 'No se pudieron registrar los productos. Verifica los permisos.',
+        icon: 'error',
+        confirmButtonColor: '#C5A059'
+      });
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="crear-reserva-container">
@@ -216,7 +228,7 @@ const handleSiguiente = async () => {
                 {loading ? (
                   <div className="loading-state">Cargando catálogo...</div>
                 ) : filteredProductos.length === 0 ? (
-                  <div className="empty-catalog">No hay productos disponibles en esta categoría.</div>
+                  <div className="empty-catalog">No hay productos disponibles.</div>
                 ) : (
                   filteredProductos.map(prod => (
                     <div key={prod.id} className="product-card">
@@ -307,7 +319,7 @@ const handleSiguiente = async () => {
             onClick={handleSiguiente}
             disabled={loading} 
           >
-            {loading ? 'Procesando...' : (carrito.length > 0 ? 'Cargar a Cuenta y Continuar' : 'Omitir y Continuar')} <FaArrowRight />
+            {loading ? 'Procesando...' : (carrito.length > 0 ? 'Cargar a Cuenta y Pagar' : 'Omitir y Pagar')} <FaArrowRight />
           </button>
         </div>
 

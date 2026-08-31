@@ -26,20 +26,19 @@ export const reservaProductoService = {
     return await response.json();
   },
 
-  // 2. Agregar un producto a la reserva
-  agregar: async (reservaId, productoPayload) => {
+  // 2. Agregar múltiples productos a la reserva (BATCH)
+  agregarMultiples: async (reservaId, productosArray) => {
     const response = await fetch(`${API_URL}/${reservaId}/productos`, {
       method: 'POST',
       headers: getHeaders(),
-      body: JSON.stringify({
-        productoId: parseInt(productoPayload.productoId),
-        cantidad: parseInt(productoPayload.cantidad)
-      }),
+      body: JSON.stringify(productosArray), // Se envía el JSON completo como arreglo
     });
+    
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al cargar el producto a la cuenta.');
+      throw new Error(errorData.message || 'Error al cargar los productos a la cuenta.');
     }
+    
     return await response.json();
   },
 

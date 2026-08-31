@@ -182,7 +182,7 @@ export default function AdministradorNuevaReservaPaso3() {
                 >
                   <div className="payment-icon yape-icon"><FaMobileAlt /></div>
                   <div className="payment-details">
-                    <h4>Yape / Billetera Digital</h4>
+                    <h4>Yape / Efectivo</h4>
                     <p>Transferencia inmediata</p>
                   </div>
                   <div className="payment-radio">
