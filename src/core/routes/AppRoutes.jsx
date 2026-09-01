@@ -48,6 +48,7 @@ function AppRoutes() {
     <Routes>
 
       {/* ================= RUTAS PÚBLICAS ================= */}
+      <Route path="/" element={<Navigate to="/inicio" replace />} />
 
       <Route element={<PublicLayout />}>
         <Route path="/inicio" element={<Home />} />
